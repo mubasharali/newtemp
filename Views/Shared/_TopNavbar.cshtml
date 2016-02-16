@@ -1,0 +1,26 @@
+﻿<div class="row border-bottom">
+    <nav class="navbar navbar-fixed-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " ><i class="fa fa-bars"></i> </a>
+            
+            <ul class="nav navbar-top-links navbar-right pull-left">
+                <li  style="margin-right:0px" class="fa fa-map-marker"></li>
+                <li style="margin-right:0px;margin-left:0px;padding-left:0px"><a style="padding-left:0" data-toggle="modal" data-target="#setLocation"> 
+                                                                              @*<span data-bind="visible:searchingCity">    <span data-bind="text:searchingPP"></span> <span data-bind="visible:searchingPP">,</span> </span><span data-bind="text:searchingCity"></span>*@
+                   <span data-bind="visible:searchingPP && searchingCity,text:searchingPP"></span>
+                    <span data-bind="visible:!searchingPP()">
+                        <span data-bind="if:searchingCity">
+                            <span data-bind="text:searchingCity"></span>
+                        </span>
+                    </span>
+                     <span data-bind="visible:!searchingCity()">set Location</span> </a></li>
+            </ul>
+            <form role="search" class="navbar-form-custom" method="post" action="/Search">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="s" id="top-search">
+                </div>
+            </form>
+        </div>
+        @Html.Partial("_LoginPartial")
+    </nav>
+</div>

@@ -1,0 +1,106 @@
+﻿
+
+<h5>Job type</h5>
+<h5 data-bind="foreach:availableCategories"><span data-bind="text:$data"></span></h5>
+<select id="select-category1" class="demo-default" data-bind="options: availableCategories,
+                       value: selectedCategory,
+                       optionsCaption: 'Select City...'"></select>
+<h5 data-bind="foreach:availableCategories"><span data-bind="text:$data"></span></h5>
+<hr />
+
+
+
+@section Styles {
+    @Styles.Render("~/plugins/slickStyles")
+    @Styles.Render("~/plugins/slickThemeStyles")
+    @Styles.Render("~/plugins/toastrStyles")
+    @Styles.Render("~/Content/plugins/jsTree")
+    @Styles.Render("~/plugins/sweetAlertStyles")
+@Styles.Render("~/scripts/selectizeStyles")
+}
+
+
+@section Scripts{
+    @Scripts.Render("~/plugins/toastr")
+@Scripts.Render("~/plugins/timeago")
+@Scripts.Render("~/plugins/autosize")
+@Scripts.Render("~/plugins/knockout")
+@Scripts.Render("~/plugins/slick")
+@Scripts.Render("~/plugins/jsTree")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/plugins/sweetAlert")
+@Scripts.Render("~/scripts/selectize")
+    <script>
+        //function SearchingLocation() {
+        //    var self = this;
+            
+        //}
+        function viewModel() {
+            AccountViewModel();
+            ChatViewModel();
+            SearchingLocation();
+            var self = this;
+            self.availableCategories = ko.observableArray( new Array("a","b","c","d") );
+            self.selectedCategory = ko.observable();
+            
+            
+            self.loadCities = function () {
+                $.ajax({
+                    url: '/api/Location/GetCities',
+                    dataType: "json",
+                    contentType: "application/json",
+                    cache: false,
+                    type: 'GET',
+                    success: function (data) {
+                        $.each((data), function (i, item) { self.availableCategories.push(item) });
+                        $('#select-category1').selectize({
+                            create: true,
+                            sortField: {
+                                field: 'text',
+                                direction: 'asc'
+                            },
+                        });
+                    },
+                    error: function (jqXHR, status, thrownError) {
+                        toastr.error("failed to load Cities.Please refresh page and try again", "Error");
+                    }
+                });
+            }
+            self.loadCities();
+
+        }
+
+        function getTimeAgo(varDate) {
+            if (varDate) {
+                return $.timeago(varDate.toString().slice(-1) == 'Z' ? varDate : varDate + 'Z');
+            }
+            else {
+                return '';
+            }
+        }
+        
+        ko.bindingHandlers.jqAutoresize = {
+            init: function (element, valueAccessor, aBA, vm) {
+                if (!$(element).hasClass('msgTextArea')) {
+                    $(element).css('height', '1em');
+                }
+                $(element).autosize();
+            }
+        };
+
+        $(function () {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                preventDuplicates: true,
+                positionClass: 'toast-top-right',
+                onclick: null
+            };
+            ko.applyBindings(new viewModel);
+        });
+    </script>
+}
+
+
+
+

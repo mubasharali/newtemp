@@ -1,0 +1,169 @@
+﻿@model IEnumerable<Inspinia_MVC5_SeedProject.Models.Company>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Index</h2>
+        <ol class="breadcrumb">
+            <li class="active">
+                <strong>Company</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>List of Company</h5>
+					<div class="ibox-tools">
+						@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs"})
+					</div>
+                </div>
+                <div class="ibox-content">
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shortabout)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longabout)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.since)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.contactNo1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.contactNo2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fblink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.twlink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.websitelink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.owner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.logoextension)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.exectLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City.addedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.popularPlace.name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.shortabout)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.longabout)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.since)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.contactNo1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.contactNo2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fblink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.twlink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.websitelink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.owner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.logoextension)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.exectLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City.addedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.popularPlace.name)
+        </td>
+        <td>
+			@Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-primary btn-sm"})
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-white btn-sm"})
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-white btn-sm"})
+        </td>
+    </tr>
+}
+
+</table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+

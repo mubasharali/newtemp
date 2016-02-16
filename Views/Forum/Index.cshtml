@@ -1,0 +1,336 @@
+﻿@model IEnumerable<Inspinia_MVC5_SeedProject.Models.Question>
+
+@{
+   // Layout = "~/Views/Shared/_Layout_3.cshtml";
+    ViewBag.Title = "Ask About mobiles, laptops, vehicles, RealEstate, Jobs, Services, Electronics, Animals, Study, Entertainment, Matrimonal, Home Appliances, Business and buying and selling";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            @*<div class="ibox ">
+                <div class="ibox-title">
+                    <h5>You can also choose how to cut off the text</h5>
+                </div>
+                <div class="ibox-content truncate fh-150">
+
+                    <p class="font-bold">
+                        Example with letter cut off
+                    </p>
+                    <p>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                    </p>
+                </div>
+            </div>
+            <div class="ibox">
+                <div class="">
+                    <div class="ibox-content truncate1 fh-150">
+
+                        <p class="font-bold">
+                            You can also change the ellipsis
+                        </p>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                        </p>
+                    </div>
+                </div>
+            </div>*@
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    
+                        <div class="form-group">
+                            <input type="text" placeholder="Search Questions / Discussions..." class="form-control" name="s" data-bind="value:title" id="top-search">
+                        </div>
+                    <div class="pull-right">
+                        
+                        <a href="/Forum/Create" data-style="expand-left" class="ladda-button btn btn-danger">Ask Question</a>
+                    </div>
+                    <p>
+                        <span data-bind="text:showQuestions().length"></span> results found <span data-bind="visible:tags() || title() || selectedCategory()"> <br /><b>Summary:</b> Showing Questions with <span data-bind="visible:tags()"> tags "<span data-bind="text:tags"></span>" </span>
+                                                                                                <span data-bind="visible:tags() && title"> and </span>   <span data-bind="visible:title()"> title "<span data-bind="text:title"></span>" </span>
+                        <span data-bind="visible:selectedCategory">in "<span data-bind="text:selectedCategory"></span>" category</span>
+                        </span>
+                    </p>
+                    @*<div data-bind="visible:!tags()">
+                        <p>Suggested tags: (please select your relevent tag to see results)</p>
+                        <ul class="tag-list" data-bind="foreach:suggestedTags" style="padding:0">
+                            <li data-bind="click:$parent.suggestedTagSelected"><a href=""><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:$data"></span> </a></li>
+                        </ul>
+                        <p>&nbsp;</p><p>&nbsp;</p>
+                        <p class="visible-xs visible-sm" >&nbsp;</p><p class="visible-xs">&nbsp;</p>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-3 col-lg-2">
+            <div class="row">
+                <div class="ibox-title"><h5> search by Category</h5></div>
+                <div class="ibox-content">
+                    <ul data-bind="foreach:showCategories">
+                        <li data-bind="text:$data,click: function(){ return $parent.categorySelected($data)} "></li>
+                    </ul>
+                </div>
+                <div class="ibox-title"><h5> search by tags</h5></div>
+                <div class="ibox-content"><input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." /></div>
+                
+                @*@Html.Partial("/Views/Shared/_CreateAlert.cshtml")*@
+            </div>
+        </div>
+        <div class="col-sm-8 ">
+            <div data-bind="foreach:showQuestions">
+                    <div class="vote-item">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="vote-actions">
+                                    <a data-bind="attr:{href:link}">
+                                        <i class="fa fa-chevron-up"> </i>
+                                    </a>
+                                    <div data-bind="text:voteCount"></div>
+                                    <a data-bind="attr:{href:link}">
+                                        <i class="fa fa-chevron-down"> </i>
+                                    </a>
+                                </div>
+                                <a data-bind="attr:{href:link},text:title" style="font-weight:400" class="vote-title">
+                                </a>
+                                <div>
+                                    <div data-bind="foreach:showTags" style="padding: 0;float:none">
+                                        <a target="_blank" class="btn btn-white btn-xs" style="font-size:11px" data-bind="attr:{href:'/tag/' + name},text:name"> </a>
+                                    </div>
+                                </div>
+                                <div class="vote-info">
+                                    <i class="fa fa-comments-o"></i> <a data-bind="attr:{href:link}">Answers (<span data-bind="text:answersCount"></span>)</a>
+                                    <i class="fa fa-clock-o"></i> <a data-bind="text:time"></a>
+                                    <i class="fa fa-user"></i> <a  data-bind="attr:{href:postedByLink},text:postedByName"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+
+@Html.Partial("/Views/Shared/_Chat.cshtml")
+@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
+@section Styles {
+    @Styles.Render("~/plugins/toastrStyles")
+@Styles.Render("~/bundles/tagStyles")
+@Styles.Render("~/scripts/selectizeStyles")
+@Styles.Render("~/plugins/laddaStyles")
+}
+
+
+@section Scripts{
+    @Scripts.Render("~/plugins/toastr")
+    @Scripts.Render("~/plugins/timeago")
+    @Scripts.Render("~/plugins/autosize")
+    @Scripts.Render("~/plugins/knockout")
+@Scripts.Render("~/scripts/selectize")
+@Scripts.Render("~/plugins/ladda")
+@Scripts.Render("~/plugins/truncate")
+<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src="~/Scripts/UserLogin.js"></script>
+<script src="~/Scripts/app/chat.js"></script>
+@*<script src="~/Scripts/app/CreateAlert.js"></script>*@
+    <script>
+        function Tag(data) {
+            var self = this;
+            data = data || {};
+            self.id = data.id;
+            self.name = data.name;
+        }
+        function Question(data) {
+            var self = this;
+            data = data || {};
+            self.link = '/Forum/details/' + data.id;
+            self.postedByLink = '/User/Index/' + data.postedById;
+            self.title = data.title;
+            self.description = data.description;
+            self.postedByName = data.postedByName;
+            self.postedById = data.postedById;
+            self.id = data.id;
+            self.exectTime = data.time;
+            self.time = getTimeAgo(data.time);
+            self.loginUserId = data.islogin || "";
+            self.showQuestionReplies = ko.observableArray();
+            self.answersCount = data.answers;
+            self.views = data.views;
+            self.voteUpCount = data.voteUpCount;
+            self.voteDownCount = data.voteDownCount;
+            self.voteCount = self.voteUpCount - self.voteDownCount;
+            self.showTags = ko.observableArray();
+            if (data.tags) {
+                var tags = $.map(data.tags, function (item) { return new Tag(item); });
+                self.showTags(tags);
+            }
+        }
+        function ViewModel() {
+            SearchingLocation();
+            AccountViewModel();
+            ChatViewModel();
+          //  CreateAlert();
+            var self = this;
+            self.categorySelected = function (data) {
+                self.selectedCategory(data);
+            }
+            self.showCategories = ["Mobiles", "Laptops", "Electronics", "Home appliances", "Jobs", "Services", "Real estate", "sports", "about website", "Vehicles", "Animals", "Business", "Study", "Community", "Life style", "Matrimonal", "Entertainment"];
+            self.selectedCategory = ko.observable("");
+            self.title = ko.observable("");
+            self.tags = ko.observable("");
+            self.suggestedTags = ["Mobiles", "Laptops", "Electronics" , "Home appliances" , "Jobs" , "Services" , "Real estate" , "sports" , "about website" , "Vehicles", "Animals" , "Business", "Study" , "Community" , "Life style" , "Matrimonal" , "Entertainment"];
+            self.suggestedTagSelected = function (tag) {
+                self.tags(tag);
+            }
+            self.showQuestions = ko.observableArray();
+            self.tags.subscribe(function () {
+                self.loadQuestions();
+            })
+            self.title.subscribe(function () {
+                self.loadQuestions();
+            })
+            self.selectedCategory.subscribe(function () {
+                self.loadQuestions();
+            })
+            self.loadQuestions = function () {
+                url_address = '/api/Forum/SearchQuestions?title=' + self.title() + '&tags=' + self.tags() + '&category=' + self.selectedCategory();
+                $.ajax({
+                    url: url_address,
+                    dataType: "json",
+                    type: 'POST',
+                    success: function (data) {
+                        var reply = $.map(data, function (item) { return new Question(item) });
+                        self.showQuestions(reply);
+                    },
+                    error: function () {
+                        toastr.error("Unable to load Discussions. Please refresh page and try again", "Error");
+                    },
+                });
+            };
+            self.loadQuestions();
+            return self;
+        }
+        function getTimeAgo(varDate) {
+            if (varDate) {
+                return $.timeago(varDate.toString().slice(-1) == 'Z' ? varDate : varDate + 'Z');
+            }
+            else {
+                return '';
+            }
+        }
+        ko.bindingHandlers.jqAutoresize = {
+            init: function (element, valueAccessor, aBA, vm) {
+                if (!$(element).hasClass('msgTextArea')) {
+                    $(element).css('height', '1em');
+                }
+                $(element).autosize();
+            }
+        };
+        $('#select-tag').selectize({
+            valueField: 'name',
+            labelField: 'name',
+            searchField: 'name',
+            options: [],
+            maxItems: 6,
+            render: {
+                option: function (item, escape) {
+                    return '<div>' +
+                        '<span class="title">' +
+                            '<span class="name">' + escape(item.name) + '</span>' +
+
+                        '</span>' +
+                        '<span class="description">' + escape(item.info) + '</span>' +
+                        '<ul class="meta">' +
+                            '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
+                            '<li class="forks"><span>' + escape(item.questions) + '</span> times used</li>' +
+                        '</ul>' +
+                    '</div>';
+                }
+            },
+            load: function (query, callback) {
+                if (!query.length) return callback();
+                $.ajax({
+                    url: '/api/Tag/SearchTags?s=' + encodeURIComponent(query),
+                    type: 'POST',
+                    error: function () {
+                        callback();
+                    },
+                    success: function (res) {
+                        callback(res.slice(0, 10));
+                    }
+                });
+            }
+        });
+        $(function () {
+
+
+            // Bind normal buttons
+            $('.ladda-button').ladda('bind', { timeout: 200000 });
+
+            // Bind progress buttons and simulate loading progress
+            Ladda.bind('.progress-demo .ladda-button', {
+                callback: function (instance) {
+                    var progress = 0;
+                    var interval = setInterval(function () {
+                        progress = Math.min(progress + Math.random() * 0.1, 1);
+                        instance.setProgress(progress);
+
+                        if (progress === 1) {
+                            instance.stop();
+                            clearInterval(interval);
+                        }
+                    }, 200);
+                }
+            });
+
+
+            var l = $('.ladda-button-demo').ladda();
+
+            l.click(function () {
+                // Start loading
+                l.ladda('start');
+
+                // Timeout example
+                // Do something in backend and then stop ladda
+                setTimeout(function () {
+                    l.ladda('stop');
+                }, 12000)
+
+
+            });
+
+            $(".truncate").dotdotdot({
+                watch: 'window'
+            });
+
+            $(".truncate1").dotdotdot({
+                watch: 'window',
+                ellipsis: ' ...'
+            });
+
+            $(".truncate2").dotdotdot({
+                watch: 'window',
+                wrap: 'letter'
+            });
+
+
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                preventDuplicates: true,
+                positionClass: 'toast-top-right',
+                onclick: null
+            };
+            ko.applyBindings(new ViewModel());
+            $.connection.hub.start().done(function () {
+
+            });
+        });
+    </script>
+}
