@@ -52,9 +52,10 @@
                         </div>
                         <hr />
                         <h5>Search by qualification</h5>
-                        <select id="select-qualification" class="demo-default" data-bind="options: availableQualifications,
+                        @*<select id="select-qualification" class="demo-default" data-bind="options: availableQualifications,
                        value: selectedQualification,
-                       optionsCaption: 'Choose category...'"></select>
+                       optionsCaption: 'Choose category...'"></select>*@
+                        <input id="select-qualification" class="repositories" data-bind="value:selectedQualification" placeholder="e.g, BS Software Engineering" />
                         <hr />
                         <h5>Search by Exprience</h5>
                         <select id="select-exprience" class="demo-default" data-bind="options: availableExpriences,
@@ -148,15 +149,10 @@
             CreateAlert();
             ChatViewModel();
             AccountViewModel();
-
+            JobsViewModel();
             var self = this;
-            
-            //-----------------------------------
-            
-            //---------------------------------
-
-            self.showAds = ko.observableArray();
-            RefreshSearch(self);
+          //  self.showAds = ko.observableArray();
+          //  RefreshSearch(self);
             
              
             return self;

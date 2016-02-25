@@ -72,7 +72,7 @@
                                             </span>
                                             <h2 data-bind="text:title" class="font-bold m-b-xs"></h2>
                                             <ul class="tag-list" data-bind="foreach:showTags" style="padding: 0">
-                                                <li><a target="_blank" data-bind="attr:{href:link}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
+                                                <li><a target="_blank" data-bind="attr:{href:'/Tag/' + id + '/' + name}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
                                             </ul><br /><br />
                                             <hr>
                                             <span data-bind="visible:!showJob()"> @*remove this*@
@@ -107,6 +107,15 @@
                                                 </h1>
                                                 <hr>
                                             </span>
+                                            <div data-bind="with:showCameraAd">
+                                                <dl class="dl-horizontal m-t-md small">
+                                                    <dt>Category:</dt>
+                                                    <dd data-bind="text:category"></dd>
+                                                    
+                                                    <dt data-bind="with:brand">Brand:</dt>
+                                                    <dd data-bind="text:brand"></dd>
+                                                </dl>
+                                            </div>
                                             <div data-bind="with:showMobileAd">
                                                 <dl class="dl-horizontal m-t-md small">
                                                     <dt>condition:</dt>
@@ -124,6 +133,26 @@
                                                             <dd data-bind="text:sims"></dd>
                                                         </span>
 
+                                                </dl>
+                                            </div>
+                                            <div data-bind="with: showBikeAd">
+
+                                                <dl class="dl-horizontal m-t-md small">
+                                                    <dt>Brand:</dt>
+                                                    <dd data-bind="text:brand"></dd>
+                                                    <dt>Model:</dt>
+                                                    <dd data-bind="text:model"></dd>
+                                                    <dt>condition:</dt>
+                                                    <dd data-bind="text:$parent.condition"></dd>
+                                                    <dt>Km Driven</dt>
+                                                    <dd data-bind="if:kmDriven"><span data-bind="text:kmDriven"></span>  Km</dd>
+
+                                                    <dt>Year</dt>
+                                                    <dd data-bind="text:year"></dd>
+                                                    <dt>Number of owners</dt>
+                                                    <dd data-bind="text:noOfOwners"></dd>
+                                                    <dt>Registered City</dt>
+                                                    <dd data-bind="text:registeredCity"></dd>
                                                 </dl>
                                             </div>
                                             <div data-bind="with: showCarAd">
@@ -157,6 +186,21 @@
                                                     
                                                 </dl>
                                             </div>
+                                            <div data-bind="with: showRealEstateAd">
+
+                                                <dl class="dl-horizontal m-t-md small">
+                                                    <dt>Category:</dt>
+                                                    <dd data-bind="text:$parent.subcategory"></dd>
+                                                    <dt>Area:</dt>
+                                                    <dd data-bind="text:area"></dd>
+                                                    <dt>Bed rooms:</dt>
+                                                    <dd data-bind="text:bedroom"></dd>
+                                                    <dt>Bath room:</dt>
+                                                    <dd data-bind="text:bathroom"></dd>
+                                                    <dt>Floor</dt>
+                                                    <dd data-bind="text:floor"></dd>
+                                                </dl>
+                                            </div>
                                             <div data-bind="with: showJob">
                                                 
                                                 <dl class="dl-horizontal m-t-md small">
@@ -179,7 +223,7 @@
                                                     <dd data-bind="text:salaryType"></dd>
                                                     <span @*data-bind="visible:!showSkills().length == 0"*@>
                                                         <dt>Skills</dt>
-                                                        <dd><span data-bind="foreach:showSkills"> <a target="_blank" class="btn btn-xs btn-white" data-bind="text:name,attr:{href:link }"></a></span> </dd>
+                                                        <dd><span data-bind="foreach:showSkills"> <span class="btn btn-xs btn-white" data-bind="text:name"></span></span> </dd>
                                                     </span>
                                                     <dt>Gender</dt>
                                                     <dd data-bind="text:$parent.gender"></dd>
@@ -407,6 +451,20 @@
                 });
             }
         }
+        function RealEstate(data) {
+            var self = this;
+            data = data || {};
+            self.floor = data.floor;
+            self.bedroom = data.bedroom;
+            self.bathroom = data.bathroom;
+            self.area = data.area;
+        }
+        function CameraAd(data) {
+            var self = this;
+            data = data || {};
+            self.category = data.category;
+            self.brand = data.brand;
+        }
         function CarAd(data) {
             var self = this;
             data = data || {};
@@ -441,6 +499,25 @@
                 self.assembly = "Imported";
             }
             self.engineCapacity = data.engineCapacity;
+        }
+        function BikeAd(data) {
+            var self = this;
+            data = data || {};
+            self.year = data.year;
+            //self.condition = "";
+            //if (data.condition == "n") {
+            //    self.condition = "New";
+            //} else if (data.condition == "u") {
+            //    self.condition = "Used";
+            //} else if (data.condition == "b") {
+            //    self.condition = "unBoxed";
+            //}
+            self.brand = data.brand;
+            self.model = data.model;
+            self.kmDriven = data.kmDriven;
+            self.noOfOwners = data.noOfOwners;
+            self.registeredCity = data.registeredCity;
+            
         }
         function JobAd(data) {
             var self = this;
@@ -481,6 +558,7 @@
                 console.log(self.showSkills());
             }
         }
+
         function mobilead(data) {
             var self = this;
             data = data || {};
@@ -543,7 +621,14 @@
             self.isAdmin = data.isAdmin;
             self.title = data.title;
 
-
+            self.showRealEstateAd = ko.observable();
+            self.showCameraAd = ko.observable();
+            if (data.category == "RealEstate") {
+                self.showRealEstateAd(new RealEstate(data.realestatead));
+            }
+            if (data.subCategory == "Cameras" || data.subCategory == "CamerasAccessories") {
+                self.showCameraAd(new CameraAd(data.cameraad));
+            }
             self.companyName = data.companyName;
             self.companyId = data.companyId;
 
@@ -568,7 +653,9 @@
             self.savedCount = ko.observable( data.savedCount );
             self.price = data.price || "";
             self.newBidPrice = ko.observable();
+            
             self.showCarAd = ko.observable();
+            self.showBikeAd = ko.observable();
             self.statusError = "";
             self.isVisible = true;
             if (data.status == "p") {
@@ -579,7 +666,7 @@
             }
             self.type = "";
             if (data.type == true) {
-                self.type = "For sell";
+                self.type = "For Sale";
             } else {
                 self.type = "Want to buy";
             }
@@ -597,8 +684,11 @@
             self.category = data.category;
             self.subcategory = data.subCategory;
             self.showJob = ko.observable();
-            if (data.category == "Jobs") {    //data.category.contains("job")    ..search substring
+            if (data.category == "Jobs") {    
                 self.showJob(new JobAd(data.jobAd));
+            }
+            if (data.subCategory == "Bikes") {
+                self.showBikeAd(new BikeAd(data.bikead));
             }
             self.gender = "";
             if (data.isNegotiable == "m") {
@@ -807,8 +897,20 @@
                 else if (data.subCategory == "Cars") {
                     window.location.href = "/Vehicles/EditCarAd/" + id;
                 }
+                else if (data.subCategory == "Bikes") {
+                    window.location.href = "/Vehicles/EditBikeAd/" + id;
+                }
+                else if (data.category == "RealEstate") {
+                    window.location.href = "/RealEstate/Edit/" + id;
+                }
+                else if (data.subCategory == "Cameras") {
+                    window.location.href = "/Electronics/EditCameraAd/" + id;
+                }
+                else if (data.subCategory == "CamerasAccessories") {
+                    window.location.href = "/Electronics/EditCameraAccessoriesAd/" + id;
+                }
                 else {
-                    toastr.info("Error");
+                    window.location.href = "/Home/Edit/" + id;
                 }
             }
             self.deleteAd = function (id) {

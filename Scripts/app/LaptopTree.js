@@ -36,9 +36,11 @@ function TreeViewModel() {
     var self = this;
     self.isLoading = ko.observable(false);
     searchingCity.subscribe(function () {
+        self.isLoading(false);
         RefreshSearch();
     })
     searchingPP.subscribe(function () {
+        self.isLoading(false);
         RefreshSearch();
     })
     self.showAds = ko.observableArray();
@@ -94,6 +96,9 @@ function TreeViewModel() {
 }
 function RefreshSearch() {
     var self = this;
+    if (self.isLoading()) {
+        return;
+    }
     self.isLoading(true);
         $.ajax({
             url: '/api/Electronic/SearchLaptopAds?brand=' + brand() + '&model=' + model() + '&tags=' + tags() + '&title=' + title() + '&minPrice=' + minPrice() + '&maxPrice=' + maxPrice() + '&city=' + searchingCity() + '&pp=' + searchingPP() + '&isAccessories=' + laptopAccessories(),

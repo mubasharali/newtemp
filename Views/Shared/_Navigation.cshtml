@@ -47,15 +47,15 @@
             <li class="@Html.IsSelected(controller: "MobilesTablets")">
                 <a href="@Url.Action("Index", "MobilesTablets")"><i class="fa fa-mobile fa-2x"></i> <span class="nav-label">Mobiles, Tablets</span> </a>
             </li>
-            <li class="@Html.IsSelected(controller: "Electronics")">
+            <li @*class="@Html.IsSelected(controller: "Electronics")"*@ >
                 <a href="@Url.Action("Index", "Electronics")"><i class="fa fa-tv"></i> <span class="nav-label">Electronics, Appliances</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="@Html.IsSelected(action: "ComputersLaptops")"><a href="@Url.Action("ComputersLaptops", "Electronics")"><i class="fa fa-laptop"></i>Computers & Accessories</a></li>
-
-                    <li class="@Html.IsSelected(action: "Camera")"><a href="@Url.Action("Camera", "Electronics")"><i class="fa fa-camera"></i>Camera</a></li>
-                    <li class="@Html.IsSelected(action: "Games")"><a href="@Url.Action("Games", "Electronics")"><i class="fa fa-play"></i>TV, Audio, Video</a></li>
-                    <li class="@Html.IsSelected(action: "Games")"><a href="@Url.Action("Games", "Electronics")"><i class="fa fa-gamepad"></i>Games</a></li>
-                    <li class="@Html.IsSelected(action: "Home_Appliances")"><a href="@Url.Action("Home_Appliances", "Electronics")"><i class="fa fa-television"></i>Home Appliances</a></li>
+                    <li class="@Html.IsSelected(action: "ComputersLaptops")"><a href="@Url.Action("ComputersLaptops", "Electronics")"><i class="fa fa-laptop"></i>Computers </a></li>
+                    <li class="@Html.IsSelected(action: "Camera")"><a href="@Url.Action("Cameras", "Electronics")"><i class="fa fa-camera"></i>Camera</a></li>
+                    <li class="@Html.IsSelected(action: "tv")"><a href="@Url.Action("tv", "Electronics")"><i class="fa fa-play"></i>TV-DVD-Multimedia</a></li>
+                    <li class="@Html.IsSelected(action: "games")"><a href="@Url.Action("games", "Electronics")"><i class="fa fa-gamepad"></i>Games</a></li>
+                    <li class="@Html.IsSelected(action: "homeappliances")"><a href="@Url.Action("homeappliances", "Electronics")"><i class="fa fa-television"></i>Home Appliances</a></li>
+                    <li class="@Html.IsSelected(action: "otherelectronics")"><a href="@Url.Action("otherelectronics", "Electronics")"><i class="fa fa-gamepad"></i>other electronics</a></li>
                 </ul>
             </li>
             @*<li class="@Html.IsSelected(controller: "LaptopsComputers")">
@@ -68,12 +68,12 @@
             <li class="@Html.IsSelected(controller: "Vehicles")">
                 <a href="@Url.Action("Index", "Vehicles")"><i class="fa fa-car"></i> <span class="nav-label">Vehicles</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="@Html.IsSelected(action: "Cars")"><a href="@Url.Action("Mobiles","Electronics")"><i class="fa fa-car"></i> Cars</a></li>
-                    <li class="@Html.IsSelected(action: "Bikes")"><a href="@Url.Action("Laptops", "Electronics")"><i class="fa fa-motorcycle"></i>Bikes</a></li>
-                    <li class="@Html.IsSelected(action: "Computers")"><a href="@Url.Action("Computers", "Electronics")"><i class="fa fa-truck"></i>Commerical Vehicles</a></li>
-                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Others", "Electronics")"><i class="fa fa-money"></i>Vehicles For Rent</a></li>
-                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Others", "Electronics")"><i class="fa fa-ship"></i>Other Vehicles</a></li>
-                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Others", "Electronics")"><i class="fa fa-ship"></i>Spare parts</a></li>
+                    <li class="@Html.IsSelected(action: "Cars")"><a href="@Url.Action("Cars","Vehicles")"><i class="fa fa-car"></i> Cars</a></li>
+                    <li class="@Html.IsSelected(action: "Bikes")"><a href="@Url.Action("Bikes", "Vehicles")"><i class="fa fa-motorcycle"></i>Bikes</a></li>
+                    <li class="@Html.IsSelected(action: "Computers")"><a href="@Url.Action("Index", "Vehicles", new {category = "commerical-vehicles"})"><i class="fa fa-truck"></i>Commerical Vehicles</a></li>
+                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Index", "Vehicles", new {category = "vehicles-for-rent" })"><i class="fa fa-money"></i>Vehicles For Rent</a></li>
+                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Index", "Vehicles", new { category = "other-vehicles"})"><i class="fa fa-ship"></i>Other Vehicles</a></li>
+                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Index", "Vehicles", new { category = "spare-parts"})"><i class="fa fa-ship"></i>Spare parts</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Animals")">

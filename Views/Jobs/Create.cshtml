@@ -1,7 +1,7 @@
 ﻿@model Inspinia_MVC5_SeedProject.Models.Ad
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Post Job Ad";
 }
 
 
@@ -40,7 +40,8 @@
 
             <div class="form-group">
                 <label>Qualification </label>
-                <input type="text" name="qualification" placeholder="e.g, BS Software Engineering" class="form-control">
+                <input id="select-qualification" name="qualification" class="repositories" placeholder="e.g, BS Software Engineering" />
+                @*<input type="text" name="qualification" placeholder="e.g, BS Software Engineering" class="form-control">*@
             </div>
 
 
@@ -103,7 +104,7 @@
 
             <div class="form-group">
                 <label>Skills required</label>
-                <input id="select-skills" name="skills" class="repositories" placeholder="Pick skills..." />
+                <input id="select-skills" name="skills" class="repositories" placeholder="what skills are required" />
             </div>
             <div>
                 <label>Career Level</label>
@@ -370,6 +371,40 @@
                 };
             })();
         });
+        $('#select-qualification').selectize({
+            valueField: 'name',
+            labelField: 'name',
+            searchField: 'name',
+            options: [],
+            maxItems: 1,
+            create: true,
+            render: {
+                option: function (item, escape) {
+                    console.log(item.name);
+                    return '<div>' +
+                        '<span class="">' +
+                            '<span class="name">' + escape(item.name) + '</span>' +
+
+                        '</span>' +
+                        
+                        
+                    '</div>';
+                }
+            },
+            load: function (query, callback) {
+                if (!query.length) return callback();
+                $.ajax({
+                    url: '/api/Job/SearchQualifications?s=' + encodeURIComponent(query),
+                    type: 'POST',
+                    error: function () {
+                        callback();
+                    },
+                    success: function (res) {
+                        callback(res.slice(0, 10));
+                    }
+                });
+            }
+        });
         $('#select-tag').selectize({
             valueField: 'name',
             labelField: 'name',
@@ -416,22 +451,17 @@
             render: {
                 option: function (item, escape) {
                     return '<div>' +
-                        '<span class="title">' +
+                        '<span class="">' +
                             '<span class="name">' + escape(item.name) + '</span>' +
 
                         '</span>' +
-                        '<span class="description">' + escape(item.info) + '</span>' +
-                        '<ul class="meta">' +
-                            '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
-                            '<li class="forks"><span>' + escape(item.questions) + '</span> times Used</li>' +
-                        '</ul>' +
                     '</div>';
                 }
             },
             load: function (query, callback) {
                 if (!query.length) return callback();
                 $.ajax({
-                    url: '/api/Tag/SearchTags?s=' + encodeURIComponent(query),
+                    url: '/api/Job/SearchSkills?s=' + encodeURIComponent(query),
                     type: 'POST',
                     error: function () {
                         callback();

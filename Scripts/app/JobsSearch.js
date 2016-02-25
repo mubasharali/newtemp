@@ -5,7 +5,7 @@ var title = ko.observable();
 var tags = ko.observable("");
 var skills = ko.observable("");
 var minPrice = ko.observable(0);
-var maxPrice = ko.observable(50000);
+var maxPrice = ko.observable(500000);
 var minSeats = ko.observable(0);
 var maxSeats = ko.observable(1000);
 var gender = ko.observable();
@@ -22,10 +22,8 @@ var availableJobTypes = new Array("Full time", "Permanent", "Contract", "Interns
 var selectedJobType = ko.observable();
 var selectedLastDateToApply = ko.observable();
 var shift = ko.observable();
-var isLoading = ko.observable(false);
-availableCategories.subscribe(function () {
-    console.log( "this" + availableCategories());
-})
+
+
 minPrice.subscribe(function () {
     RefreshSearch();
 });
@@ -57,7 +55,6 @@ selectedCategory.subscribe(function () {
     RefreshSearch();
 })
 selectedExprience.subscribe(function () {
-    console.log("E " + selectedExprience());
     if (selectedExprience() == "Not required") {
         selectedExprience("n");
     } else if (selectedExprience() == "Fresh Graduate") {
@@ -65,7 +62,6 @@ selectedExprience.subscribe(function () {
     } else if (selectedExprience() != "") {
         selectedExprience(selectedExprience().slice(0, 1));
     }
-    console.log("new " + selectedExprience());
     RefreshSearch();
 })
 selectedCareerLevel.subscribe(function () {
@@ -81,61 +77,112 @@ selectedLastDateToApply.subscribe(function () {
 shift.subscribe(function () {
     RefreshSearch();
 })
-var loadQualification = function () {
-    $.ajax({
-        url: '/api/Job/GetAllQualifications',
-        dataType: "json",
-        contentType: "application/json",
-        cache: false,
-        type: 'GET',
-        success: function (data) {
-            $.each((data), function (i, item) { availableQualifications.push(item) });
-            $('#select-category1').selectize();
-            $('#select-careerLevel').selectize();
-            $('#select-exprience').selectize();
-            $('#select-jobtype').selectize();
-            $('#select-qualification').selectize({
-                sortField: {
-                    field: 'text',
-                    direction: 'asc'
-                },
-            });
-        },
-        error: function (jqXHR, status, thrownError) {
-            toastr.error("failed to load Qualification data.Please refresh page and try again", "Error");
-        }
-    });
 
-};
 var selfie;
-function RefreshSearch(selff) {
-    loadQualification();
-    
-    if (selff) {
-        selfie = selff;
+function convertToSlug(Text) {
+    return Text
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-')
+    ;
+}
+$('#select-qualification').selectize({
+    valueField: 'name',
+    labelField: 'name',
+    searchField: 'name',
+    options: [],
+    maxItems: 1,
+    create: true,
+    render: {
+        option: function (item, escape) {
+            return '<div>' +
+                '<span class="">' +
+                    '<span class="name">' + escape(item.name) + '</span>' +
+
+                '</span>' +
+
+
+            '</div>';
+        }
+    },
+    load: function (query, callback) {
+        if (!query.length) return callback();
+        $.ajax({
+            url: '/api/Job/SearchQualifications?s=' + encodeURIComponent(query),
+            type: 'POST',
+            error: function () {
+                callback();
+            },
+            success: function (res) {
+                callback(res.slice(0, 10));
+            }
+        });
     }
-  //  var self = this;
+});
+//var loadQualification = function () {
+//    $.ajax({
+//        url: '/api/Job/GetAllQualifications',
+//        dataType: "json",
+//        contentType: "application/json",
+//        cache: false,
+//        type: 'GET',
+//        success: function (data) {
+//            $.each((data), function (i, item) { availableQualifications.push(item) });
+//            $('#select-category1').selectize();
+//            $('#select-careerLevel').selectize();
+//            $('#select-exprience').selectize();
+//            $('#select-jobtype').selectize();
+//            $('#select-qualification').selectize({
+//                sortField: {
+//                    field: 'text',
+//                    direction: 'asc'
+//                },
+//            });
+//        },
+//        error: function (jqXHR, status, thrownError) {
+//            toastr.error("failed to load Qualification data.Please refresh page and try again", "Error");
+//        }
+//    });
+
+//};
+function JobsViewModel() {
+    var self = this;
+    self.showAds = ko.observableArray();
+    self.isLoading = ko.observable(false);
     searchingCity.subscribe(function () {
         RefreshSearch();
     })
     searchingPP.subscribe(function () {
         RefreshSearch();
     })
+  //  loadQualification();
+}
+function RefreshSearch() {
+
+    if (self.isLoading()) {
+        return;
+    }
+    self.isLoading(true);
+  // tags( convertToSlug(tags()));
+    var ulr = '/api/Job/SearchJobAds?gender=' + gender() + '&skills=' + skills() + '&tags=' + tags() + '&title=' + title() + '&minPrice=' + minPrice() + '&maxPrice=' + maxPrice() + '&city=' + searchingCity() + '&pp=' + searchingPP() + '&salaryType=' + salaryType() + '&category=' + selectedCategory() + '&qualification=' + selectedQualification() + '&exprience=' + selectedExprience() + '&careerLevel=' + selectedCareerLevel() + '&jobType=' + selectedJobType() + '&lastDateToApply=' + selectedLastDateToApply() + '&minSeats=' + minSeats() + '&maxSeats=' + maxSeats() + '&shift=' + shift();
     
-    isLoading(true);
     $.ajax({
-        url: '/api/Job/SearchJobAds?gender=' + gender() + '&skills=' + skills() + '&tags=' + tags() + '&title=' + title() + '&minPrice=' + minPrice() + '&maxPrice=' + maxPrice() + '&city=' + searchingCity() + '&pp=' + searchingPP() + '&salaryType=' + salaryType() + '&category=' + selectedCategory() + '&qualification=' + selectedQualification() + '&exprience=' + selectedExprience() + '&careerLevel=' + selectedCareerLevel() + '&jobType=' + selectedJobType() + '&lastDateToApply=' + selectedLastDateToApply() + '&minSeats=' + minSeats() + '&maxSeats=' + maxSeats() + '&shift=' + shift(),
+        url : ulr,
         dataType: "json",
         contentType: "application/json",
         cache: false,
         type: 'POST',
         success: function (data) {
-            isLoading(false);
+            self.isLoading(false);
             var mappedads = $.map(data, function (item) { return new Ad(item); });
-            selfie.showAds(mappedads);
+            self.showAds(mappedads);
+            $('#select-category1').selectize();
+                        $('#select-careerLevel').selectize();
+                        $('#select-exprience').selectize();
+                        $('#select-jobtype').selectize();
         },
         error: function () {
-            isLoading(false);
+            self.isLoading(false);
             toastr.error("failed to search. Please refresh page and try again", "Error!");
         }
     });

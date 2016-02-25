@@ -26,12 +26,12 @@
         <EntityTypeShape EntityType="Model.FollowQuestion" Width="1.5" PointX="2.875" PointY="112.375" />
         <EntityTypeShape EntityType="Model.FollowTag" Width="1.5" PointX="29.875" PointY="71.125" />
         <EntityTypeShape EntityType="Model.Friend" PointX="8.25" PointY="50.625" Width="1.5" />
-        <EntityTypeShape EntityType="Model.LaptopAd" Width="1.5" PointX="73.375" PointY="50.75" />
+        <EntityTypeShape EntityType="Model.LaptopAd" Width="1.5" PointX="73.375" PointY="50.875" />
         <EntityTypeShape EntityType="Model.LaptopBrand" Width="1.5" PointX="79.25" PointY="50.875" />
-        <EntityTypeShape EntityType="Model.LaptopModel" Width="1.5" PointX="76.25" PointY="50.625" />
-        <EntityTypeShape EntityType="Model.Mobile" Width="1.5" PointX="81.125" PointY="47.625" />
-        <EntityTypeShape EntityType="Model.MobileAd" Width="1.5" PointX="75.375" PointY="47.5" />
-        <EntityTypeShape EntityType="Model.MobileModel" Width="1.5" PointX="78.375" PointY="46.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LaptopModel" Width="1.5" PointX="76.25" PointY="50.75" />
+        <EntityTypeShape EntityType="Model.Mobile" Width="1.5" PointX="83.5" PointY="46.75" />
+        <EntityTypeShape EntityType="Model.MobileAd" Width="1.5" PointX="80" PointY="46.5" />
+        <EntityTypeShape EntityType="Model.MobileModel" Width="1.5" PointX="81.625" PointY="46.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.popularPlace" Width="1.5" PointX="23.375" PointY="58.5" />
         <EntityTypeShape EntityType="Model.Question" Width="1.5" PointX="7.75" PointY="114.75" />
         <EntityTypeShape EntityType="Model.QuestionReply" Width="1.5" PointX="13.625" PointY="116.25" />
@@ -153,11 +153,8 @@
         <AssociationConnector Association="Model.FK_Image_ToTable" />
         <AssociationConnector Association="Model.FK_Review_ToTable" />
         <AssociationConnector Association="Model.FK_ReviewVote_ToTable_1" />
-        <EntityTypeShape EntityType="Model.JobAd" Width="1.5" PointX="70.5" PointY="48.5" />
-        <EntityTypeShape EntityType="Model.JobSkill" Width="1.5" PointX="70.5" PointY="61" />
+        <EntityTypeShape EntityType="Model.JobAd" Width="1.5" PointX="72.875" PointY="47.875" />
         <AssociationConnector Association="Model.FK_JobAd_ToTable" />
-        <AssociationConnector Association="Model.FK_JobSkill_ToTable" />
-        <AssociationConnector Association="Model.FK_JobSkill_ToTable_1" />
         <EntityTypeShape EntityType="Model.CarAd" Width="1.5" PointX="73.125" PointY="57.625" />
         <EntityTypeShape EntityType="Model.CarBrand" Width="1.5" PointX="75.875" PointY="58.5" />
         <EntityTypeShape EntityType="Model.CarModel" Width="1.5" PointX="78.25" PointY="57.75" />
@@ -167,6 +164,23 @@
         <AssociationConnector Association="Model.FK_CarAd_ToTable_2" />
         <AssociationConnector Association="Model.FK_CarModel_ToTable_1" />
         <AssociationConnector Association="Model.FK_CarAd_ToTable_1" />
+        <EntityTypeShape EntityType="Model.BikeAd" Width="1.5" PointX="53.5" PointY="47.625" />
+        <EntityTypeShape EntityType="Model.BikeBrand" Width="1.5" PointX="49.25" PointY="47.875" />
+        <EntityTypeShape EntityType="Model.BikeModel" Width="1.5" PointX="51.25" PointY="47.75" />
+        <AssociationConnector Association="Model.FK_BikeAd_ToTable" />
+        <AssociationConnector Association="Model.FK_BikeBrand_ToTable" />
+        <AssociationConnector Association="Model.FK_BikeModel_ToTable" />
+        <AssociationConnector Association="Model.FK_Table_ToTable" />
+        <AssociationConnector Association="Model.FK_BikeAd_ToTable_1" />
+        <AssociationConnector Association="Model.FK_BikeAd_ToTable_2" />
+        <EntityTypeShape EntityType="Model.House" Width="1.5" PointX="70.5" PointY="52.875" />
+        <AssociationConnector Association="Model.FK_House_ToTable" />
+        <EntityTypeShape EntityType="Model.Camera" Width="1.5" PointX="70.5" PointY="43.125" />
+        <AssociationConnector Association="Model.FK_Camera_ToTable" />
+        <EntityTypeShape EntityType="Model.JobSkill" Width="1.5" PointX="74.625" PointY="48.75" />
+        <EntityTypeShape EntityType="Model.Skill" Width="1.5" PointX="76.5" PointY="48.5" />
+        <AssociationConnector Association="Model.FK_JobSkill_ToTable" />
+        <AssociationConnector Association="Model.FK_JobSkill_ToTable_1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

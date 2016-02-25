@@ -49,11 +49,16 @@ create electronic ad:
                                         others
                                     </li>*@
                                 </span>
-                                @*<span data-bind="if:category() == 'Vehicles'">
+                                <span data-bind="if:category() == 'Vehicles'">
                                     <li data-bind="click:carsClicked" class="info-element">
                                         Cars
                                     </li>
-                                </span>*@
+                                    <li data-bind="click:bikesClicked" class="info-element">Bikes, MotorCycle, Scooter</li>
+                                    <li data-bind="click:commericalVehiclesClicked" class="info-element">Commerical Vehicles</li>
+                                    <li data-bind="click:vehiclesForRentClicked" class="info-element">Vehicles for rent</li>
+                                    <li data-bind="click:otherVehiclesClicked" class="info-element">Other Vehicles</li>
+                                    <li data-bind="click:sparePartsClicked" class="info-element">Spare parts</li>
+                                </span>
                             </ul>
                             <button class="btn" data-bind="click:backButton">Back</button>
                         </div>
@@ -96,13 +101,17 @@ create electronic ad:
                 self.category = ko.observable();
                 self.subcategory = ko.observable();
                 self.categorySelected = ko.observable(false);
-                self.categoryList = ["Mobiles", "Electronics", "Jobs","Vehicles"];
+                self.categoryList = ["Mobiles", "Electronics", "Jobs", "Vehicles","Real Estate"];
                 self.categoryClicked = function (data) {
                     self.categorySelected(true);
                     self.category(data);
-                    if (self.category() == "Jobs") {
+                    if (self.category() == "Jobs" ) {
                         self.loading(true);
                         window.location.href = '/Jobs/Create';
+                    }
+                    if (self.category() == "Real Estate") {
+                        self.loading(true);
+                        window.location.href = '/Realestate/Create';
                     }
                 }
                 self.backButtonUnderSubcategory = function () {
@@ -129,32 +138,41 @@ create electronic ad:
                     self.loading(true);
                     window.location.href = '/Electronics/CreateLaptopAccessoriesAd';
                 }
-                    
-                    //self.electronicsClicked = function () {
-                    //    self.category ("Electronics");
-                    //    self.categorySelected(true);
-                    //}
-                    //self.vehiclesClicked = function () {
-                    //    self.category("Vehicles");
-                    //    self.categorySelected(true);
-                    //}
-                    //self.carsClicked = function () {
-                    //    self.subcategory("Cars");
-                    //    window.location.href = '/Vehicles/CreateCarAd';
-                    //}
-                    //self.mobilesClicked = function () {
-                    //    self.subcategory("Mobiles");
-                    //    window.location.href = '/Electronics/Create';
-                    //}
-                    //self.laptopsClicked = function () {
-                    //    self.subcategory("Laptops");
-                    //    window.location.href = '/Electronics/CreateLaptopAd';
-                    //}
-                    self.backButton = function () {
-                        self.categorySelected(false);
-                    }
+                //vehicles
+                self.carsClicked = function () {
+                    self.loading(true);
+                    window.location.href = '/Vehicles/CreateCarAd';
+                }
+                self.bikesClicked = function () {
+                    self.loading(true);
+                    window.location.href = '/Vehicles/CreateBikeAd';
+                }
+                self.commericalVehiclesClicked = function () {
+                    self.loading(true);
+                    window.location.href = '/Home/Create?category=Vehicles&subcategory=commerical-vehicles';
+                }
+                self.vehiclesForRentClicked = function () {
+                    self.loading(true);
+                    window.location.href = '/Home/Create?category=Vehicles&subcategory=vehicles-for-rent';
+                }
+                self.otherVehiclesClicked = function () {
+                    self.loading(true);
+                    window.location.href = '/Home/Create?category=Vehicles&subcategory=other-vehicles';
+                }
+                self.sparePartsClicked = function () {
+                    self.loading(true);
+                    window.location.href = '/Home/Create?category=Vehicles&subcategory=spare-parts';
+                }
+                self.backButton = function () {
+                    self.categorySelected(false);
                 }
 
+
+
+            }
+            
+
+            
                 $(document).ready(function () {
                     ko.applyBindings(new ViewModel());
                     $(".sortable-list").sortable({

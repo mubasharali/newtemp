@@ -1,7 +1,6 @@
 ﻿@{
-    ViewBag.Title = "Buy and sell " + ViewBag.category;
+    ViewBag.Title = "Cameras";
 }
-
 
 
 <style>
@@ -34,17 +33,43 @@
     }
 </style>
 
-
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-sm-4 col-md-3 col-lg-3">
             <div class="">
-                <input type="hidden" id="category" value="@ViewBag.category" />
-                <input id="subcategory" type="hidden" value="@ViewBag.subcategory" />
-                <div class="ibox-title"><h5> search by tags</h5></div>
-                <div class="ibox-content"><input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." /></div>
-                <div class="ibox-title"><h5> search by Price</h5></div>
-                <div id="ionrange_1"></div>
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Advance Search</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <label> <input data-bind="checked:laptopAccessories" type="checkbox">Camera Accessories</label>
+                        <hr />
+                        <h5>Search by Category</h5>
+                        <select id="select-category" class="demo-default" data-bind="options: availableCategories,
+                       value: selectedCategory,
+                       optionsCaption: 'Select category...'"></select>
+                        <hr />
+                        <h5>Search by brand</h5>
+                        <select id="select-brand" class="demo-default" data-bind="options: availableBrands,
+                       value: selectedBrand,
+                       optionsCaption: 'Select brand...'"></select>
+                        <hr />
+                        <h5> search by Price</h5>
+                        <div id="ionrange_1"></div>
+                        <hr />
+                        <h5> search by tags</h5>
+                        <input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." />
+                    </div>
+
+                </div>
+
+                
+                
                 @Html.Partial("/Views/Shared/_CreateAlert.cshtml")
             </div>
         </div>
@@ -53,50 +78,20 @@
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
             <div data-bind="visible:!isLoading()">
-                @if (ViewBag.subcategory == "commerical-vehicles")
-                {
-                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=commerical-vehicles')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell your Commerical Vehicle</a>
-                }
-                else if (ViewBag.subcategory == "vehicles-for-rent")
-                {
-                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=vehicles-for-rent')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Add your vehicle for rent</a>
-                }
-                else if (ViewBag.subcategory == "other-vehicles")
-                {
-                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=other-vehicles')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell your Vehicle</a>
-                }
-                else if (ViewBag.subcategory == "spare-parts")
-                {
-                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=spare-parts')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Spare parts</a>
-                }
-                else if (ViewBag.subcategory == "TV-DVD-Multimedia")
-                {
-                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=TV-DVD-Multimedia')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell TV-DVD-Multimedia</a>
-                }
-                else if (ViewBag.subcategory == "Games")
-                {
-                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Games')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Games</a>
-                }
-                else if (ViewBag.subcategory == "Home-Appliances")
-                {
-                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Home-Appliances')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Home Appliances</a>
-                }
-                else if (ViewBag.subcategory == "Other-Electronics")
-                {
-                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Other-Electronics')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Electronics</a>
-                }
+                <a data-bind="visible:!laptopAccessories(),click:function(){ return createAd('/Electronics/CreateCameraAd')}" class="pull-right btn btn-danger">Sell Camera </a>
+                <a data-bind="visible:laptopAccessories(),click:function(){ return createAd('/Electronics/CreateCameraAccessoriesAd')}" class="pull-right btn btn-danger">Sell Camera Accessories</a>
                 <span data-bind="text:showAds().length"> </span> results found<br />
-                @*<b>Summary:</b> Showing <span data-bind="visible: !( minPrice() != 0 || maxPrice() != 50000 || searchingCity() || brand() || model() || tags() )"> all </span> <b> <span data-bind="visible:laptopAccessories()"> Laptop/Computer Accessories </span> <span data-bind="visible:!laptopAccessories()">Laptops/Computers</span> </b><span data-bind="visible:brand || model"> of </span> <b> <span data-bind="text:brand"></span> <span data-bind="text:model"> </b>
-                    <span data-bind="visible:tags()"> with tags <b> '<span data-bind="text:tags"></span>' </b></span>
+                <b>Summary:</b> Showing <span data-bind="visible: !( minPrice() != 0 || maxPrice() != 50000 || searchingCity() || selectedBrand()  || tags() )"> all </span> <b> <span data-bind="visible:laptopAccessories()"> Cameras Accessories </span> <span data-bind="visible:!laptopAccessories()">Cameras</span> </b><span data-bind="visible:selectedBrand "> of </span> <b> <span data-bind="text:selectedBrand"></span> </b>
+                <span data-bind="visible:tags()"> with tags <b> '<span data-bind="text:tags"></span>' </b></span>
 
-                    <span data-bind="visible:minPrice()!= 0 && maxPrice()!= 50000">
-                        with price from <b> <span data-bind="text:minPrice"></span> </b> to <b> <span data-bind="text:maxPrice"></span></b>
-                    </span>
-                    <span data-bind="visible:! (minPrice()!= 0 && maxPrice()!= 50000)">
-                        <span data-bind="visible:minPrice() != 0"> with min price <b> <span data-bind="text:minPrice"></span> </b> </span>
-                        <span data-bind="visible:maxPrice()!= 50000">with max price <b> <span data-bind="text:maxPrice"></span> </b> </span>
-                    </span>
-                    <span data-bind="visible:searchingCity"> from <b> <span data-bind="visible:searchingPP"><span data-bind="text:searchingPP"></span>,</span> <span data-bind="text:searchingCity"></span> </b> </span>*@
+                <span data-bind="visible:minPrice()!= 0 && maxPrice()!= 50000">
+                    with price from <b> <span data-bind="text:minPrice"></span> </b> to <b> <span data-bind="text:maxPrice"></span></b>
+                </span>
+                <span data-bind="visible:! (minPrice()!= 0 && maxPrice()!= 50000)">
+                    <span data-bind="visible:minPrice() != 0"> with min price <b> <span data-bind="text:minPrice"></span> </b> </span>
+                    <span data-bind="visible:maxPrice()!= 50000">with max price <b> <span data-bind="text:maxPrice"></span> </b> </span>
+                </span>
+                <span data-bind="visible:searchingCity"> from <b> <span data-bind="visible:searchingPP"><span data-bind="text:searchingPP"></span>,</span> <span data-bind="text:searchingCity"></span> </b> </span>
                 <div data-bind="foreach:showAds">
                     @Html.Partial("/Views/Shared/_AdListView.cshtml")
                 </div>
@@ -115,7 +110,6 @@
     @Styles.Render("~/Content/plugins/jsTree")
     @Styles.Render("~/bundles/tagStyles")
     @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
-@Styles.Render("~/plugins/laddaStyles")
 }
 
 @section Scripts{
@@ -126,8 +120,7 @@
     @Scripts.Render("~/plugins/slick")
     @Scripts.Render("~/plugins/jsTree")
     @Scripts.Render("~/plugins/ionRange")
-@Scripts.Render("~/plugins/ladda")
-    <script src="~/Scripts/app/SearchAds.js"></script>
+    <script src="~/Scripts/app/SearchCamera.js"></script>
     <script src="~/Scripts/app/slick-knockout-binding.js"></script>
     <script src="~/Scripts/app/CreateAlert.js"></script>
     <script src="~/Scripts/app/_AdListView.js"></script>
@@ -138,12 +131,15 @@
         function viewModel() {
             SearchingLocation();
             CreateAlert();
-            TreeViewModel(); //in searchads.js
+            TreeViewModel();
             RefreshSearch();
             ChatViewModel();
             AccountViewModel();
             var self = this;
-
+            //self.selectedCategory = ko.observable();
+            //self.selectedCategory.subscribe(function () {
+            //    console.log("cisdf");
+            //});
             return self;
         }
         //tree
@@ -209,8 +205,6 @@
             }
         });
         $(function () {
-            $('.ladda-button').ladda('bind', { timeout: 200000 });
-
             toastr.options = {
                 closeButton: true,
                 progressBar: true,
@@ -228,7 +222,10 @@
             //window.onload = function () {
             //    ko.applyBindings(new viewModel);
             //};
-
+            var length = $(window).width();
+            if (length < 770) {
+                $(".collapse-link").click();
+            }
         });
 
     </script>

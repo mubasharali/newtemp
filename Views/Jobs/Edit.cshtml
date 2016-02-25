@@ -40,7 +40,7 @@
 
                             <div class="form-group">
                                 <label>Qualification </label>
-                                <input type="text" id="qualification" name="qualification" class="form-control">
+                                <input id="select-qualification" @*data-bind="value:selectedQualification"*@ name="qualification" class="repositories" placeholder="e.g, BS Software Engineering" />
                             </div>
 
 
@@ -265,6 +265,8 @@
 
             //self.selectedCategoryOriginal = "";
 
+            self.selectedQualification = ko.observable();
+
             //location
             //location
             self.availableCities = ko.observableArray();
@@ -355,7 +357,7 @@
 
 
                         $("#seats").val(data.jobAd.seats);
-                        $("#qualification").val(data.jobAd.qualification);
+                        self.selectedQualification(data.jobAd.qualification);
                         $("#salary").val(data.price);
                         $("#salaryType").val(data.jobAd.salaryType);
                         $("#exprience").val(data.jobAd.exprience);
@@ -455,32 +457,29 @@
                                 });
                             }
                         });
-                        $('#select-skills').selectize({
+                        $('#select-qualification').selectize({
                             valueField: 'name',
                             labelField: 'name',
                             searchField: 'name',
                             options: [],
-                            maxItems: 6,
+                            maxItems: 1,
                             create: true,
                             render: {
                                 option: function (item, escape) {
                                     return '<div>' +
-                                        '<span class="title">' +
+                                        '<span class="">' +
                                             '<span class="name">' + escape(item.name) + '</span>' +
 
                                         '</span>' +
-                                        '<span class="description">' + escape(item.info) + '</span>' +
-                                        '<ul class="meta">' +
-                                            '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
-                                            '<li class="forks"><span>' + escape(item.questions) + '</span> times Used</li>' +
-                                        '</ul>' +
+
+
                                     '</div>';
                                 }
                             },
                             load: function (query, callback) {
                                 if (!query.length) return callback();
                                 $.ajax({
-                                    url: '/api/Tag/SearchTags?s=' + encodeURIComponent(query),
+                                    url: '/api/Job/SearchQualifications?s=' + encodeURIComponent(query),
                                     type: 'POST',
                                     error: function () {
                                         callback();
@@ -491,6 +490,44 @@
                                 });
                             }
                         });
+                        $('#select-skills').selectize({
+                            valueField: 'name',
+                            labelField: 'name',
+                            searchField: 'name',
+                            options: [],
+                            maxItems: 6,
+                            create: true,
+                            render: {
+                                option: function (item, escape) {
+                                    return '<div>' +
+                                        '<span class="">' +
+                                            '<span class="name">' + escape(item.name) + '</span>' +
+
+                                        '</span>' +
+                                    '</div>';
+                                }
+                            },
+                            load: function (query, callback) {
+                                if (!query.length) return callback();
+                                $.ajax({
+                                    url: '/api/Job/SearchSkills?s=' + encodeURIComponent(query),
+                                    type: 'POST',
+                                    error: function () {
+                                        callback();
+                                    },
+                                    success: function (res) {
+                                        callback(res.slice(0, 10));
+                                    }
+                                });
+                            }
+                        });
+                        var selectize_qualification = $("#select-qualification")[0].selectize;
+                        selectize_qualification.addOption({
+                            text: self.selectedQualification(),
+                            value: self.selectedQualification(),
+                            name: self.selectedQualification(),
+                        });
+                        selectize_qualification.addItem(self.selectedQualification());
                         var selectize_tags = $("#select-tag")[0].selectize;
                         $.each((self.selectedTags), function (i, item) {
                             selectize_tags.addOption({
@@ -600,43 +637,7 @@
                     });
                 }
             });
-            $('#select-skills').selectize({
-                valueField: 'name',
-                labelField: 'name',
-                searchField: 'name',
-                options: [],
-                maxItems: 6,
-                create: true,
-                render: {
-                    option: function (item, escape) {
-                        return '<div>' +
-                            '<span class="title">' +
-                                '<span class="name">' + escape(item.name) + '</span>' +
-
-                            '</span>' +
-                            '<span class="description">' + escape(item.info) + '</span>' +
-                            '<ul class="meta">' +
-                                '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
-                                '<li class="forks"><span>' + escape(item.questions) + '</span> times Used</li>' +
-                            '</ul>' +
-                        '</div>';
-                    }
-                },
-                load: function (query, callback) {
-                    if (!query.length) return callback();
-                    $.ajax({
-                        url: '/api/Tag/SearchTags?s=' + encodeURIComponent(query),
-                        type: 'POST',
-                        error: function () {
-                            callback();
-                        },
-                        success: function (res) {
-                            callback(res.slice(0, 10));
-                        }
-                    });
-                }
-            });
-
+          
             $("#post").validate({
                 ignore: ':hidden:not([class~=selectized]),:hidden > .selectized, .selectize-control .selectize-input input',
                 rules: {
