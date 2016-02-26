@@ -20,7 +20,31 @@
                     <input type="text" placeholder="Search for something..." class="form-control" name="s" id="top-search">
                 </div>
             </form>
+            @*<form role="search" class="navbar-form-custom" method="post" action="/Search">
+            <div class="form-group">
+                <script>
+                    (function () {
+                        var cx = '004204861682057423873:7jv6v4w7k0y';
+                        var gcse = document.createElement('script');
+                        gcse.type = 'text/javascript';
+                        gcse.async = true;
+                        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                            '//cse.google.com/cse.js?cx=' + cx;
+                        var s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(gcse, s);
+                    })();
+                </script>
+                <gcse:search></gcse:search>
+            </div>
+        </form>*@
+            
         </div>
         @Html.Partial("_LoginPartial")
     </nav>
 </div>
+
+<style>
+    .cse input.gsc-input, input.gsc-input {
+        background-image: none !important;
+    }
+</style>

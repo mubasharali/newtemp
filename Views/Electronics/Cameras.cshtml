@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Cameras";
+    ViewBag.Title = "Buy and sell Cameras|Buy second Hand Cameras";
 }
 
 
@@ -78,8 +78,8 @@
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
             <div data-bind="visible:!isLoading()">
-                <a data-bind="visible:!laptopAccessories(),click:function(){ return createAd('/Electronics/CreateCameraAd')}" class="pull-right btn btn-danger">Sell Camera </a>
-                <a data-bind="visible:laptopAccessories(),click:function(){ return createAd('/Electronics/CreateCameraAccessoriesAd')}" class="pull-right btn btn-danger">Sell Camera Accessories</a>
+                <a data-bind="visible:!laptopAccessories(),click:function(){ return createAd('/Electronics/CreateCameraAd')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Camera </a>
+                <a data-bind="visible:laptopAccessories(),click:function(){ return createAd('/Electronics/CreateCameraAccessoriesAd')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Camera Accessories</a>
                 <span data-bind="text:showAds().length"> </span> results found<br />
                 <b>Summary:</b> Showing <span data-bind="visible: !( minPrice() != 0 || maxPrice() != 50000 || searchingCity() || selectedBrand()  || tags() )"> all </span> <b> <span data-bind="visible:laptopAccessories()"> Cameras Accessories </span> <span data-bind="visible:!laptopAccessories()">Cameras</span> </b><span data-bind="visible:selectedBrand "> of </span> <b> <span data-bind="text:selectedBrand"></span> </b>
                 <span data-bind="visible:tags()"> with tags <b> '<span data-bind="text:tags"></span>' </b></span>
@@ -205,6 +205,8 @@
             }
         });
         $(function () {
+            $('.ladda-button').ladda('bind', { timeout: 200000 });
+
             toastr.options = {
                 closeButton: true,
                 progressBar: true,

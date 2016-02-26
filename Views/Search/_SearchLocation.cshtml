@@ -9,20 +9,38 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label class="control-label col-md-2">City</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10" data-bind="visible:!_isSearchCityLoading()">
                         <select id="searching-city" class="demo-default" data-bind="options: searchingCities,
                        value: searchingCity,
                        optionsCaption: 'Select City...'"></select>
 
                     </div>
+                    <div class="col-md-10" data-bind="visible:_isSearchCityLoading()">
+                        <div class="sk-spinner sk-spinner-wave">
+                            <div class="sk-rect1"></div>
+                            <div class="sk-rect2"></div>
+                            <div class="sk-rect3"></div>
+                            <div class="sk-rect4"></div>
+                            <div class="sk-rect5"></div>
+                        </div>
+                    </div>
                 </div>
                 <div data-bind="with:searchingCity">
                     <div class="form-group">
                         <label class="control-label col-md-2">Famous Place <small class="text-navy"> optional</small></label>
-                        <div class="col-md-10">
+                        <div class="col-md-10" data-bind="visible:!_isSearchPPLoading()">
                             <select id="searching-popularPlace" class="demo-default" data-bind="options:searchingPPs,
                        value: searchingPP,
                        optionsCaption: 'Choose Famous place...'"></select>
+                        </div>
+                        <div class="col-md-10" data-bind="visible:_isSearchPPLoading()">
+                            <div class="sk-spinner sk-spinner-wave">
+                                <div class="sk-rect1"></div>
+                                <div class="sk-rect2"></div>
+                                <div class="sk-rect3"></div>
+                                <div class="sk-rect4"></div>
+                                <div class="sk-rect5"></div>
+                            </div>
                         </div>
                     </div>
                 </div> <br />

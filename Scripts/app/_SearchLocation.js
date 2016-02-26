@@ -1,6 +1,8 @@
 ﻿
 function SearchingLocation() {
     var self = this;
+    self._isSearchCityLoading = ko.observable(false);
+    self._isSearchPPLoading = ko.observable(false);
     console.log($.cookie("searchCity"));
     console.log($.cookie("searchPP"));
     searchingCity = ko.observable();
@@ -14,6 +16,7 @@ function SearchingLocation() {
         
     //})
     self.loadCities = function () {
+        self._isSearchCityLoading(true);
         $.ajax({
             url: '/api/Location/GetCities',
             dataType: "json",
@@ -21,6 +24,7 @@ function SearchingLocation() {
             cache: false,
             type: 'GET',
             success: function (data) {
+                self._isSearchCityLoading(false);
                 $.each((data), function (i, item) { searchingCities.push(item) });
                 searchingCity($.cookie("searchCity"));
                 $('#searching-city').selectize({
@@ -31,11 +35,13 @@ function SearchingLocation() {
                 });
             },
             error: function (jqXHR, status, thrownError) {
+                self._isSearchCityLoading(false);
                 toastr.error("failed to load Cities.Please refresh page and try again", "Error");
             }
         });
     }
     self.loadPopularPlaces = function () {
+        self._isSearchPPLoading(true);
         searchingPPs.removeAll();
         $.ajax({
             url: '/api/Location/GetPopularPlaces?city=' + searchingCity(),
@@ -44,6 +50,7 @@ function SearchingLocation() {
             cache: false,
             type: 'GET',
             success: function (data) {
+                self._isSearchPPLoading(false);
                 $.each((data), function (i, item) { searchingPPs.push(item) });
                 searchingPP($.cookie("searchPP"));
                 $('#searching-popularPlace').selectize({
@@ -62,6 +69,7 @@ function SearchingLocation() {
                 //-----------------
             },
             error: function (jqXHR, status, thrownError) {
+                self._isSearchPPLoading(false);
                 toastr.error("failed to load Famous Places.Please refresh page and try again", "Error");
             }
         });

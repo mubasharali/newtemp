@@ -12,6 +12,9 @@
         <li class="hidden-xs">
             <a href="/CreateAd">Create Ad</a>
         </li>
+        @*<li style="padding:0px">
+            <a  href="#"><img alt="member" class="img-circle" style="height:18px;padding:0px" src="/Images/profile.jpg"></a>
+        </li>*@
         <li class="hidden-xs">
             <a href="/User/Index/@User.Identity.GetUserId()">Hello @Html.Action("GetUserEmail", "Shared")</a>
             @*@Html.ActionLink("Hello " + Html.Action("GetUserEmail","Shared") + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })*@
