@@ -4,7 +4,7 @@
         return pattern.test(emailAddress);
     };
 function AccountViewModel() {
-    var self = this;
+    var self = this; //this
     self.isUserLoginLoading = ko.observable(false);
     self.email = ko.observable();
     self.password = ko.observable();

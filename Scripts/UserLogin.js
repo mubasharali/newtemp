@@ -4,7 +4,8 @@
         return pattern.test(emailAddress);
     };
 function AccountViewModel() {
-    var self = this;
+    var self = this; //this
+    self.isUserLoginLoading = ko.observable(false);
     self.email = ko.observable();
     self.password = ko.observable();
     self.UserName = ko.observable();
@@ -67,7 +68,8 @@ function AccountViewModel() {
         });
     }
     self.submitEmail = function () {
-        if(isValidEmailAddress(self.email())){
+        if (isValidEmailAddress(self.email())) {
+            self.isUserLoginLoading(true);
             $.ajax({
                 url: '/api/User/CheckEmail?email=' + self.email(),
                 dataType: "json",
@@ -75,6 +77,7 @@ function AccountViewModel() {
                 cache: false,
                 type: 'POST',
                 success: function (data) {
+                    self.isUserLoginLoading(false);
                     $("#inputEmail").modal('hide');
                     if (data == "NewUser") {
                         $("#newUser").modal('show');
@@ -86,6 +89,7 @@ function AccountViewModel() {
                     self.loginError("");
                 },
                 error: function () {
+                    self.isUserLoginLoading(false);
                     self.loginError("failed to send Email. Please refresh page and try again");
                 }
             });
@@ -95,6 +99,7 @@ function AccountViewModel() {
     }
     self.checkLoginUserPassword = function () {
         self.loginError("");
+        self.isUserLoginLoading(true);
         $.ajax({
             url: '/Account/UserLogin?email='+self.email() + '&password=' + self.password(),
             dataType: "json",
@@ -102,6 +107,7 @@ function AccountViewModel() {
             cache: false,
             type: 'POST',
             success: function (data) {
+                self.isUserLoginLoading(false);
                 if (data == "Done") {
                     self.loginError("");
                         
@@ -111,6 +117,7 @@ function AccountViewModel() {
                 }
             },
             error: function () {
+                self.isUserLoginLoading(false);
                 self.loginError("failed to send password. Please refresh page and try again");
             }
         });
@@ -119,6 +126,7 @@ function AccountViewModel() {
         self.loginError("");
         if (self.password() === self.confirmPassword()) {
             if (typeof self.password() != "undefined") {
+                self.isUserLoginLoading(true);
                 $.ajax({
                     url: '/Account/RegisterUser?email=' + self.email() + '&password=' + self.password(),
                     dataType: "json",
@@ -126,6 +134,7 @@ function AccountViewModel() {
                     cache: false,
                     type: 'POST',
                     success: function (data) {
+                        self.isUserLoginLoading(false);
                         if (data == "Done") {
                             self.loginError("");
                             $("#newUser").modal('hide');
@@ -135,6 +144,7 @@ function AccountViewModel() {
                         }
                     },
                     error: function () {
+                        self.isUserLoginLoading(false);
                         self.loginError("failed to send password. Please refresh page and try again");
                     }
                 });
@@ -151,6 +161,7 @@ function AccountViewModel() {
         self.loginError("");
         self.UserName($.trim(self.UserName()));
         if (self.UserName()) {
+            self.isUserLoginLoading(true);
             $.ajax({
                 url: '/Account/SubmitName?name=' + self.UserName(),
                 dataType: "json",
@@ -158,6 +169,7 @@ function AccountViewModel() {
                 cache: false,
                 type: 'POST',
                 success: function (data) {
+                    self.isUserLoginLoading(false);
                     if (data == "Done") {
                         location.reload();
                     } else {
@@ -165,6 +177,7 @@ function AccountViewModel() {
                     }
                 },
                 error: function () {
+                    self.isUserLoginLoading(false);
                     self.loginError("failed to send Name. Please refresh page and try again");
                 }
             });
