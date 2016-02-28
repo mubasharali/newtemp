@@ -31,7 +31,7 @@
                                             <p data-bind="text:description"></p>
                                             <div>
                                                 <ul class="tag-list" data-bind="foreach:showTags" @*style="padding: 0"*@>
-                                                    <li><a target="_blank" data-bind="attr:{href:'/Tag/' + name}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
+                                                    <li><a target="_blank" data-bind="attr:{href:tagURL}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
                                                 </ul>
                                             </div>
                                             <br /><br />
@@ -170,13 +170,15 @@
                             </div>
                             
                             <div style="margin:10px">
-                                <h5>Post answer</h5>
-                                <textarea class="msgTextArea form-control" placeholder="Write Answer.." name="answer" data-bind="value:newAnswer, valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup: function(data,event){ return answerKeyUp(newAnswer().length,data,event)}}"></textarea>
-                                <span data-bind="visible:newAnswer().length > 900 && newAnswer().length <= 1000">
-                                    You can Enter only <span data-bind="text:1000 - newAnswer().length"></span> more characters.
-                                </span>
-                                <div style="margin:6px">
-                                    <button data-bind="click:function(){return addAnswer()}" class="btn btn-success pull-right">submit</button>
+                                <div class="col-sm-12">
+                                    <h5>Post answer</h5>
+                                    <textarea class="msgTextArea form-control" placeholder="Write Answer.." name="answer" data-bind="value:newAnswer, valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup: function(data,event){ return answerKeyUp(newAnswer().length,data,event)}}"></textarea>
+                                    <span data-bind="visible:newAnswer().length > 900 && newAnswer().length <= 1000">
+                                        You can Enter only <span data-bind="text:1000 - newAnswer().length"></span> more characters.
+                                    </span>
+                                    <div style="margin:6px">
+                                        <button data-bind="click:function(){return addAnswer()}" class="btn btn-success pull-right">submit</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -195,8 +197,6 @@
         </div>
     </div>
 </div>
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
 
 @section Styles {
     @Styles.Render("~/plugins/toastrStyles")
@@ -207,11 +207,7 @@
     @Scripts.Render("~/plugins/toastr")
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
-    @Scripts.Render("~/plugins/knockout")
-<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
-<script src="~/signalr/hubs"></script>
-<script src="~/Scripts/UserLogin.js"></script>
-<script src="~/Scripts/app/chat.js"></script>
+<script src="~/Scripts/app/friendlyURL.js"></script>
     <script>
         function AnswerReply(data) {
             var self = this;
@@ -556,11 +552,13 @@
                 }
             }
         }
+        
         function Tag(data) {
             var self = this;
             data = data || {};
             self.id = data.id;
             self.name = data.name;
+            self.tagURL = '/Tag/' + self.id + '/' + convertToSlug(self.name);
         };
         function Question(data) {
             var self = this;

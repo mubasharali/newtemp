@@ -13,10 +13,10 @@
         { <text>Classified in mobiles, laptops, vehicles, RealEstate, Jobs, Services, Electronics, Animals, Study, Entertainment, Matrimonal, Home Appliances, Business  </text> }
     | MyWebLogo
     </title>
-
-    @RenderSection("Styles", required: false)
     @Styles.Render("~/Content/css")
     @Styles.Render("~/font-awesome/css")
+    @RenderSection("Styles", required: false)
+    
     @Styles.Render("~/scripts/selectizeStyles")
   @Styles.Render("~/plugins/laddaStyles")
     <link href="~/Content/myStyles.css" rel="stylesheet" /> 

@@ -51,7 +51,7 @@
                         <a href="/Forum/Create" data-style="expand-left" class="ladda-button btn btn-danger">Ask Question</a>
                     </div>
                     <p>
-                        <span data-bind="text:showQuestions().length"></span> results found <span data-bind="visible:tags() || title() || selectedCategory()"> <br /><b>Summary:</b> Showing Questions with <span data-bind="visible:tags()"> tags "<span data-bind="text:tags"></span>" </span>
+                        <span data-bind="text:showQuestions().length"></span> results found <span data-bind="visible:tags() || title() || selectedCategory()"> <br /><b>Summary:</b> Showing Questions <span data-bind="visible:tags() || title()"> with </span> <span data-bind="visible:tags()">  tags "<span data-bind="text:tags"></span>" </span>
                                                                                                 <span data-bind="visible:tags() && title"> and </span>   <span data-bind="visible:title()"> title "<span data-bind="text:title"></span>" </span>
                         <span data-bind="visible:selectedCategory">in "<span data-bind="text:selectedCategory"></span>" category</span>
                         </span>
@@ -72,7 +72,7 @@
                 <div class="ibox-title"><h5> search by Category</h5></div>
                 <div class="ibox-content">
                     <ul data-bind="foreach:showCategories">
-                        <li data-bind="text:$data,click: function(){ return $parent.categorySelected($data)} "></li>
+                        <li style="cursor:pointer" data-bind="text:$data,click: function(){ return $parent.categorySelected($data)} "></li>
                     </ul>
                 </div>
                 <div class="ibox-title"><h5> search by tags</h5></div>
@@ -99,7 +99,7 @@
                                 </a>
                                 <div>
                                     <div data-bind="foreach:showTags" style="padding: 0;float:none">
-                                        <a target="_blank" class="btn btn-white btn-xs" style="font-size:11px" data-bind="attr:{href:'/tag/' + name},text:name"> </a>
+                                        <a target="_blank" class="btn btn-white btn-xs" style="font-size:11px" data-bind="attr:{href:tagURL},text:name"> </a>
                                     </div>
                                 </div>
                                 <div class="vote-info">
@@ -116,28 +116,17 @@
     </div>
 </div>
 
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
 @section Styles {
     @Styles.Render("~/plugins/toastrStyles")
 @Styles.Render("~/bundles/tagStyles")
-@Styles.Render("~/scripts/selectizeStyles")
-@Styles.Render("~/plugins/laddaStyles")
 }
 
 
 @section Scripts{
-    @Scripts.Render("~/plugins/toastr")
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
-    @Scripts.Render("~/plugins/knockout")
-@Scripts.Render("~/scripts/selectize")
-@Scripts.Render("~/plugins/ladda")
 @Scripts.Render("~/plugins/truncate")
-<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
-<script src="~/signalr/hubs"></script>
-<script src="~/Scripts/UserLogin.js"></script>
-<script src="~/Scripts/app/chat.js"></script>
+<script src="~/Scripts/app/friendlyURL.js"></script>
 @*<script src="~/Scripts/app/CreateAlert.js"></script>*@
     <script>
         function Tag(data) {
@@ -145,6 +134,7 @@
             data = data || {};
             self.id = data.id;
             self.name = data.name;
+            self.tagURL = '/tag/' + self.id + '/' + convertToSlug( self.name);
         }
         function Question(data) {
             var self = this;
