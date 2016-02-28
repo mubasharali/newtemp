@@ -113,7 +113,7 @@
                     <div class="ibox-title"><h5>My Companies</h5></div>
                     <div class="ibox-content">
                         <div data-bind="foreach:showCompanies">
-                            <a data-bind="attr:{href:'/CompanyPage/' + id + '/' + name}"  class="btn btn-white set_es"><img  style="width:26px"  data-bind="attr:{src:logoLink }"  /> <span data-bind="text:name" ></span></a>
+                            <a data-bind="attr:{href:companyUrl}" class="btn btn-white set_es"><img style="width:26px" data-bind="attr:{src:logoLink }" /> <span data-bind="text:name"></span></a>
                             @*<div class="media">
                                 <a data-bind="attr:{href:'/CompanyPage/' + id + '/' + name}" >
                                     <div class="pull-left"> <img style="width:26px" data-bind="attr:{src:logoLink }" /> </div> 
@@ -287,9 +287,14 @@
             if (data.logoExtension) {
                 self.logoLink = "/Images/Company/" + self.id + "/logo" + data.logoExtension;
             }
-            self.companyClicked = function () {
-                window.location.href = "/CompanyPage/" + self.id + "/" + self.name;
-            }
+            self.companyUrl = "/CompanyPage/" + self.id + "/" + convertToSlug( self.name);
+        }
+        function convertToSlug(Text) {
+            return Text
+                .toLowerCase()
+                .replace(/[^\w ]+/g, '')
+                .replace(/ +/g, '-')
+            ;
         }
         function profile(data) {
             var self = this;

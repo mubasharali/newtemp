@@ -36,7 +36,7 @@
             <div class="">
                 <form action="/User/saveProfilePic" method="post" enctype="multipart/form-data">
                     <input type="hidden" value="@ViewBag.userId" name="userId" id="userId" />
-                    <input type="file" name="image" class=" well well-sm">
+                    <input type="file" name="image" class=" well well-sm"> click
                     <input type="submit" value="upload" />
                 </form>
 
@@ -453,6 +453,7 @@
             }
         }
         function viewModel() {
+            SearchingLocation();
             ChatViewModel();
             AccountViewModel();
             var self = this;

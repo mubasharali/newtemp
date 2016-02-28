@@ -2,16 +2,7 @@
     ViewBag.Title = "Location";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Index</h2>
-        <ol class="breadcrumb">
-            <li class="active">
-                <strong>Ad</strong>
-            </li>
-        </ol>
-    </div>
-</div>
+
 
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -204,6 +195,8 @@
             }
         };
         function ViewModel() {
+            ChatViewModel();
+            AccountViewModel();
             SearchingLocation();
             var self = this;
             self.daysAgo = ko.observable("5");
@@ -339,6 +332,7 @@
                 onclick: null
             };
             ko.applyBindings(new ViewModel);
+            $.connection.hub.start().done();
         });
 
     </script>

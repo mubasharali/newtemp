@@ -144,8 +144,10 @@
                                                         </span>
                                                         <div data-bind="visible:!isLongAboutEditing(),text:longAbout"></div>
                                                         <div data-bind="visible:isLongAboutEditing()">
-                                                            Details:<textarea class="msgTextArea form-control" placeholder="Add company Details.." data-bind="jqAutoresize: {},value:longAbout"></textarea>
-                                                            <button class="btn btn-primary" data-bind="click:updateLongAbout">Update</button>
+                                                            <div class="col-sm-12">
+                                                                Details:<textarea class="msgTextArea form-control" placeholder="Add company Details.." data-bind="jqAutoresize: {},value:longAbout"></textarea>
+                                                                <br /><button class="btn btn-primary pull-right" data-bind="click:updateLongAbout">Update</button>
+                                                            </div>
                                                         </div>
                                                         @*<div class="row">
                                                             <div data-bind="text:longAbout,visible:!isLongAboutEditing()">
@@ -406,7 +408,7 @@
                                             </div>
                                             <div id="reviews" class="tab-pane">
                                                 <div class="panel-body">
-                                                    <h2>Rating</h2>
+                                                    <h2>Reviews</h2>
                                                     <div class="btn btn-xs btn-white" data-bind="click:addReviewBtn,visible:!isAddingReview()">Add review</div>
                                                     <div data-bind="visible:isAddingReview()">
                                                         <div class="row">

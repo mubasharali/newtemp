@@ -181,6 +181,8 @@
         <EntityTypeShape EntityType="Model.Skill" Width="1.5" PointX="76.5" PointY="48.5" />
         <AssociationConnector Association="Model.FK_JobSkill_ToTable" />
         <AssociationConnector Association="Model.FK_JobSkill_ToTable_1" />
+        <EntityTypeShape EntityType="Model.Feedback" Width="1.5" PointX="5.25" PointY="49.875" />
+        <AssociationConnector Association="Model.FK_Feedback_ToTable" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

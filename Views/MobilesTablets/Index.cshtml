@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Mobiles";
+    ViewBag.Title = "Buy and sell Mobile phones|Buy second hand mobiles";
 }
 
 @*<div class="row wrapper border-bottom white-bg page-heading">
@@ -62,7 +62,7 @@
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
             <div data-bind="visible:!isLoading()">
-                <a data-bind="visible:!mobileAccessories(),click:function(){ return createAd('/MobilesTablets/Create')}" class="pull-right btn btn-danger">Create Mobile Ad</a>
+                <a data-bind="visible:!mobileAccessories(),click:function(){ return createAd('/MobilesTablets/Create')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Create Mobile Ad</a>
                 <a data-bind="visible:mobileAccessories(),click:function(){ return createAd('/MobilesTablets/CreateMobileAccessoriesAd')}" class="pull-right btn btn-danger">Create Mobile Accessories Ad</a>
                 <span data-bind="text:showAds().length"> </span> results found<br />
                 <b>Summary:</b> Showing <span data-bind="visible: !( minPrice() != 0 || maxPrice() != 50000 || searchingCity() || brand() || model() || tags() )"> all </span> <b> <span data-bind="visible:mobileAccessories()"> Mobile Accessories </span> <span data-bind="visible:!mobileAccessories()">Mobiles</span> </b><span data-bind="visible:brand || model"> of </span> <b> <span data-bind="text:brand"></span> <span data-bind="text:model"> </b>
@@ -336,6 +336,7 @@
         
         
         $(function () {
+            $('.ladda-button').ladda('bind', { timeout: 200000 });
             toastr.options = {
                 closeButton: true,
                 progressBar: true,
