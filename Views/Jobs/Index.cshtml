@@ -95,7 +95,12 @@
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
             <div data-bind="visible:!isLoading()">
-                <a data-bind="click:function(){ return createAd('/Jobs/Create')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Create Job Ad</a>
+                <span data-bind="visible:loginUserId() != 'Visitor'">
+                    <a data-bind="click:function(){ return createAd('/Jobs/Create')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Create Job Ad</a>
+                </span>
+                <span data-bind="visible:loginUserId() == 'Visitor'">
+                    <a data-bind="click:function(){ return createAd('/Jobs/Create')}" class="pull-right btn btn-danger">Create Job Ad</a>
+                </span>
                 <span data-bind="text:showAds().length"> </span> results found<br />
                 @*<b>Summary:</b> 
                 <span data-bind="visible:tags()"> with tags <b> '<span data-bind="text:tags"></span>' </b></span>
@@ -118,8 +123,6 @@
         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"></div>
     </div>
 </div>
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
@@ -253,26 +256,22 @@
             labelField: 'name',
             searchField: 'name',
             options: [],
-            maxItems: 4,
+            maxItems: 6,
+            create: true,
             render: {
                 option: function (item, escape) {
                     return '<div>' +
-                        '<span class="title">' +
+                        '<span class="">' +
                             '<span class="name">' + escape(item.name) + '</span>' +
 
                         '</span>' +
-                        '<span class="description">' + escape(item.info) + '</span>' +
-                        '<ul class="meta">' +
-                            '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
-                            '<li class="forks"><span>' + escape(item.questions) + '</span> times used</li>' +
-                        '</ul>' +
                     '</div>';
                 }
             },
             load: function (query, callback) {
                 if (!query.length) return callback();
                 $.ajax({
-                    url: '/api/Tag/SearchTags?s=' + encodeURIComponent(query),
+                    url: '/api/Job/SearchSkills?s=' + encodeURIComponent(query),
                     type: 'POST',
                     error: function () {
                         callback();
@@ -284,6 +283,12 @@
             }
         });
         $(function () {
+            var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            if(w < 786){
+                $('.collapse-link').click();
+            }
+
             $('.ladda-button').ladda('bind', { timeout: 200000 });
             toastr.options = {
                 closeButton: true,

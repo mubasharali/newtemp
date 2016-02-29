@@ -13,10 +13,10 @@
         { <text>Classified in mobiles, laptops, vehicles, RealEstate, Jobs, Services, Electronics, Animals, Study, Entertainment, Matrimonal, Home Appliances, Business  </text> }
     | MyWebLogo
     </title>
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/font-awesome/css")
-    @RenderSection("Styles", required: false)
     
+    @RenderSection("Styles", required: false)
+    @Styles.Render("~/Content/css")
+@Styles.Render("~/font-awesome/css")
     @Styles.Render("~/scripts/selectizeStyles")
   @Styles.Render("~/plugins/laddaStyles")
     <link href="~/Content/myStyles.css" rel="stylesheet" /> 
@@ -41,7 +41,8 @@
 
             <!-- Main view  -->
             @RenderBody()
-
+            @*@Html.Partial("/Views/Shared/_Chat.cshtml")*@
+            @Html.Partial("~/Views/Shared/_UserLogin.cshtml")
             <!-- Footer -->
             @Html.Partial("_Footer")
             @Html.Partial("~/Views/Search/_SearchLocation.cshtml")
@@ -68,11 +69,20 @@
     <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/app/chat.js"></script>
     <script src="~/Scripts/UserLogin.js"></script>
+    <script src="~/Scripts/app/GetLoginUserId.js"></script>
         @RenderSection("scripts", required: false)
     <script>
         $(function () {
             $.connection.hub.start().done();
         })
+        function authForFeedback() {
+            if (loginUserId() != "Visitor") {
+                window.location.href = '/Feedback-contact';
+            }
+            else {
+                loginBtn();
+            }
+        }
     </script>
 </body>
 </html>

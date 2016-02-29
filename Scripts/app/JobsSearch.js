@@ -149,6 +149,7 @@ function JobsViewModel() {
     var self = this;
     self.showAds = ko.observableArray();
     self.isLoading = ko.observable(false);
+    RefreshSearch();
     searchingCity.subscribe(function () {
         RefreshSearch();
     })
