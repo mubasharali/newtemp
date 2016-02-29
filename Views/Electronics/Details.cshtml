@@ -31,7 +31,7 @@
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
             <div data-bind="visible:!isLoading()">
-                <div data-bind="with: showAds()">
+                <div id="showAd" style="display:none" data-bind="with: showAds()">
                     <div data-bind="visible:statusError" class="alert alert-success">
                         <strong>Pending admin approval! </strong><span data-bind="text:statusError"></span>
                     </div>
@@ -1061,7 +1061,9 @@
                 .done(function (data) {
                     self.isLoading(false);
                     //var mappedads = $.map(data, function (item) { return new ad(item,self.commentsHub); });
+                    $("#showAd").css("display", "block");
                     self.showAds(new ad(data));
+                   
                     $(".sortable-list").sortable({
                         connectWith: ".connectList"
                     }).disableSelection();
