@@ -67,10 +67,10 @@
                 <ul class="nav nav-second-level collapse">
                     <li class="@Html.IsSelected(action: "Cars")"><a href="@Url.Action("Cars","Vehicles")"><i class="fa fa-car"></i> Cars</a></li>
                     <li class="@Html.IsSelected(action: "Bikes")"><a href="@Url.Action("Bikes", "Vehicles")"><i class="fa fa-motorcycle"></i>Bikes</a></li>
-                    <li class="@Html.IsSelected(action: "Computers")"><a href="@Url.Action("Index", "Vehicles", new {category = "commerical-vehicles"})"><i class="fa fa-truck"></i>Commerical Vehicles</a></li>
-                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Index", "Vehicles", new {category = "vehicles-for-rent" })"><i class="fa fa-money"></i>Vehicles For Rent</a></li>
-                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Index", "Vehicles", new { category = "other-vehicles"})"><i class="fa fa-ship"></i>Other Vehicles</a></li>
-                    <li class="@Html.IsSelected(action: "Others")"><a href="@Url.Action("Index", "Vehicles", new { category = "spare-parts"})"><i class="fa fa-sitemap"></i>Spare parts</a></li>
+                    <li class="@Html.IsSelected(action: "CommericalVehicles")"><a href="@Url.Action("CommericalVehicles", "Vehicles")"><i class="fa fa-truck"></i>Commerical Vehicles</a></li>
+                    <li class="@Html.IsSelected(action: "VehiclesForRent")"><a href="@Url.Action("VehiclesForRent", "Vehicles")"><i class="fa fa-money"></i>Vehicles For Rent</a></li>
+                    <li class="@Html.IsSelected(action: "OtherVehicles")"><a href="@Url.Action("OtherVehicles", "Vehicles")"><i class="fa fa-ship"></i>Other Vehicles</a></li>
+                    <li class="@Html.IsSelected(action: "SpareParts")"><a href="@Url.Action("SpareParts", "Vehicles")"><i class="fa fa-sitemap"></i>Spare parts</a></li>
                 </ul>
             </li>
             @*<li class="@Html.IsSelected(controller: "Animals")">
