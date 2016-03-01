@@ -419,26 +419,17 @@
     </div>
 </section>
 
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
     @Styles.Render("~/plugins/toastrStyles")
-    @Styles.Render("~/Content/plugins/jsTree")
-    @Styles.Render("~/plugins/sweetAlertStyles")
 }
 
 
 @section Scripts{
-    @Scripts.Render("~/plugins/toastr")
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
-    @Scripts.Render("~/plugins/knockout")
     @Scripts.Render("~/plugins/slick")
-    @Scripts.Render("~/plugins/jsTree")
-    @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/plugins/sweetAlert")
     <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
 <script src="~/signalr/hubs"></script>
 <script src="~/Scripts/app/chat.js"></script>

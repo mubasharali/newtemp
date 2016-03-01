@@ -101,8 +101,6 @@
         <div class="col-lg-2 hidden-md hidden-sm hidden-xs"> </div>
     </div>
 </div>
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
@@ -113,12 +111,10 @@
 }
 
 @section Scripts{
-    @Scripts.Render("~/plugins/toastr")
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
-    @Scripts.Render("~/plugins/knockout")
     @Scripts.Render("~/plugins/slick")
-    @Scripts.Render("~/plugins/jsTree")
+<link href="~/Content/plugins/jsTree/style.css" rel="stylesheet" />
     @Scripts.Render("~/plugins/ionRange")
     <script src="~/Scripts/app/SearchCamera.js"></script>
     <script src="~/Scripts/app/slick-knockout-binding.js"></script>
