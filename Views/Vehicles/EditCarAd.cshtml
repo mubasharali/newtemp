@@ -1,6 +1,6 @@
 ﻿
 @model Inspinia_MVC5_SeedProject.Models.Ad
-
+@using Inspinia_MVC5_SeedProject.CodeTemplates;
 @{
 
     ViewBag.Title = "Edit Car Ad";
@@ -19,7 +19,7 @@
                         </div>
                     </form>
                     <br />
-                    @using (Html.BeginForm("UpdateLaptopAd", "Electronics", FormMethod.Post, new { id = "form" }))
+                    @using (Html.BeginForm("EditCarAd", "Vehicles", FormMethod.Post, new { id = "form" }))
                     {
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="files" id="fileNames" />
@@ -144,7 +144,7 @@
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" data-bind="click:submitClicked" value="Update" class="btn btn-primary" />
-                                    <a href="/Electronics/Details/@Model.Id" class="btn btn-white">Cancel</a>
+                                    <a href="/Details/@Model.Id/@ElectronicsController.URLFriendly( @Model.title )" class="btn btn-white">Cancel</a>
                                 </div>
                             </div>
 
@@ -367,7 +367,7 @@
                                         '<span class="description">' + escape(item.info) + '</span>' +
                                         '<ul class="meta">' +
                                             '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
-                                            '<li class="forks"><span>' + escape(item.questions) + '</span> questions asked</li>' +
+                                            '<li class="forks"><span>' + escape(item.questions) + '</span> times used</li>' +
                                         '</ul>' +
                                     '</div>';
                                 }

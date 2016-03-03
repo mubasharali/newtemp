@@ -62,7 +62,7 @@
             <div data-bind="visible:isLoading()">
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
-            <div data-bind="visible:!isLoading()">
+            <div id="FirstLoading" style="display:none" data-bind="visible:!isLoading()">
                 <a data-bind="visible:!laptopAccessories(),click:function(){ return createAd('/Electronics/CreateLaptopAd')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Create Laptop Ad</a>
                 <a data-bind="visible:laptopAccessories(),click:function(){ return createAd('/Electronics/CreateLaptopAccessoriesAd')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Create Laptop Accessories Ad</a>
                 <span data-bind="text:showAds().length"> </span> results found<br />
@@ -102,15 +102,10 @@
    @Scripts.Render("~/plugins/jsTree")
     @Scripts.Render("~/plugins/ionRange")
     <script src="~/Scripts/app/LaptopTree.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/app/chat.js"></script>
-    <script src="~/Scripts/UserLogin.js"></script>
     <script src="~/Scripts/app/slick-knockout-binding.js"></script>
     <script src="~/Scripts/app/CreateAlert.js"></script>
 <script src="~/Scripts/app/_AdListView.js"></script>
 <script src="~/Scripts/app/_Truncate-knockout-binding.js"></script>
-<script src="~/Scripts/app/GetLoginUserId.js"></script>
     <script>
         
         function viewModel() {

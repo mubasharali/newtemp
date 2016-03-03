@@ -1,22 +1,10 @@
 ﻿@model Inspinia_MVC5_SeedProject.Models.Ad
-
+@using Inspinia_MVC5_SeedProject.CodeTemplates;
 @{
     Layout = "/Views/Shared/_Layout_Without_Signalr.cshtml";
     ViewBag.Title = "Create";
 }
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Edit</h2>
-        <ol class="breadcrumb">
-            <li>
-                @Html.ActionLink("List", "Index")
-            </li>
-            <li class="active">
-                <strong>Create</strong>
-            </li>
-        </ol>
-    </div>
-</div>
+
 
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -40,7 +28,7 @@
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" value="Update" class="btn btn-primary" />
-                                    <a href="/Electronics/Details/@Model.Id" class="btn btn-white">Cancel</a>
+                                    <a href="/Details/@Model.Id/@ElectronicsController.URLFriendly( @Model.title )" class="btn btn-white">Cancel</a>
                                 </div>
                             </div>
 
@@ -240,7 +228,7 @@
                                         '<span class="description">' + escape(item.info) + '</span>' +
                                         '<ul class="meta">' +
                                             '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
-                                            '<li class="forks"><span>' + escape(item.questions) + '</span> questions asked</li>' +
+                                            '<li class="forks"><span>' + escape(item.questions) + '</span> times used</li>' +
                                         '</ul>' +
                                     '</div>';
                                 }

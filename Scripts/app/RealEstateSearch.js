@@ -69,6 +69,7 @@ function RefreshSearch() {
         success: function (data) {
             self.isLoading(false);
             var mappedads = $.map(data, function (item) { return new Ad(item); });
+            $("#FirstLoading").css("display", "block");
             self.showAds(mappedads);
             $("#select-rooms").selectize();
             $("#select-subcategory").selectize();

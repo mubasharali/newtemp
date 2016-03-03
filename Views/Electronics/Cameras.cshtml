@@ -77,7 +77,7 @@
             <div data-bind="visible:isLoading()">
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
-            <div data-bind="visible:!isLoading()">
+            <div id="FirstLoading" style="display:none" data-bind="visible:!isLoading()">
                 <a data-bind="visible:!laptopAccessories(),click:function(){ return createAd('/Electronics/CreateCameraAd')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Camera </a>
                 <a data-bind="visible:laptopAccessories(),click:function(){ return createAd('/Electronics/CreateCameraAccessoriesAd')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Camera Accessories</a>
                 <span data-bind="text:showAds().length"> </span> results found<br />
