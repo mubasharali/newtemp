@@ -1,9 +1,34 @@
 ﻿
 <div class="row wrapper border-bottom white-bg page-heading">
+    <br /> <br /><br />
+    <div class="col-sm-4">
+
+        <div class="control-group">
+            @*<label class="control-label col-md-2" for="select-repo">Tags <br /><small class="text-navy">optional</small></label>*@
+            <div class="">
+                <input id="select-tag" name="tags" data-bind="value:selectedTag" class="repositories" placeholder="Search tags e.g, evo,ups" />
+            </div>
+        </div>
+
+       
+        </div>
+    <div class="col-sm-8">
+        <div class="form-group">
+            <input type="text" placeholder="Search by ads title & description" class="form-control" name="s" @*data-bind="value:title"*@ id="top-search">
+        </div>
+        @*<div class="pull-right">
+
+            <a href="/Forum/Create" data-style="expand-left" class="ladda-button btn btn-danger">Ask Question</a>
+        </div>*@
+    </div>
+
     <div class="">
+
+        
         <br />
         
-        <div class="col-xs-12">
+        <div class="col-xs-12"><br />
+<br />
             <h3>Categories</h3>
             <div class="row">
                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
@@ -426,6 +451,7 @@
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
     @Styles.Render("~/plugins/toastrStyles")
+@Styles.Render("~/bundles/tagStyles")
 }
 
 
@@ -433,12 +459,9 @@
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
     @Scripts.Render("~/plugins/slick")
-    <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
-<script src="~/signalr/hubs"></script>
-<script src="~/Scripts/app/chat.js"></script>
-<script src="~/Scripts/UserLogin.js"></script>
 
     <script>
+       
         function Tag(data) {
             var self = this;
             data = data || {};
@@ -551,6 +574,10 @@
             ChatViewModel();
             var self = this;
             self.showAds = ko.observableArray();
+            self.selectedTag = ko.observable();
+            self.selectedTag.subscribe(function () {
+                window.location.href = "/Search";
+            })
             self.loadad = function () {
                 url_address = '/api/Electronic/GetMobileTrends';
                 $.ajax({
@@ -676,6 +703,42 @@
 
             return { init: init, update: update };
         })();
+        $('#select-tag').selectize({
+            valueField: 'name',
+            labelField: 'name',
+            searchField: 'name',
+            options: [],
+            maxItems: 4,
+            create: true,
+            render: {
+                option: function (item, escape) {
+                    return '<div>' +
+                        '<span class="title">' +
+                            '<span class="name">' + escape(item.name) + '</span>' +
+
+                        '</span>' +
+                        '<span class="description">' + escape(item.info) + '</span>' +
+                        '<ul class="meta">' +
+                            '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
+                            '<li class="forks"><span>' + escape(item.questions) + '</span> times Used</li>' +
+                        '</ul>' +
+                    '</div>';
+                }
+            },
+            load: function (query, callback) {
+                if (!query.length) return callback();
+                $.ajax({
+                    url: '/api/Tag/SearchTags?s=' + encodeURIComponent(query),
+                    type: 'POST',
+                    error: function () {
+                        callback();
+                    },
+                    success: function (res) {
+                        callback(res.slice(0, 10));
+                    }
+                });
+            }
+        });
         $(document).ready(function () {
 
             toastr.options = {

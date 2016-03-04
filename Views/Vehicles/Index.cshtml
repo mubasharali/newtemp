@@ -36,17 +36,37 @@
 
 
 <div class="wrapper wrapper-content animated fadeInRight">
+    <input type="hidden" id="category" value="@ViewBag.category" />
+    <input id="subcategory" type="hidden" value="@ViewBag.subcategory" />
     <div class="row">
         <div class="col-sm-4 col-md-3 col-lg-3">
-            <div class="">
-                <input type="hidden" id="category" value="@ViewBag.category" />
-                <input id="subcategory" type="hidden" value="@ViewBag.subcategory" />
+            @*<div class="">
+                
                 <div class="ibox-title"><h5> search by tags</h5></div>
                 <div class="ibox-content"><input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." /></div>
                 <div class="ibox-title"><h5> search by Price</h5></div>
                 <div id="ionrange_1"></div>
                 @Html.Partial("/Views/Shared/_CreateAlert.cshtml")
+            </div>*@
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Search Filters</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <h5> search by tags</h5>
+                    <input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." />
+                    <hr />
+                    <h5> search by Price</h5>
+                    <div id="ionrange_1"></div>
+
+                </div>
             </div>
+            @Html.Partial("/Views/Shared/_CreateAlert.cshtml")
         </div>
         <div class="col-sm-8 col-md-9 col-lg-7">
             <div data-bind="visible:isLoading()">
@@ -219,14 +239,11 @@
             $('.product-images').slick({
                 dots: true
             });
-            // ko.applyBindings(new viewModel, (document.getElementById('ads')));
-
-            // ko.applyBindings(new treeModel, document.getElementById('navigation'));
+            var length = $(window).width();
+            if (length < 786) { //770
+                $(".collapse-link").click();
+            }
             ko.applyBindings(new viewModel);
-            //window.onload = function () {
-            //    ko.applyBindings(new viewModel);
-            //};
-
         });
 
     </script>

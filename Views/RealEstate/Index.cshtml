@@ -40,7 +40,7 @@
             <div class="">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Advance Search</h5>
+                        <h5>Search Filters</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -210,13 +210,14 @@
             $('.product-images').slick({
                 dots: true
             });
-            // ko.applyBindings(new viewModel, (document.getElementById('ads')));
-
-            // ko.applyBindings(new treeModel, document.getElementById('navigation'));
+            var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            if (w < 786) {
+                //  $("#advanceSearch").closest('.collapse-link').click();
+                $('.collapse-link').click();
+            }
             ko.applyBindings(new viewModel);
-            //window.onload = function () {
-            //    ko.applyBindings(new viewModel);
-            //};
+            
 
         });
 
