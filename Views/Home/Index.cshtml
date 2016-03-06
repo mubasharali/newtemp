@@ -226,8 +226,15 @@
                 slickIndex: imageIndex">
             </div>*@
 
-            @*<div class="slick_demo_2" data-bind="foreach:showAds">
-
+            <div @* class="slick_demo_2" data-bind="foreach:showAds"*@>
+                <span id="gallery" data-gallery=""
+                      data-bind="slick: showAds,
+    slickOptions: { slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 2000,},
+    slickIndex: imageIndex">
+                </span>
                 <div class="">
                     <div class="ibox-content product-box">
 
@@ -241,7 +248,7 @@
                     </div>
                 </div>
 
-            </div>*@
+            </div>
         </div>
     </div>
     <div class="row">
@@ -482,6 +489,7 @@
             return "/Images/Ads/" + adId + '_' + imagesCount + data.imageExtension;
 
         }
+        var imageIndex = ko.observable(1);
         function ad(data) {
             var self = this;
 

@@ -1,12 +1,207 @@
 ﻿
+@*<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+            <div data-bind="foreach:showAds">
 
-<h5>Job type</h5>
-<h5 data-bind="foreach:availableCategories"><span data-bind="text:$data"></span></h5>
-<select id="select-category1" class="demo-default" data-bind="options: availableCategories,
-                       value: selectedCategory,
-                       optionsCaption: 'Select City...'"></select>
-<h5 data-bind="foreach:availableCategories"><span data-bind="text:$data"></span></h5>
-<hr />
+                <div class="col-md-4 col-sm-6 col-lg-3">
+                    <div class="ibox">
+                        <div class="ibox-content product-box">
+
+                            <div class="product-imitation">
+                                <div class="carouselContainer">
+                                    <span id="gallery" data-gallery=""
+                                          data-bind="slick: images,
+    slickOptions: { initialSlide:0},
+    slickIndex: imageIndex">
+                                    </span>
+                                    <div data-bind="visible:images().length == 0"><h2><br /><br /><br /><br /> No Images<br /><br /><br /><br /><br /></h2></div>
+                                </div>
+                            </div>
+                            <div class="product-desc">
+                                <span class="product-price">
+                                    <span data-bind="if:!isBidingAllowed">
+                                        <span data-bind="if:price">
+                                            <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted">Rs. <span data-bind="html:isNegotiable"></span></small>
+                                        </span>
+                                        <span data-bind="if:!price">Price on contact</span>
+                                    </span>
+                                    <span data-bind="if:isBidingAllowed">
+                                        <span data-bind="if:price">
+                                            <span data-bind="if:highestBid() == '-Infinity'">
+                                                <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted ">Rs. (Initial Bid) </small>
+                                            </span>
+                                            <span data-bind="ifnot:highestBid() == '-Infinity'">
+                                                <span data-bind="text:highestBid"></span> <small style="font-size:13px" class="text-muted ">Rs. (current Bid) </small>
+                                            </span>
+                                        </span>
+                                        <span data-bind="if:!price">
+                                            <span data-bind="if:highestBid() == '-Infinity'">
+                                                No Bit yet
+                                            </span>
+                                            <span data-bind="ifnot:highestBid() == '-Infinity'">
+                                                <span data-bind="text:highestBid"></span> <small style="font-size:13px" class="text-muted ">Rs. (current Bid) </small>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </span>
+                                <small class="text-muted">Mobile</small>
+                                <a href="#" class="product-name" data-bind="text:title,attr:{href:link}"> </a>
+
+
+
+                                <div class="small m-t-xs" data-bind="foreach:showTags">
+                                    <a target="_blank" data-bind="attr:{href:'/Tag/'+name}"> <span class="btn btn-xs btn-white" data-bind="text:name"></span></a>
+                                </div>
+                                <div class="m-t text-righ">
+
+                                    <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+            .carouselContainer {
+                overflow: hidden;
+                //height:350px;
+                margin: 0px;
+                padding: 0px;
+            }
+
+            #gallery {
+                margin: 0px;
+                padding: 0px;
+            }
+
+            .product-imitation {
+                margin: 0px;
+                padding: 0px;
+              //  width:250px !important; 
+                /apply max-padding or default image;
+            }
+
+            .carouselContainer img {
+                // height: 350px;
+                width: 250px;
+                height: 250px;
+            }
+            .showAds .ibox {
+              //  height: 420px;
+            }
+        </style>
+   
+</div>*@
+
+
+
+<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+            <div data-bind="foreach:showAds">
+
+                <div class="col-md-4 col-sm-6 col-lg-3">
+                    <div class="ibox">
+                        <div class="ibox-content product-box">
+
+                            <div class="product-imitation">
+                                <div class="carouselContainer">
+                                    <span id="gallery" data-gallery=""
+                                          data-bind="slick: images,
+    slickOptions: { slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 2000,},
+    slickIndex: imageIndex">
+                                    </span>
+                                    <div data-bind="visible:images().length == 0"><h2><br /><br /><br /><br /> No Images<br /><br /><br /><br /><br /></h2></div>
+                                </div>
+                            </div>
+                            <div class="product-desc">
+                                <span class="product-price">
+                                    <span data-bind="if:!isBidingAllowed">
+                                        <span data-bind="if:price">
+                                            <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted">Rs. <span data-bind="html:isNegotiable"></span></small>
+                                        </span>
+                                        <span data-bind="if:!price">Price on contact</span>
+                                    </span>
+                                    <span data-bind="if:isBidingAllowed">
+                                        <span data-bind="if:price">
+                                            <span data-bind="if:highestBid() == '-Infinity'">
+                                                <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted ">Rs. (Initial Bid) </small>
+                                            </span>
+                                            <span data-bind="ifnot:highestBid() == '-Infinity'">
+                                                <span data-bind="text:highestBid"></span> <small style="font-size:13px" class="text-muted ">Rs. (current Bid) </small>
+                                            </span>
+                                        </span>
+                                        <span data-bind="if:!price">
+                                            <span data-bind="if:highestBid() == '-Infinity'">
+                                                No Bit yet
+                                            </span>
+                                            <span data-bind="ifnot:highestBid() == '-Infinity'">
+                                                <span data-bind="text:highestBid"></span> <small style="font-size:13px" class="text-muted ">Rs. (current Bid) </small>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </span>
+                                <small class="text-muted">Mobile</small>
+                                <a href="#" class="product-name" data-bind="text:title,attr:{href:link}"> </a>
+
+
+
+                                <div class="small m-t-xs" data-bind="foreach:showTags">
+                                    <a target="_blank" data-bind="attr:{href:'/Tag/'+name}"> <span class="btn btn-xs btn-white" data-bind="text:name"></span></a>
+                                </div>
+                                <div class="m-t text-righ">
+
+                                    <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .carouselContainer {
+            overflow: hidden;
+            //height:350px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #gallery {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .product-imitation {
+            margin: 0px;
+            padding: 0px;
+            // width:250px !important;
+            /apply max-padding or default image;
+        }
+
+        .carouselContainer img {
+            // height: 350px;
+            width: 250px;
+            height: 250px;
+        }
+
+        .showAds .ibox {
+            // height: 420px;
+        }
+    </style>
+
+</div>
+
+
+
+
 
 
 
@@ -14,59 +209,32 @@
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
     @Styles.Render("~/plugins/toastrStyles")
-    @Styles.Render("~/Content/plugins/jsTree")
     @Styles.Render("~/plugins/sweetAlertStyles")
-@Styles.Render("~/scripts/selectizeStyles")
 }
 
 
 @section Scripts{
-    @Scripts.Render("~/plugins/toastr")
 @Scripts.Render("~/plugins/timeago")
 @Scripts.Render("~/plugins/autosize")
-@Scripts.Render("~/plugins/knockout")
 @Scripts.Render("~/plugins/slick")
-@Scripts.Render("~/plugins/jsTree")
-@Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/plugins/sweetAlert")
-@Scripts.Render("~/scripts/selectize")
+
+<script src="~/Scripts/app/RealEstateSearch.js"></script>
+<script src="~/Scripts/app/slick-knockout-binding.js"></script>
+<script src="~/Scripts/app/CreateAlert.js"></script>
+<script src="~/Scripts/app/_AdListView.js"></script>
+<script src="~/Scripts/app/_Truncate-knockout-binding.js"></script>
+<script src="~/Scripts/app/GetLoginUserId.js"></script>
+
     <script>
-        //function SearchingLocation() {
-        //    var self = this;
-            
-        //}
         function viewModel() {
-            AccountViewModel();
-            ChatViewModel();
             SearchingLocation();
-            var self = this;
-            self.availableCategories = ko.observableArray( new Array("a","b","c","d") );
-            self.selectedCategory = ko.observable();
+            CreateAlert();
+            TreeViewModel();
+            RefreshSearch();
+            ChatViewModel();
+            AccountViewModel();
             
-            
-            self.loadCities = function () {
-                $.ajax({
-                    url: '/api/Location/GetCities',
-                    dataType: "json",
-                    contentType: "application/json",
-                    cache: false,
-                    type: 'GET',
-                    success: function (data) {
-                        $.each((data), function (i, item) { self.availableCategories.push(item) });
-                        $('#select-category1').selectize({
-                            create: true,
-                            sortField: {
-                                field: 'text',
-                                direction: 'asc'
-                            },
-                        });
-                    },
-                    error: function (jqXHR, status, thrownError) {
-                        toastr.error("failed to load Cities.Please refresh page and try again", "Error");
-                    }
-                });
-            }
-            self.loadCities();
 
         }
 

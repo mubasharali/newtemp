@@ -12,7 +12,7 @@ function Bid(data) {
 }
 var imageUrls = [];
 function adImages(data, adId, imagesCount) {
-    return "/Images/Ads/" + adId + '_' + imagesCount + data.imageExtension;
+    return "https://s3.amazonaws.com/dealkr/Ads/" + adId + '_' + imagesCount + data.imageExtension;
 }
 function Location(data) {
     var self = this;

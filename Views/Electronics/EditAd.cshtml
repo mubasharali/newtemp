@@ -1,8 +1,7 @@
 ﻿@model Inspinia_MVC5_SeedProject.Models.Ad
 @using Inspinia_MVC5_SeedProject.CodeTemplates;
 @{
-    Layout = "/Views/Shared/_Layout_Without_Signalr.cshtml";
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
 
@@ -151,6 +150,9 @@
     <script type="text/javascript">
 
         function ViewModel() {
+            SearchingLocation();
+            AccountViewModel();
+            ChatViewModel();
             var self = this;
             self.conditionChecked = ko.observable(false);
             self.typeValue = ko.observable("sell");
