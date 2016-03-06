@@ -19,7 +19,7 @@ create electronic ad:
             <div data-bind="visible:loading()">
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
-            <div data-bind="visible:!loading()">
+            <div id="FirstLoading" style="display:none" data-bind="visible:!loading()">
                 <div class="ibox">
                     <div class="ibox-content">
                         <div data-bind="visible:!categorySelected()">
@@ -36,18 +36,18 @@ create electronic ad:
                             <ul class="sortable-list connectList agile-list">
                                 <span data-bind="if:category() == 'Mobiles'">
                                     <li class="success-element" data-bind="click:mobiles">Mobiles</li>
-                                    <li class="success-element"  data-bind="click:mobileAccessories">Mobile Accessories</li>
+                                    <li class="success-element" data-bind="click:mobileAccessories">Mobile Accessories</li>
                                 </span>
                                 <span data-bind="if:category() == 'Electronics'">
                                     <li data-bind="click:laptops" class="warning-element">
                                         Laptops / Computers
                                     </li>
                                     @*<li class="success-element">
-                                        watches
-                                    </li>
-                                    <li class="danger-element">
-                                        others
-                                    </li>*@
+                                    watches
+                                </li>
+                                <li class="danger-element">
+                                    others
+                                </li>*@
                                 </span>
                                 <span data-bind="if:category() == 'Vehicles'">
                                     <li data-bind="click:carsClicked" class="info-element">
@@ -66,8 +66,8 @@ create electronic ad:
                             <h3>Select</h3>
                             <ul class="agile-list sortable-list connectList ">
                                 <span data-bind="if:subcategory() == 'laptops'">
-                                    <li class="success-element"  data-bind="click:laptopsClicked">Laptops / Computers</li>
-                                    <li class="success-element"  data-bind="click:laptopAccessoriesClicked">Laptops / Computers Accessories</li>
+                                    <li class="success-element" data-bind="click:laptopsClicked">Laptops / Computers</li>
+                                    <li class="success-element" data-bind="click:laptopAccessoriesClicked">Laptops / Computers Accessories</li>
                                 </span>
                             </ul>
                             <button class="btn" data-bind="click:backButtonUnderSubcategory">Back</button>
@@ -175,6 +175,7 @@ create electronic ad:
             
                 $(document).ready(function () {
                     ko.applyBindings(new ViewModel());
+                    $("#FirstLoading").css({ "display": "block" });
                     $(".sortable-list").sortable({
                         connectWith: ".connectList"
                     }).disableSelection();

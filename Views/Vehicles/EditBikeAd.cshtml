@@ -490,7 +490,7 @@
                         for (i = 0; i < images.length; i++) {
                             // images[i].name = $.trim(images[i].name);
                             myDropzone1.options.addedfile.call(myDropzone1, images[i]);
-                            myDropzone1.options.thumbnail.call(myDropzone1, images[i], "/Images/Ads/" + images[i].name);
+                            myDropzone1.options.thumbnail.call(myDropzone1, images[i], $.cookie("AWSURL") + $.cookie("AWSFolderName") + images[i].name);
                         }
                     }
                 },

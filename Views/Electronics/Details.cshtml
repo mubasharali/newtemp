@@ -581,7 +581,7 @@
         function adImages(data,adId,imagesCount) {
             var self = this;
             data = data || {};
-            self.link = "https://s3.amazonaws.com/dealkr/Ads/" + adId + '_' + imagesCount + data.imageExtension;// also loop after _
+            self.link = "https://s3.amazonaws.com/dealkr/" + $.cookie("AWSFolderName") + adId + '_' + imagesCount + data.imageExtension;// also loop after _
             imageUrls.push(self.link);
         }
         function Tag(data) {
