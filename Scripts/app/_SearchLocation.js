@@ -79,10 +79,10 @@ function SearchingLocation() {
         if (!searchingCity()) {
             searchingPP("");
         }
-        $.cookie("searchCity", searchingCity(), { path: '/', domain: 'newtemp.apphb.com/' });
+        $.cookie("searchCity", searchingCity(), { path: '/'});
         self.loadPopularPlaces();
     })
     searchingPP.subscribe(function (value) {
-        $.cookie("searchPP", searchingPP(), { path: '/', domain: 'newtemp.apphb.com/' });
+        $.cookie("searchPP", searchingPP(), { path: '/' });
     })
 }

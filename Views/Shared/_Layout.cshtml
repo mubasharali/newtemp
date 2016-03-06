@@ -78,8 +78,8 @@
     <script>
         $(function () {
             $.connection.hub.start().done();
-            $.cookie("AWSFolderName", "tempAds/", { path: '/', domain: 'newtemp.apphb.com/' });
-            $.cookie("AWSURL", "https://s3.amazonaws.com/dealkr/", { path: '/', domain: 'newtemp.apphb.com/' });
+            $.cookie("AWSFolderName", "Ads/", { path: '/' });
+            $.cookie("AWSURL", "https://s3.amazonaws.com/dealkr/", { path: '/' });
         })
         function authForFeedback() {
             if (loginUserId() != "Visitor") {
