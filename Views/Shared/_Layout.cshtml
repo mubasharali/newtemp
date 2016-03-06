@@ -78,7 +78,7 @@
     <script>
         $(function () {
             $.connection.hub.start().done();
-            $.cookie("AWSFolderName", "Ads/", { path: '/', domain: 'localhost' });
+            $.cookie("AWSFolderName", "tempAds/", { path: '/', domain: 'localhost' });
             $.cookie("AWSURL", "https://s3.amazonaws.com/dealkr/", { path: '/', domain: 'localhost' });
         })
         function authForFeedback() {
