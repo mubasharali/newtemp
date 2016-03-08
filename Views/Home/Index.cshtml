@@ -1,26 +1,24 @@
 ﻿
 <div class="row wrapper border-bottom white-bg page-heading">
     <br /> <br /><br />
-    <div class="col-sm-4">
+    <div class="col-sm-12">
 
-        <div class="control-group">
-            @*<label class="control-label col-md-2" for="select-repo">Tags <br /><small class="text-navy">optional</small></label>*@
-            <div class="">
-                <input id="select-tag" name="tags" data-bind="value:selectedTag" class="repositories" placeholder="Search tags e.g, evo,ups" />
+        <div class="control-group form-horizontal">
+
+            <label class="control-label col-sm-5" for="select-repo">What are you looking for <br /><small class="text-navy hidden-xs">pick tags</small></label>
+            <div class="col-sm-5 col-md-4">
+                <input id="select-tag" name="tags" data-bind="value:selectedTag" class="repositories" placeholder="e.g, Samsung S3, evo, ups, washing mechine.." />
+
             </div>
         </div>
 
        
         </div>
-    <div class="col-sm-8">
+    @*<div class="col-sm-8">
         <div class="form-group">
-            <input type="text" placeholder="Search by ads title & description" class="form-control" name="s" @*data-bind="value:title"*@ id="top-search">
+            <input type="text" placeholder="Search by ads title & description" class="form-control" name="s" id="top-search">
         </div>
-        @*<div class="pull-right">
-
-            <a href="/Forum/Create" data-style="expand-left" class="ladda-button btn btn-danger">Ask Question</a>
-        </div>*@
-    </div>
+    </div>*@
 
     <div class="">
 
@@ -584,6 +582,7 @@
             self.showAds = ko.observableArray();
             self.selectedTag = ko.observable();
             self.selectedTag.subscribe(function () {
+                $.cookie("selectedTag", self.selectedTag(), { path: '/Search' });
                 window.location.href = "/Search";
             })
             self.loadad = function () {
