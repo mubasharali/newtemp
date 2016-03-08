@@ -368,7 +368,7 @@
             self.hideEmail = data.hideEmail;
             self.hidePhoneNumber = data.hidePhoneNumber;
             self.hideDateOfBirth = data.hideDateOfBirth;
-            self.dpLink = '/Images/Users/p' + self.id + data.dpExtension;
+            self.dpLink = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + 'p' + self.id + data.dpExtension;
             if (!data.dpExtension) {
                 self.dpLink = '/Images/Users/default.jpg';
             }

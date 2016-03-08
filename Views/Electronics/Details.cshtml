@@ -581,7 +581,7 @@
         function adImages(data,adId,imagesCount) {
             var self = this;
             data = data || {};
-            self.link = "https://s3.amazonaws.com/dealkr/" + $.cookie("AWSFolderName") + adId + '_' + imagesCount + data.imageExtension;// also loop after _
+            self.link = $.cookie("AWSURL") + $.cookie("AWSFolderName") + adId + '_' + imagesCount + data.imageExtension;// also loop after _
             imageUrls.push(self.link);
         }
         function Tag(data) {
@@ -638,7 +638,7 @@
             self.id = data.id;
             self.time = getTimeAgo(data.time);
             self.loginUserId = data.islogin || "";
-            self.loginUserProfileLink = '/Images/Users/p' + self.loginUserId + data.loginUserProfileExtension;
+            self.loginUserProfileLink = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + 'p' + self.loginUserId + data.loginUserProfileExtension;
             if (!data.loginUserProfileExtension) {
                 self.loginUserProfileLink = '/Images/Users/default.jpg';
             }

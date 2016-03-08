@@ -69,18 +69,14 @@
     <div class="row">
 
         <div class="col-md-9" id="adsBinding">
-            <div data-bind="visible:error()" class="alert alert-success">
-                <strong>Error! </strong><span data-bind="text:error"></span>
-            </div>
+            
             <div data-bind="visible:!showPage()">
-                <div class="loading">
-                    <div class="sk-spinner sk-spinner-wandering-cubes">
-                        <div class="sk-cube1"></div>
-                        <div class="sk-cube2"></div>
-                    </div>
-                </div>
+                @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
-            <div data-bind="foreach: showPage">
+            <div id="FirstLoading" style="display:none" data-bind="foreach: showPage">
+                <div data-bind="visible:$parent.error()" class="alert alert-success">
+                    <strong>Error! </strong><span data-bind="text:$parent.error"></span>
+                </div>
                 <div data-bind="visible:statusError" class="alert alert-success">
                     <strong>Pending admin approval! </strong><span data-bind="text:statusError"></span>
                 </div>
@@ -88,91 +84,247 @@
                     <div class="ibox product-detail">
                         <div class="ibox-content">
                             <div class="row">
-                                    <div data-bind="visible:!isPageEditing()" class="pull-left profile-image" style="margin-right:12px">
-                                        <img class="m-b-md" data-bind="visible:!logoExtension,attr:{src:'/Images/Company/default_logo.png'}" />
-                                        <img class="m-b-md" data-bind="visible:logoExtension,attr:{src:'/Images/Company/' + id + '/logo' + logoExtension}"  />
-                                        <button data-bind="visible:loginUserId == createdBy" class="btn btn-white btn-xs" type="button" style="margin-top:-5px;" onclick="chooseFile();">upload logo</button>
-                                    </div>
-                                <form action="/Company/uploadLogo"  method="post"  enctype="multipart/form-data"  style="height:0px;overflow:hidden">
+                                <div data-bind="visible:!isPageEditing()" class="pull-left profile-image" style="margin-right:12px">
+                                    <img class="m-b-md" data-bind="attr:{src:logoLink}" />
+                                    @*<img class="m-b-md" data-bind="visible:logoExtension,attr:{src:'/Images/Company/' + id + '/logo' + logoExtension}"  />*@
+                                    <button data-bind="visible:loginUserId == createdBy" class="btn btn-white btn-xs" type="button" style="margin-top:-5px;" onclick="chooseFile();">upload logo</button>
+                                </div>
+                                <form action="/Company/uploadLogo" method="post" enctype="multipart/form-data" style="height:0px;overflow:hidden">
                                     <input type="file" id="fileInput" name="fileInput" onchange="newImage()" />
                                     <input type="hidden" name="id" data-bind="value:id" />
                                     <input type="submit" />
                                 </form>
-                                
-                                    <div data-bind="visible:!isPageEditing()">
-                                        <span data-bind="visible:loginUserId == createdBy">
-                                            <a data-bind="click: function(){return deletePage(id)}" class="btn btn-white btn-xs pull-right "> Delete</a><a data-bind="click: function(){return editPage(id)}" class="btn btn-white btn-xs pull-right"> Edit</a>
-                                        </span>
-                                        <h2 data-bind="text:title" class="font-bold m-b-xs"></h2>
-                                        <p data-bind="text:shortAbout"></p>
-                                        <span class="disableRating" data-bind="starRating:rating"></span> (<span data-bind="text:showReviews().length"></span>)
-                                        
-                                    </div>
-                                    <div data-bind="visible:isPageEditing()">
-                                        Company Name:<input type="text" placeholder="Company Name" class="form-control" data-bind="value:title" required />
-                                        one line description:<input type="text" class="form-control" placeholder="One line description of company" data-bind="value:shortAbout" required />
-                                        tags:
-        <input id="select-tag" data-bind="value:inputTags" class="repositories" placeholder="Pick tags..." />
-                                        <button class="btn btn-primary" data-bind="click:updatePage">Update</button>
-                                    </div>
-                                    <div>
-                                        
-                                    </div>
-                                    <br /><br />
+
+                                <div data-bind="visible:!isPageEditing()">
+                                    <span data-bind="visible:loginUserId == createdBy">
+                                        <a data-bind="click: function(){return deletePage(id)}" class="btn btn-white btn-xs pull-right "> Delete</a><a data-bind="click: function(){return editPage(id)}" class="btn btn-white btn-xs pull-right"> Edit</a>
+                                    </span>
+                                    <h2 data-bind="text:title" class="font-bold m-b-xs"></h2>
+                                    <p data-bind="text:shortAbout"></p>
+                                    <span class="disableRating" data-bind="starRating:rating"></span> (<span data-bind="text:showReviews().length"></span>)
 
                                 </div>
+                                <div data-bind="visible:isPageEditing()">
+                                    Company Name:<input type="text" placeholder="Company Name" class="form-control" data-bind="value:title" required />
+                                    one line description:<input type="text" class="form-control" placeholder="One line description of company" data-bind="value:shortAbout" required />
+                                    tags:
+                                    <input id="select-tag" data-bind="value:inputTags" class="repositories" placeholder="Pick tags..." />
+                                    <button class="btn btn-primary" data-bind="click:updatePage">Update</button>
+                                </div>
+                                <div>
+
+                                </div>
+                                <br /><br />
+
+                            </div>
                             <div class="row">
                                 <br />
-                                    <div class="tabs-container">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a data-toggle="tab" href="#Overview">Overview</a></li>
-                                            <li class=""><a data-toggle="tab" href="#reviews">Reviews (<span data-bind="text:showReviews().length"></span>)</a></li>
-                                            <li class=""><a data-toggle="tab" href="#ActiveAds">Active Ads (<span data-bind="text:activeAds().length"></span>) </a></li>
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#Overview">Overview</a></li>
+                                        <li class=""><a data-toggle="tab" href="#reviews">Reviews (<span data-bind="text:showReviews().length"></span>)</a></li>
+                                        <li class=""><a data-toggle="tab" href="#ActiveAds">Active Ads (<span data-bind="text:activeAds().length"></span>) </a></li>
 
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div id="Overview" class="tab-pane active">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <h3>Tags:</h3>
-                                                        <ul @*class="tag-list"*@ data-bind="foreach:showTags" style="padding: 0">
-                                                            <li class="btn btn-white btn-xs"><a target="_blank" data-bind="attr:{href:'/Tag/' + $data}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:$data"></span> </a></li>
-                                                        </ul>
-                                                        <h2>About</h2>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="Overview" class="tab-pane active">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <h3>Tags:</h3>
+                                                    <ul @*class="tag-list"*@ data-bind="foreach:showTags" style="padding: 0">
+                                                        <li class="btn btn-white btn-xs"><a target="_blank" data-bind="attr:{href:'/Tag/' + $data}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:$data"></span> </a></li>
+                                                    </ul>
+                                                    <h2>About</h2>
+                                                    <span data-bind="visible:loginUserId == createdBy">
+                                                        <a data-bind="click:editLongAboutBtn" class="btn btn-white btn-xs "> Edit</a>
+                                                    </span>
+                                                    <div data-bind="visible:!isLongAboutEditing(),text:longAbout"></div>
+                                                    <div data-bind="visible:isLongAboutEditing()">
+                                                        <div class="col-sm-12">
+                                                            Details:<textarea class="msgTextArea form-control" placeholder="Add company Details.." data-bind="jqAutoresize: {},value:longAbout"></textarea>
+                                                            <br /><button class="btn btn-primary pull-right" data-bind="click:updateLongAbout">Update</button>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="row">
+                                                    <div data-bind="text:longAbout,visible:!isLongAboutEditing()">
                                                         <span data-bind="visible:loginUserId == createdBy">
-                                                            <a data-bind="click:editLongAboutBtn" class="btn btn-white btn-xs "> Edit</a>
+                                                            <a data-bind="click: editLongAboutBtn" class="btn btn-white btn-xs pull-right"> Edit</a>
                                                         </span>
-                                                        <div data-bind="visible:!isLongAboutEditing(),text:longAbout"></div>
-                                                        <div data-bind="visible:isLongAboutEditing()">
-                                                            <div class="col-sm-12">
-                                                                Details:<textarea class="msgTextArea form-control" placeholder="Add company Details.." data-bind="jqAutoresize: {},value:longAbout"></textarea>
-                                                                <br /><button class="btn btn-primary pull-right" data-bind="click:updateLongAbout">Update</button>
+                                                        <span data-bind="visible:!longAbout">Add detials about your company</span>
+                                                    </div>
+
+                                                </div>*@
+                                                    <h2>Location</h2>
+                                                    <h3>HeadOffice</h3>
+                                                    <div data-bind="visible:!isMainBranchEditing()">
+                                                        <span data-bind="visible:loginUserId == createdBy">
+                                                            <a data-bind="click: function(){return editLocation(id)},visible:cityName()" class="btn btn-white btn-xs pull-right"> Edit</a>
+                                                            <a data-bind="click: function(){return editLocation(id)},visible:!cityName()" class="btn btn-white btn-xs "> Add Head office location</a>
+                                                        </span>
+                                                        <span data-bind="if:exectLocation">
+                                                            <span data-bind="text:exectLocation"></span>,
+                                                        </span>
+                                                        <span data-bind="if:popularPlace">
+                                                            <span data-bind="text:popularPlace"></span>,
+                                                        </span>
+                                                        <span data-bind="text:cityName"></span>
+                                                        <h4 data-bind="if:cityName">Contact Info</h4>
+                                                        <div data-bind="if:contactNo1">
+                                                            <span data-bind="text:contactNo1"></span>
+                                                        </div>
+                                                        <div data-bind="if:contactNo2">
+                                                            <span data-bind="text:contactNo2"></span>
+                                                        </div>
+                                                        <h5 data-bind="if:friendlySince">Established since <span data-bind="text:friendlySince"></span></h5>
+                                                    </div>
+                                                    <div data-bind="visible:isMainBranchEditing()">
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-2">City</label>
+                                                                <div class="col-md-10">
+                                                                    <select id="select-city" class="demo-default" name="city" data-bind="options: availableCities,
+                       value: selectedcityName,
+                       optionsCaption: 'Choose City...'"></select>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        @*<div class="row">
-                                                            <div data-bind="text:longAbout,visible:!isLongAboutEditing()">
-                                                                <span data-bind="visible:loginUserId == createdBy">
-                                                                    <a data-bind="click: editLongAboutBtn" class="btn btn-white btn-xs pull-right"> Edit</a>
-                                                                </span>
-                                                                <span data-bind="visible:!longAbout">Add detials about your company</span>
+                                                        <div class="row">
+                                                            <div data-bind="with:selectedcityName">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">Famous Place</label>
+                                                                    <div class="col-md-10">
+                                                                        <select id="select-popularPlace" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
+                       value: $parent.selectedpopularPlace,
+                       optionsCaption: 'Choose Famous place...'"></select>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            
-                                                        </div>*@
-                                                        <h2>Location</h2>
-                                                        <h3>HeadOffice</h3>
-                                                        <div data-bind="visible:!isMainBranchEditing()">
-                                                            <span data-bind="visible:loginUserId == createdBy">
-                                                                <a data-bind="click: function(){return editLocation(id)},visible:cityName()" class="btn btn-white btn-xs pull-right"> Edit</a>
-                                                                <a data-bind="click: function(){return editLocation(id)},visible:!cityName()" class="btn btn-white btn-xs "> Add Head office location</a>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div data-bind="with:selectedpopularPlace">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">Exect location</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" class="form-control" data-bind="value:$parent.exectLocation" name="exectLocation" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <h4>Contact Info</h4>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-2">Contact No 1</label>
+                                                                <div class="col-md-10">
+                                                                    <input type="text" class="form-control" data-bind="value:contactNo1" />
+                                                                </div>
+                                                            </div>
+                                                        </div><br />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-2">Contact No 2</label>
+                                                                <div class="col-md-10">
+                                                                    <input type="text" class="form-control" data-bind="value:contactNo2" />
+                                                                </div>
+                                                            </div>
+                                                        </div><br />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-2">Company is established since</label>
+                                                                <div class="col-md-10">
+                                                                    <input type="date" class="form-control" data-bind="value:since" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn btn-danger col-md-offset-2" data-bind="click:updateMainBranchLocation">Submit</button>
+                                                    </div>
+                                                    @*<p data-bind="text:longAbout"></p>
+                                                facebook link, tw , website*@
+
+                                                    <span data-bind="visible:loginUserId == createdBy">
+                                                        <a data-bind="click: function(){return addNewBranch()}" class="btn btn-white btn-xs pull-right"> Add new Branch</a>
+                                                    </span>
+                                                    <hr />
+                                                    <h3 data-bind="visible:showBranches().length>0">Comany Network</h3>
+                                                    <div data-bind="visible:isAddingNewBranch()">
+                                                        <h4>Location</h4>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-2">City</label>
+                                                                <div class="col-md-10">
+                                                                    <select id="select-city1" class="demo-default" name="city" data-bind="options: availableCities,
+                       value: BcityName,
+                       optionsCaption: 'Choose City...'"></select>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div data-bind="with:BcityName">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">Famous Place</label>
+                                                                    <div class="col-md-10">
+                                                                        <select id="select-popularPlace1" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
+                       value: $parent.BpopularPlace,
+                       optionsCaption: 'Choose Famous place...'"></select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div data-bind="with:BpopularPlace">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">Exect location</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" class="form-control" data-bind="value:$parent.BexectLocation" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div><br />
+                                                        <h4>Contact Info</h4>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-2">Contact No 1</label>
+                                                                <div class="col-md-10">
+                                                                    <input type="text" class="form-control" data-bind="value:BcontactNo1" />
+                                                                </div>
+                                                            </div>
+                                                        </div><br />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-2">Contact No 2</label>
+                                                                <div class="col-md-10">
+                                                                    <input type="text" class="form-control" data-bind="value:BcontactNo2" />
+                                                                </div>
+                                                            </div>
+                                                        </div><br />
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-md-2">Branch is established since</label>
+                                                                <div class="col-md-10">
+                                                                    <input type="date" class="form-control" data-bind="value:Bsince" name="since" />
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <button class="btn btn-danger col-md-offset-2" data-bind="click:saveNewBranch">Submit</button>
+                                                    </div>
+                                                    <div data-bind="foreach:showBranches">
+                                                        <div data-bind="visible:!isBranchEditing()">
+                                                            <hr />
+                                                            <span data-bind="visible:$parent.loginUserId == $parent.createdBy">
+                                                                <a data-bind="click:  $parent.deleteBranch" class="btn btn-white btn-xs pull-right"> Delete</a>
+                                                                <a data-bind="click: function(){return editBranch($index)}" class="btn btn-white btn-xs pull-right"> Edit</a>
                                                             </span>
+
+                                                            <h4>Location</h4>
                                                             <span data-bind="if:exectLocation">
                                                                 <span data-bind="text:exectLocation"></span>,
                                                             </span>
-                                                            <span data-bind="if:popularPlace">
-                                                                <span data-bind="text:popularPlace"></span>,
+                                                            <span data-bind="if:popularPlace1">
+                                                                <span data-bind="text:popularPlace1"></span>,
                                                             </span>
-                                                            <span data-bind="text:cityName"></span>
-                                                            <h4 data-bind="if:cityName">Contact Info</h4>
+                                                            <span data-bind="text:city"></span>
+                                                            <h4>Contact Info</h4>
                                                             <div data-bind="if:contactNo1">
                                                                 <span data-bind="text:contactNo1"></span>
                                                             </div>
@@ -181,40 +333,42 @@
                                                             </div>
                                                             <h5 data-bind="if:friendlySince">Established since <span data-bind="text:friendlySince"></span></h5>
                                                         </div>
-                                                        <div data-bind="visible:isMainBranchEditing()">
+                                                        <div data-bind="visible:isBranchEditing()">
+                                                            <h4>Location</h4>
                                                             <div class="row">
                                                                 <div class="form-group">
                                                                     <label class="control-label col-md-2">City</label>
                                                                     <div class="col-md-10">
-                                                                        <select id="select-city" class="demo-default" name="city" data-bind="options: availableCities,
-                       value: selectedcityName,
+                                                                        <select class="demo-default select-city2" data-bind="options: availableCities,
+                       value: selectedCity,
                        optionsCaption: 'Choose City...'"></select>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div data-bind="with:selectedcityName">
+                                                                <div data-bind="with:selectedCity">
                                                                     <div class="form-group">
                                                                         <label class="control-label col-md-2">Famous Place</label>
                                                                         <div class="col-md-10">
-                                                                            <select id="select-popularPlace" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
-                       value: $parent.selectedpopularPlace,
+                                                                            <select id="select-popularPlace2" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
+                       value: $parent.selectedPP,
                        optionsCaption: 'Choose Famous place...'"></select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div data-bind="with:selectedpopularPlace">
+                                                                <div data-bind="with:selectedPP">
                                                                     <div class="form-group">
                                                                         <label class="control-label col-md-2">Exect location</label>
                                                                         <div class="col-md-10">
-                                                                            <input type="text" class="form-control" data-bind="value:$parent.exectLocation" name="exectLocation" />
+                                                                            <input type="text" class="form-control" data-bind="value:$parent.exectLocation" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <h4>Contact Info</h4>
+                                                            <h4>Contact Information</h4>
                                                             <div class="row">
                                                                 <div class="form-group">
                                                                     <label class="control-label col-md-2">Contact No 1</label>
@@ -230,191 +384,97 @@
                                                                         <input type="text" class="form-control" data-bind="value:contactNo2" />
                                                                     </div>
                                                                 </div>
-                                                            </div><br />
-                                                            <div class="row">
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-md-2">Company is established since</label>
-                                                                    <div class="col-md-10">
-                                                                        <input type="date" class="form-control" data-bind="value:since" />
-                                                                    </div>
-                                                                </div>
                                                             </div>
-                                                            <button class="btn btn-danger col-md-offset-2" data-bind="click:updateMainBranchLocation">Submit</button>
-                                                        </div>
-                                                        @*<p data-bind="text:longAbout"></p>
-            facebook link, tw , website*@
-
-                                                        <span data-bind="visible:loginUserId == createdBy">
-                                                            <a data-bind="click: function(){return addNewBranch()}" class="btn btn-white btn-xs pull-right"> Add new Branch</a>
-                                                        </span>
-                                                        <hr />
-                                                        <h3 data-bind="visible:showBranches().length>0">Comany Network</h3>
-                                                        <div data-bind="visible:isAddingNewBranch()">
-                                                            <h4>Location</h4>
-                                                            <div class="row">
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-md-2">City</label>
-                                                                    <div class="col-md-10">
-                                                                        <select id="select-city1" class="demo-default" name="city" data-bind="options: availableCities,
-                       value: BcityName,
-                       optionsCaption: 'Choose City...'"></select>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div data-bind="with:BcityName">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-2">Famous Place</label>
-                                                                        <div class="col-md-10">
-                                                                            <select id="select-popularPlace1" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
-                       value: $parent.BpopularPlace,
-                       optionsCaption: 'Choose Famous place...'"></select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div data-bind="with:BpopularPlace">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-2">Exect location</label>
-                                                                        <div class="col-md-10">
-                                                                            <input type="text" class="form-control" data-bind="value:$parent.BexectLocation" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div><br />
-                                                            <h4>Contact Info</h4>
-                                                            <div class="row">
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-md-2">Contact No 1</label>
-                                                                    <div class="col-md-10">
-                                                                        <input type="text" class="form-control" data-bind="value:BcontactNo1" />
-                                                                    </div>
-                                                                </div>
-                                                            </div><br />
-                                                            <div class="row">
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-md-2">Contact No 2</label>
-                                                                    <div class="col-md-10">
-                                                                        <input type="text" class="form-control" data-bind="value:BcontactNo2" />
-                                                                    </div>
-                                                                </div>
-                                                            </div><br />
                                                             <div class="row">
                                                                 <div class="form-group">
                                                                     <label class="control-label col-md-2">Branch is established since</label>
-                                                                    <div class="col-md-10">
-                                                                        <input type="date" class="form-control" data-bind="value:Bsince" name="since" />
-                                                                    </div>
                                                                 </div>
-
+                                                                <div class="col-md-10">
+                                                                    <input type="date" class="form-control" data-bind="value:since" />
+                                                                </div>
                                                             </div>
-                                                            <button class="btn btn-danger col-md-offset-2" data-bind="click:saveNewBranch">Submit</button>
-                                                        </div>
-                                                        <div data-bind="foreach:showBranches">
-                                                            <div data-bind="visible:!isBranchEditing()">
-                                                                <hr />
-                                                                <span data-bind="visible:$parent.loginUserId == $parent.createdBy">
-                                                                    <a data-bind="click:  $parent.deleteBranch" class="btn btn-white btn-xs pull-right"> Delete</a>
-                                                                    <a data-bind="click: function(){return editBranch($index)}" class="btn btn-white btn-xs pull-right"> Edit</a>
-                                                                </span>
 
-                                                                <h4>Location</h4>
-                                                                <span data-bind="if:exectLocation">
-                                                                    <span data-bind="text:exectLocation"></span>,
-                                                                </span>
-                                                                <span data-bind="if:popularPlace1">
-                                                                    <span data-bind="text:popularPlace1"></span>,
-                                                                </span>
-                                                                <span data-bind="text:city"></span>
-                                                                <h4>Contact Info</h4>
-                                                                <div data-bind="if:contactNo1">
-                                                                    <span data-bind="text:contactNo1"></span>
-                                                                </div>
-                                                                <div data-bind="if:contactNo2">
-                                                                    <span data-bind="text:contactNo2"></span>
-                                                                </div>
-                                                                <h5 data-bind="if:friendlySince">Established since <span data-bind="text:friendlySince"></span></h5>
-                                                            </div>
-                                                            <div data-bind="visible:isBranchEditing()">
-                                                                <h4>Location</h4>
-                                                                <div class="row">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-2">City</label>
-                                                                        <div class="col-md-10">
-                                                                            <select class="demo-default select-city2" data-bind="options: availableCities,
-                       value: selectedCity,
-                       optionsCaption: 'Choose City...'"></select>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div data-bind="with:selectedCity">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-md-2">Famous Place</label>
-                                                                            <div class="col-md-10">
-                                                                                <select id="select-popularPlace2" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
-                       value: $parent.selectedPP,
-                       optionsCaption: 'Choose Famous place...'"></select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div data-bind="with:selectedPP">
-                                                                        <div class="form-group">
-                                                                            <label class="control-label col-md-2">Exect location</label>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" data-bind="value:$parent.exectLocation" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <h4>Contact Information</h4>
-                                                                <div class="row">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-2">Contact No 1</label>
-                                                                        <div class="col-md-10">
-                                                                            <input type="text" class="form-control" data-bind="value:contactNo1" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div><br />
-                                                                <div class="row">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-2">Contact No 2</label>
-                                                                        <div class="col-md-10">
-                                                                            <input type="text" class="form-control" data-bind="value:contactNo2" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-2">Branch is established since</label>
-                                                                    </div>
-                                                                    <div class="col-md-10">
-                                                                        <input type="date" class="form-control" data-bind="value:since" />
-                                                                    </div>
-                                                                </div>
-
-                                                                <button class="btn btn-danger col-md-offset-2" data-bind="click:function(){return updateBranch($data,$parent.id)}">Submit</button>
-
-                                                            </div>
+                                                            <button class="btn btn-danger col-md-offset-2" data-bind="click:function(){return updateBranch($data,$parent.id)}">Submit</button>
 
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="reviews" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <h2>Reviews</h2>
-                                                    <div class="btn btn-xs btn-white" data-bind="click:addReviewBtn,visible:!isAddingReview()">Add review</div>
-                                                    <div data-bind="visible:isAddingReview()">
+                                        </div>
+                                        <div id="reviews" class="tab-pane">
+                                            <div class="panel-body">
+                                                <h2>Reviews</h2>
+                                                <div class="btn btn-xs btn-white" data-bind="click:addReviewBtn,visible:!isAddingReview()">Add review</div>
+                                                <div data-bind="visible:isAddingReview()">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-md-2">Rate:</div>
+                                                            <div class="col-md-10"><div data-bind="starRating:newRating"></div></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="control-label col-md-2">Description</div>
+                                                            <div class="col-md-10">
+                                                                <textarea class="msgTextArea form-control" placeholder="Add review Details.." data-bind="jqAutoresize: {},value:reviewDescription"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div><br />
+                                                    <button data-style="expand-left" class="ladda-button  btn btn-danger col-sm-offset-2" data-bind="click:submitReviewBtn">Submit</button>
+                                                    <br />
+                                                </div>
+                                                <div data-bind="foreach:showReviews">
+                                                    <div data-bind="visible:!isReviewEditing()">
+                                                        <hr />
+                                                        <div data-bind="visible:reviewedBy == $parent.loginUserId"><span data-bind="click:$parent.deleteReview" class="btn btn-xs btn-white pull-right">Delete</span> <span data-bind="click:editReviewBtn" class="btn btn-xs btn-white pull-right">Edit</span> </div>
+                                                        <div class="disableRating" data-bind="starRating:rating"></div>
+                                                        <div data-bind="text:reviewDescription"></div>
+                                                        <div style="margin-left:0" class="vote-info">
+                                                            <a data-bind="click:function(){return voteReview(id,$parent.loginUserId,true)}">
+                                                                <i data-bind="style:{color: isUp()? 'red' : 'gray'}" class="fa fa-thumbs-up"> </i>
+                                                                <span data-bind="text:voteUpCount"></span>
+                                                            </a>
+                                                            <a data-bind="click:function(){return voteReview(id,$parent.loginUserId,false)}">
+                                                                <i data-bind="style:{color: isDown()? 'red' : 'gray'}" class="fa fa-thumbs-down"> </i>
+                                                                <span data-bind="text:voteDownCount"></span>
+                                                            </a>
+                                                            <span class="btn btn-xs btn-white" data-bind="click:reviewReplyBtn">Reply</span>
+                                                            <i class="fa fa-user"></i> <a data-bind="attr:{href:'/User/Index/'+reviewedBy},text:reviewedByName"></a>
+                                                            <i class="fa fa-clock-o"></i> <span data-bind="text:friendlyTime"></span>
+
+                                                        </div>
+                                                        <div data-bind="visible:isAddingReviewReply()">
+                                                            <div style="margin-left:45px" class="vote">
+                                                                <textarea class="msgTextArea form-control" placeholder="Reply.." data-bind="valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup: function(data,event){ return checkEnter($parent.loginUserId,replyDescription.length,data,event)}},value:replyDescription"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div data-bind="foreach:showReviewReplies">
+                                                            <div data-bind="visible:!isReviewReplyEditing()">
+                                                                <div class="vote">
+                                                                    <p class="vote-title" style="font-size:small;font-weight:300" data-bind="text:description"></p>
+                                                                    <div data-bind="visible:postedBy == $parents[1].loginUserId"><span data-bind="click:$parent.deleteReviewReply" class="btn btn-xs btn-white pull-right">Delete</span> <span data-bind="click:editReviewReplyBtn" class="btn btn-xs btn-white pull-right">Edit</span> </div>
+
+                                                                    <div class="vote-info">
+
+                                                                        <i class="fa fa-user"></i> <a data-bind="attr:{href:'/User/Index/'+postedBy},text:postedByName"></a>
+                                                                        <i class="fa fa-clock-o"></i> <span data-bind="text:friendlyTime"></span>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div data-bind="visible:isReviewReplyEditing()">
+                                                                <div style="margin-left:45px" class="vote">
+                                                                    <textarea class="msgTextArea form-control" placeholder="Reply.." data-bind="valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup: function(data,event){ return checkEnter1(description.length,data,$parent.id,event)}},value:description"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div data-bind="visible:isReviewEditing()">
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-md-2">Rate:</div>
-                                                                <div class="col-md-10"><div data-bind="starRating:newRating"></div></div>
+                                                                <div class="col-md-10"><div data-bind="starRating:rating"></div></div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -425,98 +485,34 @@
                                                                 </div>
                                                             </div>
                                                         </div><br />
-                                                        <button data-style="expand-left" class="ladda-button  btn btn-danger col-sm-offset-2" data-bind="click:submitReviewBtn">Submit</button>
-                                                        <br />
+                                                        <button data-style="expand-left" class="ladda-button  btn btn-danger col-sm-offset-2" data-bind="click: function(){ return updateReview($data,$parent.id)} ">Update</button>
                                                     </div>
-                                                    <div data-bind="foreach:showReviews">
-                                                        <div data-bind="visible:!isReviewEditing()">
-                                                            <hr />
-                                                            <div data-bind="visible:reviewedBy == $parent.loginUserId"><span data-bind="click:$parent.deleteReview" class="btn btn-xs btn-white pull-right">Delete</span> <span data-bind="click:editReviewBtn" class="btn btn-xs btn-white pull-right">Edit</span> </div>
-                                                            <div class="disableRating" data-bind="starRating:rating"></div>
-                                                            <div data-bind="text:reviewDescription"></div>
-                                                            <div style="margin-left:0" class="vote-info">
-                                                                <a data-bind="click:function(){return voteReview(id,$parent.loginUserId,true)}">
-                                                                    <i data-bind="style:{color: isUp()? 'red' : 'gray'}" class="fa fa-thumbs-up"> </i>
-                                                                    <span data-bind="text:voteUpCount"></span>
-                                                                </a>
-                                                                <a data-bind="click:function(){return voteReview(id,$parent.loginUserId,false)}">
-                                                                    <i data-bind="style:{color: isDown()? 'red' : 'gray'}" class="fa fa-thumbs-down"> </i>
-                                                                    <span data-bind="text:voteDownCount"></span>
-                                                                </a>
-                                                                <span class="btn btn-xs btn-white" data-bind="click:reviewReplyBtn">Reply</span>
-                                                                <i class="fa fa-user"></i> <a data-bind="attr:{href:'/User/Index/'+reviewedBy},text:reviewedByName"></a>
-                                                                <i class="fa fa-clock-o"></i> <span data-bind="text:friendlyTime"></span>
 
-                                                            </div>
-                                                            <div data-bind="visible:isAddingReviewReply()">
-                                                                <div style="margin-left:45px" class="vote">
-                                                                    <textarea class="msgTextArea form-control" placeholder="Reply.." data-bind="valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup: function(data,event){ return checkEnter($parent.loginUserId,replyDescription.length,data,event)}},value:replyDescription"></textarea>
-                                                                </div>
-                                                            </div>
-                                                            <div data-bind="foreach:showReviewReplies">
-                                                                <div data-bind="visible:!isReviewReplyEditing()">
-                                                                    <div class="vote">
-                                                                        <p class="vote-title" style="font-size:small;font-weight:300" data-bind="text:description"></p>
-                                                                        <div data-bind="visible:postedBy == $parents[1].loginUserId"><span data-bind="click:$parent.deleteReviewReply" class="btn btn-xs btn-white pull-right">Delete</span> <span data-bind="click:editReviewReplyBtn" class="btn btn-xs btn-white pull-right">Edit</span> </div>
-
-                                                                        <div class="vote-info">
-
-                                                                            <i class="fa fa-user"></i> <a data-bind="attr:{href:'/User/Index/'+postedBy},text:postedByName"></a>
-                                                                            <i class="fa fa-clock-o"></i> <span data-bind="text:friendlyTime"></span>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div data-bind="visible:isReviewReplyEditing()">
-                                                                    <div style="margin-left:45px" class="vote">
-                                                                        <textarea class="msgTextArea form-control" placeholder="Reply.." data-bind="valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup: function(data,event){ return checkEnter1(description.length,data,$parent.id,event)}},value:description"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div data-bind="visible:isReviewEditing()">
-                                                            <div class="row">
-                                                                <div class="form-group">
-                                                                    <div class="col-md-2">Rate:</div>
-                                                                    <div class="col-md-10"><div data-bind="starRating:rating"></div></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group">
-                                                                    <div class="control-label col-md-2">Description</div>
-                                                                    <div class="col-md-10">
-                                                                        <textarea class="msgTextArea form-control" placeholder="Add review Details.." data-bind="jqAutoresize: {},value:reviewDescription"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div><br />
-                                                            <button data-style="expand-left" class="ladda-button  btn btn-danger col-sm-offset-2" data-bind="click: function(){ return updateReview($data,$parent.id)} ">Update</button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="ActiveAds" class="tab-pane">
-                                                
-                                                <div class="panel-body" data-bind="foreach:activeAds">
-                                                    @Html.Partial("/Views/Shared/_AdListView1.cshtml")
                                                 </div>
                                             </div>
                                         </div>
+                                        <div id="ActiveAds" class="tab-pane">
 
-
+                                            <div class="panel-body" data-bind="foreach:activeAds">
+                                                @Html.Partial("/Views/Shared/_AdListView1.cshtml")
+                                            </div>
+                                        </div>
                                     </div>
+
+
+                                </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-sm-9">
-                                    
-                                    </div>
+
                                 </div>
-                                @*<div class="col-sm-3 hidden-xs hidden-sm" >this is 3</div>*@
                             </div>
+                            @*<div class="col-sm-3 hidden-xs hidden-sm" >this is 3</div>*@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         <div class="col-md-3">
             <div class="">
@@ -536,7 +532,6 @@
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
-    @Styles.Render("~/Content/plugins/jsTree")
     @Styles.Render("~/plugins/sweetAlertStyles")
 @Styles.Render("~/bundles/tagStyles")
 @Styles.Render("~/plugins/laddaStyles")
@@ -549,12 +544,8 @@
 @section Scripts{
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
-    @Scripts.Render("~/plugins/jsTree")
-    @Scripts.Render("~/bundles/categoryTree")
-    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/plugins/sweetAlert")
 @Scripts.Render("~/plugins/ladda")
-@Scripts.Render("~/plugins/summernote")
 @Scripts.Render("~/plugins/slick")
 @Scripts.Render("~/plugins/truncate")
 <script src="~/Scripts/app/slick-knockout-binding.js"></script>
@@ -981,7 +972,6 @@
             self.websitelink = ko.observable(data.websitelink);
             self.twlink = ko.observable(data.twlink);
             self.owner = ko.observable(data.owner);
-            self.logoExtension = data.logoExtension;
 
             self.createdByName = data.createdByName;
             self.createdBy = data.createdById;
@@ -991,8 +981,11 @@
             self.time = data.time;
             self.friendlyTime = getTimeAgo(data.time);
             self.loginUserId = data.loginUserId || "";
-            self.loginUserProfileLink = '/Images/Users/p' + self.loginUserId + data.loginUserProfileExtension;
-            
+          //  self.loginUserProfileLink = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + 'p' + self.loginUserId + data.loginUserProfileExtension;
+            self.logoLink = '/Images/Company/default_logo.png';
+            if (data.logoExtension) {
+                self.logoLink = $.cookie("AWSURL") + $.cookie("AWSCompanyFolder") + self.id + "/logo"  +data.logoExtension;
+            }
             self.cityId = data.cityId;
             self.cityName = ko.observable(data.cityName);
             self.selectedcityName = ko.observable();
@@ -1508,7 +1501,7 @@
         function viewModel() {
             var self = this;
             SearchingLocation();
-            treeModel();
+           // treeModel();
             AccountViewModel();
             ChatViewModel();
             Report();
@@ -1526,10 +1519,11 @@
                 })
                 .done(function (data) {
                     var mappedads = $.map(data, function (item) { return new CompanyPage(item); });
+                    $("#FirstLoading").css({ "display": "block" });
                     self.showPage(mappedads);
                 })
                 .fail(function () {
-                    self.error("This Business Page has been deleted or is unavailable. ");
+                    self.error("This Business Page has been deleted or is unavailable.");
                 });
             }
 

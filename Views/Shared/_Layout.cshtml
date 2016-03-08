@@ -79,6 +79,8 @@
         $(function () {
             $.connection.hub.start().done();
             $.cookie("AWSFolderName", "Ads/", { path: '/' });
+            $.cookie("AWSUserFolder", "Users/", { path: '/' });
+            $.cookie("AWSCompanyFolder", "Companies/", { path: '/' });
             $.cookie("AWSURL", "https://s3.amazonaws.com/dealkr/", { path: '/' });
         })
         function authForFeedback() {

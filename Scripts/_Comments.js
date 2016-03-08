@@ -7,7 +7,7 @@
         self.postedByName = data.postedByName;
         self.postedById = data.postedById;
         self.postedByLink = '/User/Index/' + self.postedById;
-        self.profileLink = '/Images/Users/p' + self.postedById + data.imageExtension;
+        self.profileLink = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + 'p' + self.postedById + data.imageExtension;
         if (!data.imageExtension) {
             self.profileLink = '/Images/Users/default.jpg';
         }
@@ -96,7 +96,7 @@
         self.postedByName = data.postedByName;
         self.postedById = data.postedById;
         self.postedByLink = '/User/Index/' + self.postedById;
-        self.profileLink = '/Images/Users/p' + self.postedById + data.imageExtension;
+        self.profileLink = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + 'p' + self.postedById + data.imageExtension;
         if (!data.imageExtension) {
             self.profileLink = '/Images/Users/default.jpg';
         }
