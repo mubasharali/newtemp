@@ -286,7 +286,7 @@
             self.name = data.name;
             self.logoLink = "/Images/Company/default_logo.png";
             if (data.logoExtension) {
-                self.logoLink = "/Images/Company/" + self.id + "/logo" + data.logoExtension;
+                self.logoLink = $.cookie("AWSURL") + $.cookie("AWSCompanyFolder") + +self.id + "/logo" + data.logoExtension;
             }
             self.companyUrl = "/CompanyPage/" + self.id + "/" + convertToSlug( self.name);
         }

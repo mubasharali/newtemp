@@ -105,7 +105,7 @@
                                                         </span>
                                                     </span>
                                                 </h1>
-                                                <hr>
+                                                <hr />
                                             </span>
                                             <div data-bind="with:showCameraAd">
                                                 <dl class="dl-horizontal m-t-md small">
@@ -116,6 +116,20 @@
                                                     <dd data-bind="text:brand"></dd>
                                                 </dl>
                                             </div>
+
+                                            <style>
+                                                dt {
+                                                    float: left;
+                                                    clear: left;
+                                                    margin-right: 5px;
+                                                    font-weight: bold;
+                                                }
+
+                                                dd {
+                                                    margin-left: 0px;
+                                                }
+                                            </style>
+
                                             <div data-bind="with:showMobileAd">
                                                 <dl class="dl-horizontal m-t-md small">
                                                     <dt>condition:</dt>

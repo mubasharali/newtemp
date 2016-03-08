@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Details";
+    ViewBag.Title = ViewBag.title;
 }
 <input type="hidden" id="companyId" value="@ViewBag.companyId" />
 
@@ -981,7 +981,6 @@
             self.time = data.time;
             self.friendlyTime = getTimeAgo(data.time);
             self.loginUserId = data.loginUserId || "";
-          //  self.loginUserProfileLink = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + 'p' + self.loginUserId + data.loginUserProfileExtension;
             self.logoLink = '/Images/Company/default_logo.png';
             if (data.logoExtension) {
                 self.logoLink = $.cookie("AWSURL") + $.cookie("AWSCompanyFolder") + self.id + "/logo"  +data.logoExtension;
