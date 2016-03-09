@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                        <div data-bind="with:showTag">
+                        <div id="FirstLoading" style="display:none" data-bind="with:showTag">
                             <div class="ibox-title">
                                 <h2>
                                     <span data-bind="text:name">@Model.name</span> <span style="font-size: 12px; color: #b4b6b8">
@@ -391,6 +391,7 @@
                 .done(function (data) {
                     var mappedads = new Tag1(data);
                     self.showTag(mappedads);
+                    $("#FristLoading").css({ "display": "block" });
                 })
                 .fail(function () {
                     toastr.error("Unable to load data. Please refresh page and try again", "Error");

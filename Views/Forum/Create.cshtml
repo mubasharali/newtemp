@@ -1,26 +1,8 @@
 ﻿@model Inspinia_MVC5_SeedProject.Models.Question
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Ask Question|Start a discussion";
 }
 
-@*<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>Create</h2>
-        <ol class="breadcrumb">
-            <li>
-                @Html.ActionLink("List", "Index")
-            </li>
-            <li class="active">
-                <strong>Create</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary"})
-        </div>
-    </div>
-</div>*@
 
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -33,7 +15,7 @@
                     <form id="form" method="post" action="/Forum/create">
                         <div class="row">
                             <div class="form-group">
-                                <label class="control-label col-md-2">Select category</label>
+                                <label class="control-label col-md-2">Select category <span class="req">*</span> </label>
                                 <div class="col-md-10">
                                     <select class="form-control" name="category" form="form">
                                         <option value="Mobiles">Mobiles & Tablets</option>
@@ -58,7 +40,7 @@
 
                         <div class="row">
                             <div class="form-group">
-                                <label class="control-label col-md-2">Title</label>
+                                <label class="control-label col-md-2">Title<span class="req">*</span></label>
                                 <div class="col-md-10">
                                     <input type="text" class="form-control" name="title" />
                                 </div>
@@ -67,7 +49,7 @@
                         <br />
                         <div class="row">
                             <div class="form-group">
-                                <label class="control-label col-md-2">Description</label>
+                                <label class="control-label col-md-2">Description<span class="req">*</span></label>
                                 <div class="col-md-10">
                                     <textarea class="form-control" rows="7" name="description"></textarea>
                                 </div>
@@ -194,10 +176,6 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/plugins/validate")
     @Scripts.Render("~/plugins/toastr")
-<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
-<script src="~/signalr/hubs"></script>
-<script src="~/Scripts/UserLogin.js"></script>
-<script src="~/Scripts/app/chat.js"></script>
     <script src="~/Scripts/plugins/selectize/selectize.min.js"></script>
     <script type="text/javascript">
         function viewModel() {

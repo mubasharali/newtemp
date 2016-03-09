@@ -8,47 +8,14 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            @*<div class="ibox ">
-                <div class="ibox-title">
-                    <h5>You can also choose how to cut off the text</h5>
-                </div>
-                <div class="ibox-content truncate fh-150">
-
-                    <p class="font-bold">
-                        Example with letter cut off
-                    </p>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                    </p>
-                </div>
-            </div>
-            <div class="ibox">
-                <div class="">
-                    <div class="ibox-content truncate1 fh-150">
-
-                        <p class="font-bold">
-                            You can also change the ellipsis
-                        </p>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </p>
-                    </div>
-                </div>
-            </div>*@
+            
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    
-                        <div class="form-group">
-                            <input type="text" placeholder="Search Questions / Discussions..." class="form-control" name="s" data-bind="value:title" id="top-search">
-                        </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Search Questions / Discussions..." class="form-control" name="s" data-bind="value:title" id="top-search">
+                    </div>
                     <div class="pull-right">
-                        
-                        <a href="/Forum/Create" data-style="expand-left" class="ladda-button btn btn-danger">Ask Question</a>
+                        <a id="askQuestionBtn" data-bind="click:askQuestionBtn" data-style="expand-left" class=" btn btn-danger">Ask Question</a>
                     </div>
                     <p>
                         <span data-bind="text:showQuestions().length"></span> results found <span data-bind="visible:tags() || title() || selectedCategory()"> <br /><b>Summary:</b> Showing Questions <span data-bind="visible:tags() || title()"> with </span> <span data-bind="visible:tags()">  tags "<span data-bind="text:tags"></span>" </span>
@@ -56,30 +23,33 @@
                         <span data-bind="visible:selectedCategory">in "<span data-bind="text:selectedCategory"></span>" category</span>
                         </span>
                     </p>
-                    @*<div data-bind="visible:!tags()">
-                        <p>Suggested tags: (please select your relevent tag to see results)</p>
-                        <ul class="tag-list" data-bind="foreach:suggestedTags" style="padding:0">
-                            <li data-bind="click:$parent.suggestedTagSelected"><a href=""><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:$data"></span> </a></li>
-                        </ul>
-                        <p>&nbsp;</p><p>&nbsp;</p>
-                        <p class="visible-xs visible-sm" >&nbsp;</p><p class="visible-xs">&nbsp;</p>
-                    </div>*@
                 </div>
             </div>
         </div>
         <div class="col-sm-4 col-md-3 col-lg-2">
-            <div class="row">
-                <div class="ibox-title"><h5> search by Category</h5></div>
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Search Filters</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
                 <div class="ibox-content">
+                    <h5>Search by Category</h5>
                     <ul data-bind="foreach:showCategories">
                         <li style="cursor:pointer" data-bind="text:$data,click: function(){ return $parent.categorySelected($data)} "></li>
                     </ul>
+                    <hr />
+                    <h5> search by tags</h5>
+                    <input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." />
+
                 </div>
-                <div class="ibox-title"><h5> search by tags</h5></div>
-                <div class="ibox-content"><input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." /></div>
-                
-                @*@Html.Partial("/Views/Shared/_CreateAlert.cshtml")*@
             </div>
+
+            
         </div>
         <div class="col-sm-8 ">
             <div data-bind="foreach:showQuestions">
@@ -126,6 +96,7 @@
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
 @Scripts.Render("~/plugins/truncate")
+<script src="~/Scripts/app/GetLoginUserId.js"></script>
 <script src="~/Scripts/app/friendlyURL.js"></script>
 @*<script src="~/Scripts/app/CreateAlert.js"></script>*@
     <script>
@@ -139,9 +110,10 @@
         function Question(data) {
             var self = this;
             data = data || {};
-            self.link = '/Forum/details/' + data.id;
+            
             self.postedByLink = '/User/Index/' + data.postedById;
             self.title = data.title;
+            self.link = '/Forum/details/' + data.id + '/' + convertToSlug(self.title);
             self.description = data.description;
             self.postedByName = data.postedByName;
             self.postedById = data.postedById;
@@ -177,6 +149,15 @@
             self.suggestedTags = ["Mobiles", "Laptops", "Electronics" , "Home appliances" , "Jobs" , "Services" , "Real estate" , "sports" , "about website" , "Vehicles", "Animals" , "Business", "Study" , "Community" , "Life style" , "Matrimonal" , "Entertainment"];
             self.suggestedTagSelected = function (tag) {
                 self.tags(tag);
+            }
+            self.askQuestionBtn = function () {
+                if (loginUserId() != "Visitor") {
+                    window.location.href = "/Forum/Create";
+                    $("#askQuestionBtn").addClass("ladda-button");
+
+                } else {
+                    loginBtn();
+                }
             }
             self.showQuestions = ko.observableArray();
             self.tags.subscribe(function () {
@@ -319,7 +300,11 @@
             };
             ko.applyBindings(new ViewModel());
             $.connection.hub.start().done(function () {
-
+                var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                if (w < 786) {
+                    $('.collapse-link').click();
+                }
             });
         });
     </script>

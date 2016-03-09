@@ -209,7 +209,7 @@
    
 </div>*@
 
-<section id="categories" class="container features">
+@*<section id="categories" class="container features">
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1">
 
@@ -218,13 +218,8 @@
                Mobiles
             </h4>
 
-            @*<div id="gallery" data-gallery=""
-                 data-bind="slick: images,
-                slickOptions: {dots:true, initialSlide:0},
-                slickIndex: imageIndex">
-            </div>*@
 
-            <div @* class="slick_demo_2" data-bind="foreach:showAds"*@>
+            <div >
                 <span id="gallery" data-gallery=""
                       data-bind="slick: showAds,
     slickOptions: { slidesToShow: 3,
@@ -260,18 +255,7 @@
 
 
             <div class="slick_demo_2">
-                @*@foreach (var ad in ViewBag.mobiles)
-                {
-                    <div>
-                    <div class="ibox-content">
-                        <h2>@ad.title</h2>
-                        <p>
-                            @ad.id
-                        </p>
-                    </div>
-                </div>
-                }*@
-                
+               
                 
             </div>
         </div>
@@ -394,14 +378,14 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <style>
     .slick_demo_2 .ibox-content {
         margin: 0 10px;
     }
     
 </style>
-<section id="contact" class="gray-section contact">
+@*<section id="contact" class="gray-section contact">
     <div class="container">
         <div class="row m-b-lg">
             <div class="col-lg-12 text-center">
@@ -450,7 +434,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")

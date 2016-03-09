@@ -144,6 +144,9 @@
             
         }
         function ViewModel() {
+            SearchingLocation();
+            ChatViewModel();
+            AccountViewModel();
             var self = this;
             self.submitDate = function () {
                 self.loadTags();

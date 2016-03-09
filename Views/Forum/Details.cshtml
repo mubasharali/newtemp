@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Details";
+    ViewBag.Title = ViewBag.title;
 }
 <input type="hidden" id="questionId" value="@ViewBag.questionId" />
 <input type="hidden" id="currentPage" value="@HttpContext.Current.Request.Url.AbsolutePath" />
@@ -29,8 +29,8 @@
                                             </div>
                                             <a data-bind="text:title" class="vote-title"></a>
                                             <p data-bind="text:description"></p>
-                                            <div>
-                                                <ul class="tag-list" data-bind="foreach:showTags" @*style="padding: 0"*@>
+                                            <div >
+                                                <ul class="tag-list" data-bind="foreach:showTags" >
                                                     <li><a target="_blank" data-bind="attr:{href:tagURL}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
                                                 </ul>
                                             </div>
