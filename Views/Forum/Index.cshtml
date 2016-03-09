@@ -6,7 +6,7 @@
 }
 
 <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
+    <div id="FirstLoading" style="display:none" class="row">
         <div class="col-lg-12">
             
             <div class="ibox float-e-margins">
@@ -178,6 +178,7 @@
                     success: function (data) {
                         var reply = $.map(data, function (item) { return new Question(item) });
                         self.showQuestions(reply);
+                        $("#FirstLoading").css({ "display": "block" });
                     },
                     error: function () {
                         toastr.error("Unable to load Discussions. Please refresh page and try again", "Error");
