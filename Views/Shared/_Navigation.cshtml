@@ -1,6 +1,6 @@
 ﻿<nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
-        <ul class="nav" id="side-menu">
+        <ul class="nav" style="display:none" id="side-menu">
             <li class="nav-header hidden-lg hidden-md hidden-sm">
                 @if (Request.IsAuthenticated) { 
                 <div class="dropdown profile-element">
@@ -20,6 +20,9 @@
                         </li>
                         <li>
                             <a href="/CreateAd">Create Ad</a>
+                        </li>
+                        <li>
+                            <a href="/Company/Create">Create Page</a>
                         </li>
                         <li class="divider"></li>
                         <li>

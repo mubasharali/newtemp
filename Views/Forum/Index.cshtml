@@ -52,6 +52,9 @@
             
         </div>
         <div class="col-sm-8 ">
+            <div data-bind="visible:isLoading()">
+                @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
+            </div>
             <div data-bind="foreach:showQuestions">
                     <div class="vote-item">
                         <div class="row">
@@ -142,6 +145,7 @@
             self.categorySelected = function (data) {
                 self.selectedCategory(data);
             }
+            self.isLoading = ko.observable(false);
             self.showCategories = ["Mobiles", "Laptops", "Electronics", "Home appliances", "Jobs", "Services", "Real estate", "sports", "about website", "Vehicles", "Animals", "Business", "Study", "Community", "Life style", "Matrimonal", "Entertainment"];
             self.selectedCategory = ko.observable("");
             self.title = ko.observable("");
@@ -170,6 +174,7 @@
                 self.loadQuestions();
             })
             self.loadQuestions = function () {
+                self.isLoading(true);
                 url_address = '/api/Forum/SearchQuestions?title=' + self.title() + '&tags=' + self.tags() + '&category=' + self.selectedCategory();
                 $.ajax({
                     url: url_address,
@@ -179,8 +184,10 @@
                         var reply = $.map(data, function (item) { return new Question(item) });
                         self.showQuestions(reply);
                         $("#FirstLoading").css({ "display": "block" });
+                        self.isLoading(false);
                     },
                     error: function () {
+                        self.isLoading(false);
                         toastr.error("Unable to load Discussions. Please refresh page and try again", "Error");
                     },
                 });

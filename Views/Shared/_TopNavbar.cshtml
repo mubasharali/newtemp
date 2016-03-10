@@ -4,10 +4,9 @@
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " ><i class="fa fa-bars"></i> </a>
             <a href="/" class="navbar-brand">
                 <img width="100" src="~/Images/others/WaterMark.png" /></a>
-            <ul class="nav navbar-top-links navbar-right pull-left">
+            <ul class="nav navbar-top-links  pull-left">@*navbar-right*@
                 <li  style="margin-right:0px" class="fa fa-map-marker"></li>
                 <li style="margin-right:0px;margin-left:0px;padding-left:0px"><a style="padding-left:0" data-toggle="modal" data-target="#setLocation"> 
-                                                                              @*<span data-bind="visible:searchingCity">    <span data-bind="text:searchingPP"></span> <span data-bind="visible:searchingPP">,</span> </span><span data-bind="text:searchingCity"></span>*@
                    <span data-bind="visible:searchingPP && searchingCity,text:searchingPP"></span>
                     <span data-bind="visible:!searchingPP()">
                         <span data-bind="if:searchingCity">
@@ -23,23 +22,6 @@
             </form>*@
 
 
-            @*<form role="search" class="navbar-form-custom" method="post" action="/Search">
-            <div class="form-group">
-                <script>
-                    (function () {
-                        var cx = '004204861682057423873:7jv6v4w7k0y';
-                        var gcse = document.createElement('script');
-                        gcse.type = 'text/javascript';
-                        gcse.async = true;
-                        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                            '//cse.google.com/cse.js?cx=' + cx;
-                        var s = document.getElementsByTagName('script')[0];
-                        s.parentNode.insertBefore(gcse, s);
-                    })();
-                </script>
-                <gcse:search></gcse:search>
-            </div>
-        </form>*@
             
         </div>
         @Html.Partial("_LoginPartial")

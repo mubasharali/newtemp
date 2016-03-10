@@ -84,6 +84,7 @@
             $.cookie("AWSUserFolder", "Users/", { path: '/' });
             $.cookie("AWSCompanyFolder", "Companies/", { path: '/' });
             $.cookie("AWSURL", "https://s3.amazonaws.com/dealkr/", { path: '/' });
+            $("#side-menu").css({ "display": "block" });
         })
         function authForFeedback() {
             if (loginUserId() != "Visitor") {
