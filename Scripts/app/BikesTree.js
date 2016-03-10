@@ -106,6 +106,7 @@ function RefreshSearch() {
             self.isLoading(false);
             var mappedads = $.map(data, function (item) { return new Ad(item); });
             self.showAds(mappedads);
+            $("#FirstLoading").css({ "display": "block" });
         },
         error: function () {
             self.isLoading(false);

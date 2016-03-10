@@ -50,20 +50,20 @@
             <div data-bind="visible:isLoading()">
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
-            <div data-bind="visible:!isLoading()">
+            <div id="FirstLoading" data-bind="visible:!isLoading()">
                 <a data-bind="click:function(){ return createAd('/Vehicles/CreateBikeAd')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell your Bike</a>
                 <span data-bind="text:showAds().length"> </span> results found<br />
                 @*<b>Summary:</b> Showing <span data-bind="visible: !( minPrice() != 0 || maxPrice() != 50000 || searchingCity() || brand() || model() || tags() )"> all </span> <b> <span data-bind="visible:laptopAccessories()"> Laptop/Computer Accessories </span> <span data-bind="visible:!laptopAccessories()">Laptops/Computers</span> </b><span data-bind="visible:brand || model"> of </span> <b> <span data-bind="text:brand"></span> <span data-bind="text:model"> </b>
-                    <span data-bind="visible:tags()"> with tags <b> '<span data-bind="text:tags"></span>' </b></span>
+            <span data-bind="visible:tags()"> with tags <b> '<span data-bind="text:tags"></span>' </b></span>
 
-                    <span data-bind="visible:minPrice()!= 0 && maxPrice()!= 50000">
-                        with price from <b> <span data-bind="text:minPrice"></span> </b> to <b> <span data-bind="text:maxPrice"></span></b>
-                    </span>
-                    <span data-bind="visible:! (minPrice()!= 0 && maxPrice()!= 50000)">
-                        <span data-bind="visible:minPrice() != 0"> with min price <b> <span data-bind="text:minPrice"></span> </b> </span>
-                        <span data-bind="visible:maxPrice()!= 50000">with max price <b> <span data-bind="text:maxPrice"></span> </b> </span>
-                    </span>
-                    <span data-bind="visible:searchingCity"> from <b> <span data-bind="visible:searchingPP"><span data-bind="text:searchingPP"></span>,</span> <span data-bind="text:searchingCity"></span> </b> </span>*@
+            <span data-bind="visible:minPrice()!= 0 && maxPrice()!= 50000">
+                with price from <b> <span data-bind="text:minPrice"></span> </b> to <b> <span data-bind="text:maxPrice"></span></b>
+            </span>
+            <span data-bind="visible:! (minPrice()!= 0 && maxPrice()!= 50000)">
+                <span data-bind="visible:minPrice() != 0"> with min price <b> <span data-bind="text:minPrice"></span> </b> </span>
+                <span data-bind="visible:maxPrice()!= 50000">with max price <b> <span data-bind="text:maxPrice"></span> </b> </span>
+            </span>
+            <span data-bind="visible:searchingCity"> from <b> <span data-bind="visible:searchingPP"><span data-bind="text:searchingPP"></span>,</span> <span data-bind="text:searchingCity"></span> </b> </span>*@
                 <div data-bind="foreach:showAds">
                     @Html.Partial("/Views/Shared/_AdListView.cshtml")
                 </div>

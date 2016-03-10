@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="orv0gPJPIeitRMIAGV_0VbMTx3DfWKJa32R4E9Vrr20" />
-    <link rel="icon" href="~/Images/others/favicon.png">
+    <link rel="icon" href="~/Images/others/favicon.png" alt="dealkr.pk">
     <title>
          @if (ViewBag.Title != null)
         { @ViewBag.Title }
@@ -84,7 +84,7 @@
             $.cookie("AWSUserFolder", "Users/", { path: '/' });
             $.cookie("AWSCompanyFolder", "Companies/", { path: '/' });
             $.cookie("AWSURL", "https://s3.amazonaws.com/dealkr/", { path: '/' });
-            $("#side-menu").css({ "display": "block" });
+          //  $("#side-menu").css({ "display": "block" });
         })
         function authForFeedback() {
             if (loginUserId() != "Visitor") {
