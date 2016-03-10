@@ -1087,6 +1087,7 @@
                 })
                 .fail(function () {
                     self.isLoading(false);
+                    $("#showAd").css("display", "block");
                     self.error ( "This ad has been deleted or is unavailable. " );
                 });
             }
