@@ -6,6 +6,17 @@
 */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+@font-face { font-family: fontastique; src: url('\fonts\fontastique.ttf'); } 
+.navbar-brand{
+    padding-top:20px;
+    color:#1ab394;
+    font-weight:500;
+    font-family: fontastique
+}
+h1 {
+font-family: JuneBug
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 100; }
 

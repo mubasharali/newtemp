@@ -2,8 +2,27 @@
     <nav class="navbar navbar-fixed-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " ><i class="fa fa-bars"></i> </a>
-            <a href="/" class="navbar-brand">
-                <img width="100" src="~/Images/others/WaterMark.png" /></a>
+            @*@if (Html.IsSelected(controller: "Jobs") == "active")
+            {
+                <a href="/Jobs" class="navbar-brand">dealkar Jobs</a>
+            }
+            else if (Html.IsSelected(controller: "MobilesTablets") == "active")
+            {
+                <a href="/MoiblesTablets" class="navbar-brand">dealkar Mobiles</a>
+            }
+            else if (Html.IsSelected(controller: "RealEstate") == "active")
+            {
+                <a href="/RealEstate" class="navbar-brand">dealkar Homes</a>
+            }
+            else if (Html.IsSelected(controller: "Services") == "active")
+            {
+                <a href="/Services" class="navbar-brand">dealkar Services</a>
+            }
+            else*@
+            
+                <a href="/" class="navbar-brand">dealkar.pk</a>
+            
+            
             <ul class="nav navbar-top-links  pull-left">@*navbar-right*@
                 <li  style="margin-right:0px" class="fa fa-map-marker"></li>
                 <li style="margin-right:0px;margin-left:0px;padding-left:0px"><a style="padding-left:0" data-toggle="modal" data-target="#setLocation"> 
@@ -29,6 +48,7 @@
 </div>
 
 <style>
+
     .cse input.gsc-input, input.gsc-input {
         background-image: none !important;
     }
