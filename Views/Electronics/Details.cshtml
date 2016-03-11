@@ -274,7 +274,7 @@
                                                 <div class="text-right">
                                                     <div class="btn-group">
                                                         <button data-bind="click:saveAd" class="btn btn-white btn-sm"><i data-bind="style:{color: isSaved()? 'red' : 'gray'}" class="fa fa-star"></i> <span data-bind="visible:isSaved()"> Remove from</span><span data-bind="visible:!isSaved()"> Add to</span>  wishlist </button>
-                                                        <a data-bind="visible:companyId, attr:{href:'/CompanyPage/' + companyId + '/' + companyName}" class="btn btn-white btn-sm"><i class="fa fa-user"></i> Seller  (<span data-bind="text:companyName"></span> )</a>
+                                                        <a data-bind="visible:companyId, attr:{href:companyLink}" class="btn btn-white btn-sm"><i class="fa fa-user"></i> Seller  (<span data-bind="text:companyName"></span> )</a>
 
                                                         <a data-bind="visible:!companyId,attr:{href:sellerProfile}" class="btn btn-white btn-sm"><i class="fa fa-user"></i> Seller profile (<span data-bind="text:postedByName"></span> )</a>
                                                     </div>
@@ -648,7 +648,7 @@
             }
             self.companyName = data.companyName;
             self.companyId = data.companyId;
-
+            self.companyLink = '/CompanyPage/' + data.companyId + '/' + convertToSlug(data.companyName);
             self.description = ko.observable( data.description);
             self.postedByName = data.postedByName;
             self.postedById = data.postedById;

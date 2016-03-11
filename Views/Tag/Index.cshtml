@@ -391,7 +391,7 @@
                 .done(function (data) {
                     var mappedads = new Tag1(data);
                     self.showTag(mappedads);
-                    $("#FristLoading").css({ "display": "block" });
+                    $("#FirstLoading").css({ "display": "block" });
                 })
                 .fail(function () {
                     toastr.error("Unable to load data. Please refresh page and try again", "Error");

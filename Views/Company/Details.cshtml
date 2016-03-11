@@ -132,7 +132,7 @@
                                                 <div class="row">
                                                     <h3>Tags:</h3>
                                                     <ul @*class="tag-list"*@ data-bind="foreach:showTags" style="padding: 0">
-                                                        <li class="btn btn-white btn-xs"><a target="_blank" data-bind="attr:{href:'/Tag/' + $data}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:$data"></span> </a></li>
+                                                        <li class="btn btn-white btn-xs"><a target="_blank" data-bind="attr:{href:link}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
                                                     </ul>
                                                     <h2>About</h2>
                                                     <span data-bind="visible:loginUserId == createdBy">
@@ -550,6 +550,7 @@
 @Scripts.Render("~/plugins/truncate")
 <script src="~/Scripts/app/slick-knockout-binding.js"></script>
 <script src="~/Scripts/app/_AdListView.js"></script>
+<script src="~/Scripts/app/ConvertToSlug.js"></script>
 <script src="~/Scripts/app/_Truncate-knockout-binding.js"></script>
     <script>
         
@@ -683,6 +684,7 @@
             self.name = data.name;
             self.info = data.info || "";
             self.followers = data.followers || 0;
+            self.link = '/Tag/' + self.id + '/' + convertToSlug(self.name);
         };
         function ReviewReply(data) {
             var self = this;
@@ -959,7 +961,9 @@
             }
             self.showTags = ko.observableArray();
             if (data.tags) {
-                $.each((data.tags), function (i, item) { self.showTags.push(item) });
+                var branch = $.map(data.tags, function (item) { return new Tag(item); });
+                self.showTags(branch);
+                //$.each((data.tags), function (i, item) { self.showTags.push(item) });
             }
 
             self.title = ko.observable( data.title);
