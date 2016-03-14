@@ -171,9 +171,12 @@ function AccountViewModel() {
                 success: function (data) {
                     self.isUserLoginLoading(false);
                     if (data == "Done") {
-                        location.reload();
+                        // location.reload();
+                        $("#inputName").modal('hide');
+                        $("#EmailSent").modal('show');
+
                     } else {
-                        self.loginError("Some error has occured");
+                        self.loginError("Some error has occured.Please refresh page.");
                     }
                 },
                 error: function () {
@@ -185,5 +188,8 @@ function AccountViewModel() {
         else {
             self.loginError("Please enter valid name");
         }
+    }
+    self.reloadPage = function () {
+        location.reload();
     }
 }

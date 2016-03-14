@@ -80,7 +80,7 @@
             <div data-bind="visible:isLoading()">
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
-            <div data-bind="visible:!isLoading()">
+            <div id="FirstLoading" style="display:none" data-bind="visible:!isLoading()">
                 @if (ViewBag.subcategory == "commerical-vehicles")
                 {
                                     <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=commerical-vehicles')}" data-style="expand-left" class=" pull-right btn btn-danger">Sell your Commerical Vehicle</a>
