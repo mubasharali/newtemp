@@ -79,8 +79,7 @@ create electronic ad:
     </div>
    
 </div>
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
+
     @section Styles {
 
         @Styles.Render("~/plugins/toastrStyles")
@@ -101,7 +100,7 @@ create electronic ad:
                 self.category = ko.observable();
                 self.subcategory = ko.observable();
                 self.categorySelected = ko.observable(false);
-                self.categoryList = ["Mobiles", "Electronics", "Jobs", "Vehicles","Real Estate"];
+                self.categoryList = ["Mobiles", "Electronics", "Jobs", "Vehicles","Real Estate","Animals"];
                 self.categoryClicked = function (data) {
                     self.categorySelected(true);
                     self.category(data);
@@ -112,6 +111,10 @@ create electronic ad:
                     if (self.category() == "Real Estate") {
                         self.loading(true);
                         window.location.href = '/Realestate/Create';
+                    }
+                    if (self.category() == "Animals") {
+                        self.loading(true);
+                        window.location.href = '/Home/Create?category=Animals';
                     }
                 }
                 self.backButtonUnderSubcategory = function () {

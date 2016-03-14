@@ -11,7 +11,7 @@
     <div data-bind="visible:!showProfile()">
         @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
     </div>
-    <div data-bind="with:showProfile">
+    <div id="FirstLoading" style="display:none" data-bind="with:showProfile">
         <div class="row m-b-lg m-t-lg">
             <div class="col-sm-5">
 
@@ -266,8 +266,7 @@
 @Styles.Render("~/plugins/toastrStyles")
 }
 
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
+
 
 @section Scripts{
     
@@ -494,6 +493,7 @@
                     type: 'GET',
                     success: function (data) {
                         self.showProfile(new profile(data));
+                        $("#FirstLoading").css({ "display": "block" });
                         $('#select-tags-to-follow').selectize({
                             valueField: 'name',
                             labelField: 'name',

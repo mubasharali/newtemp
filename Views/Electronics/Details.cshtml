@@ -66,20 +66,23 @@
                                                 <div class="col-sm-5 hidden-lg hidden-md hidden-xs">Display your banner ad here</div>
                                             </div>
                                             <div class="col-md-7 col-sm-12">
-                                                <span data-bind="visible:loginUserId != postedById && isAdmin">
-                                                    <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-xs pull-right confirmDelete"> Delete</a>
+                                                <span data-bind="visible:(loginUserId != postedById ) ">
+                                                    <span data-bind="visible:isAdmin()">
+                                                        <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-xs pull-right confirmDelete"> Delete</a>
+
+                                                    </span>
                                                 </span>
                                                 <span data-bind="visible:loginUserId == postedById">
                                                     <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-xs pull-right confirmDelete"> Delete</a><a data-bind="click: function(){return editAd(id)}" class="btn btn-white btn-xs pull-right"> Edit</a>
                                                 </span>
                                                 <h2 data-bind="text:title" class="font-bold m-b-xs"></h2>
                                                 <ul class="tag-list" data-bind="foreach:showTags" style="padding: 0">
-                                                    <li><a target="_blank" data-bind="attr:{href:'/Tag/' + id + '/' + name}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
+                                                    <li><a target="_blank" data-bind="attr:{href:tagLink}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
                                                 </ul><br /><br />
                                                 <hr>
                                                 <span data-bind="visible:!showJob()">
                                                     @*remove this*@
-                                                    <span data-bind="">
+                                                    <span data-bind="visible:loginUserId != postedById">
                                                         <button data-bind="click:function(){ return sendMessage(postedById,postedByName)}" class="btn btn-primary pull-right">Chat with seller</button>
                                                     </span>
                                                     <h1 class="product-main-price">
@@ -132,6 +135,13 @@
                                                         margin-left: 0px;
                                                     }
                                                 </style>
+
+                                                <div data-bind="visible:category == 'Animals'">
+                                                    <dl class="dl-horizontal m-t-md small">
+                                                        <dt>Category:</dt>
+                                                        <dd data-bind="text:subcategory"></dd>
+                                                    </dl>
+                                                </div>
 
                                                 <div data-bind="with:showMobileAd">
                                                     <dl class="dl-horizontal m-t-md small">
@@ -404,8 +414,7 @@
     
 </div>
 
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
+
 
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")
@@ -432,6 +441,7 @@
 <script src="~/Scripts/app/chat.js"></script>
 <script src="~/Scripts/app/slick-knockout-binding.js"></script>
 <script src="~/Scripts/_Comments.js"></script>
+<script src="~/Scripts/app/IsAdmin.js"></script>
     <script>
         var myAdId = $("#adId").val();
         function Biding(data) {
@@ -608,7 +618,7 @@
             self.name = data.name;
             self.info = data.info || "";
             self.followers = data.followers || 0;
-            self.link = "/Tag/" + convertToSlug( data.name);
+            self.tagLink = "/Tag/" + self.id + '/' + convertToSlug( data.name);
         };
         function convertToSlug(Text) {
             return Text
@@ -635,7 +645,7 @@
                 }
             }
             data = data || {};
-            self.isAdmin = data.isAdmin;
+       //     self.isAdmin = data.isAdmin;
             self.title = data.title;
 
             self.showRealEstateAd = ko.observable();
@@ -648,7 +658,10 @@
             }
             self.companyName = data.companyName;
             self.companyId = data.companyId;
-            self.companyLink = '/CompanyPage/' + data.companyId + '/' + convertToSlug(data.companyName);
+            self.companyLink = "";
+            if (data.companyName) {
+                self.companyLink = '/CompanyPage/' + data.companyId + '/' + convertToSlug(data.companyName);
+            }
             self.description = ko.observable( data.description);
             self.postedByName = data.postedByName;
             self.postedById = data.postedById;
@@ -1055,7 +1068,9 @@
                 }
             }
         }
+        
         function viewModel() {
+            
             var self = this;
             self.isLoading = ko.observable(false);
             SearchingLocation();
@@ -1084,6 +1099,10 @@
                     $(".sortable-list").sortable({
                         connectWith: ".connectList"
                     }).disableSelection();
+
+                    loadAdmin();
+
+
                 })
                 .fail(function () {
                     self.isLoading(false);

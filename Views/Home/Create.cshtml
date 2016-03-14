@@ -27,11 +27,29 @@
                     {
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="files" id="fileNames" />
-                        <input type="hidden" name="category" value="@ViewBag.category" />
-                        <input type="hidden" name="subcategory" value="@ViewBag.subcategory" />
+                        <input id="category" type="hidden" name="category" value="@ViewBag.category" />
+                        
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true)
                             
+                            @if (ViewBag.category == "Animals")
+{
+    <div class="form-group">
+        <label class="control-label col-md-2">Select category <span class="req">*</span></label>
+        <div class="col-md-10">
+            <select class="form-control" name="subcategory" required data-bind="options: availableCategories,
+                       value: selectedCategory,
+                       optionsCaption: 'Select category'"></select>
+        </div>
+    </div>
+                                                            
+}
+                            else
+                            {
+                                <input type="hidden" name="subcategory" value="@ViewBag.subcategory" />
+                            }
+                            
+
                             @Html.Partial("~/Views/Shared/_CreateAd_Most.cshtml")
 
                             <div class="form-group">
@@ -86,7 +104,12 @@
             }
 
             UserCompanies_CreateAd(self);
-
+            self.availableCategories = [];
+            self.selectedCategory = ko.observable();
+            var category = $("#category").val();
+            if (category == "Animals") {
+                 self.availableCategories = ["Dog", "Bird", "Cat", "Fish", "Farm Animals", "others", "Pet Adoption", "Pet Accessories", "Pet Food", "Pet training", "Pet Clinics"];
+              }
             self.availableYears = ko.observableArray();
             self.loadYears = function () {
                 var firstYear = 1960;

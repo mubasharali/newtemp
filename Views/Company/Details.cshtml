@@ -96,6 +96,9 @@
                                 </form>
 
                                 <div data-bind="visible:!isPageEditing()">
+                                    <span data-bind="visible:loginUserId != createdBy">
+                                        <a data-bind="click: function(){return deletePage(id)},visible:isAdmin()" class="btn btn-white btn-xs pull-right "> Delete</a>
+                                    </span>
                                     <span data-bind="visible:loginUserId == createdBy">
                                         <a data-bind="click: function(){return deletePage(id)}" class="btn btn-white btn-xs pull-right "> Delete</a><a data-bind="click: function(){return editPage(id)}" class="btn btn-white btn-xs pull-right"> Edit</a>
                                     </span>
@@ -526,9 +529,6 @@
 
 
 
-@Html.Partial("/Views/Shared/_Chat.cshtml")
-@Html.Partial("~/Views/Shared/_UserLogin.cshtml")
-
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
@@ -552,6 +552,7 @@
 <script src="~/Scripts/app/_AdListView.js"></script>
 <script src="~/Scripts/app/ConvertToSlug.js"></script>
 <script src="~/Scripts/app/_Truncate-knockout-binding.js"></script>
+<script src="~/Scripts/app/IsAdmin.js"></script>
     <script>
         
         var myCompanyId = $("#companyId").val();
@@ -1524,6 +1525,7 @@
                     var mappedads = $.map(data, function (item) { return new CompanyPage(item); });
                     $("#FirstLoading").css({ "display": "block" });
                     self.showPage(mappedads);
+                    loadAdmin();
                 })
                 .fail(function () {
                     self.error("This Business Page has been deleted or is unavailable.");

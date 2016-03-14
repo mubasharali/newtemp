@@ -1,7 +1,15 @@
 ﻿<input type="hidden" id="adId" name="Id" value="@Model.Id" />
 <input type="hidden" name="time" value="@Model.time" />
-<input type="hidden" name="category" value="@Model.category" />
-<input type="hidden" name="subcategory" value="@Model.subcategory" />
+<input type="hidden" id="category" name="category" value="@Model.category" />
+@if (Model.category == "Animals")
+{
+
+}
+else
+{
+    <input type="hidden" name="subcategory" value="@Model.subcategory" />
+}
+
 <input type="hidden" name="postedBy" value="@Model.postedBy" />
 <div class="form-group">
     <label class="control-label col-md-2">Title<span class="req">*</span></label>

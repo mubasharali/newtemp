@@ -58,6 +58,14 @@
                     </div>
                 </div>
                 <div class="ibox-content">
+                    @if (ViewBag.category == "Animals")
+                    {
+                        <h5>Search by Category</h5>
+                        <select class="form-control" data-bind="options: availableCategories,
+                       value: selectedCategory,
+                       optionsCaption: 'Select category'"></select>
+                        <hr />
+                    }
                     <h5> search by tags</h5>
                     <input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." />
                     <hr />
@@ -75,35 +83,39 @@
             <div data-bind="visible:!isLoading()">
                 @if (ViewBag.subcategory == "commerical-vehicles")
                 {
-                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=commerical-vehicles')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell your Commerical Vehicle</a>
+                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=commerical-vehicles')}" data-style="expand-left" class=" pull-right btn btn-danger">Sell your Commerical Vehicle</a>
                 }
                 else if (ViewBag.subcategory == "vehicles-for-rent")
                 {
-                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=vehicles-for-rent')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Add your vehicle for rent</a>
+                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=vehicles-for-rent')}" data-style="expand-left" class=" pull-right btn btn-danger">Add your vehicle for rent</a>
                 }
                 else if (ViewBag.subcategory == "other-vehicles")
                 {
-                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=other-vehicles')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell your Vehicle</a>
+                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=other-vehicles')}" data-style="expand-left" class=" pull-right btn btn-danger">Sell your Vehicle</a>
                 }
                 else if (ViewBag.subcategory == "spare-parts")
                 {
-                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=spare-parts')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Spare parts</a>
+                                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Vehicles&subcategory=spare-parts')}" data-style="expand-left" class=" pull-right btn btn-danger">Sell Spare parts</a>
                 }
                 else if (ViewBag.subcategory == "TV-DVD-Multimedia")
                 {
-                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=TV-DVD-Multimedia')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell TV-DVD-Multimedia</a>
+                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=TV-DVD-Multimedia')}" data-style="expand-left" class="pull-right btn btn-danger">Sell TV-DVD-Multimedia</a>
                 }
                 else if (ViewBag.subcategory == "Games")
                 {
-                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Games')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Games</a>
+                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Games')}" data-style="expand-left" class="pull-right btn btn-danger">Sell Games</a>
                 }
                 else if (ViewBag.subcategory == "Home-Appliances")
                 {
-                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Home-Appliances')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Home Appliances</a>
+                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Home-Appliances')}" data-style="expand-left" class="pull-right btn btn-danger">Sell Home Appliances</a>
                 }
                 else if (ViewBag.subcategory == "Other-Electronics")
                 {
-                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Other-Electronics')}" data-style="expand-left" class="ladda-button pull-right btn btn-danger">Sell Electronics</a>
+                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Electronics&subcategory=Other-Electronics')}" data-style="expand-left" class="pull-right btn btn-danger">Sell Electronics</a>
+                }
+                else if (ViewBag.subcategory == "Animals")
+                {
+                    <a data-bind="click:function(){ return createAd('/Home/Create?category=Animals')}" data-style="expand-left" class="pull-right btn btn-danger">Post your ad</a>
                 }
                 <span data-bind="text:showAds().length"> </span> results found<br />
                 @*<b>Summary:</b> Showing <span data-bind="visible: !( minPrice() != 0 || maxPrice() != 50000 || searchingCity() || brand() || model() || tags() )"> all </span> <b> <span data-bind="visible:laptopAccessories()"> Laptop/Computer Accessories </span> <span data-bind="visible:!laptopAccessories()">Laptops/Computers</span> </b><span data-bind="visible:brand || model"> of </span> <b> <span data-bind="text:brand"></span> <span data-bind="text:model"> </b>

@@ -4,13 +4,13 @@
             <div class="modal-content animated ">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-laptop modal-icon"></i>
-                    <h4 class="modal-title">Welcome to logo.com</h4>
-                    <small class="font-bold">Trusted website for buying and selling</small>
+                    @*<i class="fa fa-laptop modal-icon"></i>*@
+                    <h4 class="modal-title brand-style">dealkar.pk</h4>
+                    <small class="font-bold">Wait na kar, deal kar!</small>
                 </div>
                 <div class="modal-body">
                     <div class="form-group"><label>Enter Email</label> <input type="email" data-bind="value:email,valueUpdate:'afterkeydown',event:{keyup:checkEnterEmail}" placeholder="Enter your email" class="form-control"></div>
-                    <p data-bind="text:loginError"></p>
+                    <p class="req" data-bind="text:loginError"></p>
                 </div>
                 <div class="modal-footer">
                     <div data-bind="visible:!isUserLoginLoading()">
@@ -36,14 +36,14 @@
             <div class="modal-content animated ">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-laptop modal-icon"></i>
-                    <h4 class="modal-title">Welcome to logo.com</h4>
-                    <small class="font-bold">Trusted website for buying and selling</small>
+                    @*<i class="fa fa-laptop modal-icon"></i>*@
+<h4 class="modal-title brand-style">dealkar.pk</h4>
+<small class="font-bold">Wait na kar, deal kar!</small>
                 </div>
                 <div class="modal-body">
                     <div class="form-group"><label>Enter Password</label> <input type="password" data-bind="value:password,valueUpdate:'afterkeydown',event:{keyup:checkEnterNewPassword}" placeholder="Enter Password" class="form-control"></div>
                     <div class="form-group"><label>Confirm Password</label> <input type="password" data-bind="value:confirmPassword,hasFocus:hasConfirmPasswordFocus,valueUpdate:'afterkeydown',event:{keyup:checkEnterConfirmPassword}" placeholder="Again Enter your Password" class="form-control"></div>
-                    <p data-bind="text:loginError"></p>
+                    <p class="req" data-bind="text:loginError"></p>
                 </div>
                 <div class="modal-footer">
                     <div data-bind="visible:!isUserLoginLoading()">
@@ -69,16 +69,16 @@
             <div class="modal-content animated ">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-laptop modal-icon"></i>
-                    <h4 class="modal-title">Thank You for joining Logo.com !</h4>
+                    @*<i class="fa fa-laptop modal-icon"></i>*@
+                    <h4 class="modal-title">Thank You for joining <span class="brand-style">dealkar.pk</span> !</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group"><label>Your good name please</label> <input type="text" data-bind="value:UserName,valueUpdate:'afterkeydown',event:{keyup:checkEnterName}" placeholder="Enter your Name" class="form-control"></div>
-                    <p data-bind="text:loginError"></p>
+                    <p class="req" data-bind="text:loginError"></p>
                 </div>
                 <div class="modal-footer">
                     <div data-bind="visible:!isUserLoginLoading()">
-                        <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
+                        @*<button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>*@
                         <button type="button" data-bind="click:submitName" class="btn btn-primary">Submit</button>
                     </div>
                     <div data-bind="visible:isUserLoginLoading()">
@@ -99,12 +99,12 @@
             <div class="modal-content animated ">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-laptop modal-icon"></i>
+                    @*<i class="fa fa-laptop modal-icon"></i>*@
                     <h4 class="modal-title">Welcome Back <span data-bind="text:UserName"></span> !</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group"><label><span data-bind="visible:!isPasswordSaved()">Create </span> <span data-bind="visible:isPasswordSaved()">Enter </span>  password</label> <input type="password" data-bind="value:password,valueUpdate:'afterkeydown',event:{keyup:checkEnterPassword}" placeholder="Password" class="form-control"></div>
-                    <p data-bind="text:loginError"></p>
+                    <p class="req" data-bind="text:loginError"></p>
                 </div>
                 <div class="modal-footer">
                     <div data-bind="visible:!isUserLoginLoading()">

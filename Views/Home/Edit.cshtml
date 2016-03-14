@@ -12,7 +12,7 @@
                     <h5>Edit Ad</h5>
                 </div>
                 <div class="ibox-content">
-                    <form id="my-awesome-dropzone" data-bind="dropzone: { url: '/Electronics/FileUploadHandler' }" action="@Url.Action("FileUploadHandler", "Electronics")" method="post" enctype="multipart/form-data">
+                    <form id="my-awesome-dropzone" data-bind="dropzone: { url: '/Electronics/FileUploadHandler' }" method="post" enctype="multipart/form-data">
                         <h2>Add Images</h2>
                         <div id="dropzonePreview" class="dz-default dz-message">
                         </div>
@@ -26,6 +26,24 @@
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true)
                             
+                            @if (Model.category == "Animals")
+                            {
+                                <div style="display:none" id="subcategory">@Model.subcategory</div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Select category <span class="req">*</span></label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id="selectSubcategory" name="subcategory" required data-bind="options: availableCategories,
+                       value: selectedCategory,
+                       optionsCaption: 'Select category'"></select>
+                                    </div>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <input type="hidden" name="subcategory" value="@ViewBag.subcategory" />
+                            }
+
                             @Html.Partial("~/Views/Shared/_EditAd_Most.cshtml")
 
                             <div class="form-group">
@@ -78,6 +96,14 @@
                 window.btn_clicked = true;
                 $("#form").submit();
             }
+
+            self.availableCategories = [];
+            self.selectedCategory = ko.observable($("#subcategory").text());
+            var category = $("#category").val();
+            if (category == "Animals") {
+                self.availableCategories = ["Dog", "Bird", "Cat", "Fish", "Farm Animals", "others", "Pet Adoption", "Pet Accessories", "Pet Food", "Pet training", "Pet Clinics"];
+            }
+           
             self.conditionChecked = ko.observable(false);
             self.typeValue = ko.observable("sell");
             self.selectedVal = ko.observable();
@@ -189,7 +215,7 @@
                                         '<span class="description">' + escape(item.info) + '</span>' +
                                         '<ul class="meta">' +
                                             '<li class="watchers"><span>' + escape(item.followers) + '</span> followers</li>' +
-                                            '<li class="forks"><span>' + escape(item.questions) + '</span> questions asked</li>' +
+                                            '<li class="forks"><span>' + escape(item.questions) + '</span> times used</li>' +
                                         '</ul>' +
                                     '</div>';
                                 }
@@ -332,7 +358,7 @@
                         for (i = 0; i < images.length; i++) {
                             // images[i].name = $.trim(images[i].name);
                             myDropzone1.options.addedfile.call(myDropzone1, images[i]);
-                            myDropzone1.options.thumbnail.call(myDropzone1, images[i], "/Images/Ads/" + images[i].name);
+                            myDropzone1.options.thumbnail.call(myDropzone1, images[i], $.cookie("AWSURL") + $.cookie("AWSFolderName") + images[i].name);
                         }
                     }
                 },

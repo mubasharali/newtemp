@@ -46,7 +46,7 @@
                         <a class="product-name" data-bind="text:title,attr:{href:link}"> </a>
 
                         <div class="small m-t-xs" data-bind="foreach:showTags">
-                            <a target="_blank" data-bind="attr:{href:'/Tag/' + name},text:name" class="btn btn-xs btn-white"> </a>
+                            <a target="_blank" data-bind="attr:{href:link},text:name" class="btn btn-xs btn-white"> </a>
                         </div><br />
                         <div data-bind="truncatedText: description, maxTextLength: 150"></div><br />
                         <div class="pull-right"><i class="fa fa-clock-o"></i> <span data-bind="text:time"></span></div>

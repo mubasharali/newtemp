@@ -11,11 +11,16 @@
         <div class="col-md-9">
             <div class="ibox">
                 <div data-bind="visible:!showQuestions()">@Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")</div>
-                <div id="QuestionViewModel" data-bind="foreach: showQuestions">
+                <div id="FirstLoading" style="display:none" data-bind="foreach: showQuestions">
                     <div class="ibox-content" data-bind="attr:{'id':id}">
                         <div class="row">
                             <div class="col-lg-12">
-                                    <a data-bind="visible:postedById==loginUserId" class="btn btn-white btn-xs pull-right">Delete</a><a data-bind="visible:postedById==loginUserId" class="btn btn-white btn-xs pull-right">Edit</a>
+                                <span data-bind="visible:postedById != loginUserId">
+                                    <span data-bind="visible:isAdmin()">
+                                        <a data-bind="click:deleteQuestion" class="btn btn-white btn-xs pull-right">Delete</a>
+                                    </span>
+                                </span>
+                                    <a data-bind="visible:postedById==loginUserId,click:deleteQuestion" class="btn btn-white btn-xs pull-right">Delete</a><a data-bind="visible:postedById==loginUserId,attr:{href:'/Forum/Edit/' + id}" class="btn btn-white btn-xs pull-right">Edit</a>
                                 <div class="vote-item">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -201,6 +206,7 @@
 
 @section Styles {
     @Styles.Render("~/plugins/toastrStyles")
+@Styles.Render("~/plugins/sweetAlertStyles")
 }
 
 
@@ -208,7 +214,9 @@
     @Scripts.Render("~/plugins/toastr")
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
+@Scripts.Render("~/plugins/sweetAlert")
 <script src="~/Scripts/app/friendlyURL.js"></script>
+<script src="~/Scripts/app/IsAdmin.js"></script>
     <script>
         function AnswerReply(data) {
             var self = this;
@@ -589,6 +597,32 @@
                 self.followText("UnFollow");
                 self.isFollowed(true);
             }
+            self.deleteQuestion = function (question) {
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this !",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false
+                }, function () {
+                    $.ajax({
+                        url: '/api/Forum/DeleteQuestion/' + question.id,
+                        dataType: "json",
+                        contentType: "application/json",
+                        cache: false,
+                        type: 'POST',
+                        success: function (data) {
+                            swal("Deleted!", "Question has been deleted.", "success");
+                            window.location.href = "/Forum";
+                        },
+                        error: function () {
+                            swal("Error", "please refresh page and try again", "error");
+                        }
+                    });
+                });
+            }
             self.follow = function (questionId, loginUserId) {
                 if (loginUserId) {
                     $.ajax({
@@ -827,6 +861,8 @@
                 .done(function (data) {
                     var mappedads = $.map(data, function (item) { return new Question(item); });
                     self.showQuestions(mappedads);
+                    $("#FirstLoading").css({ "display": "block" });
+                    loadAdmin();
                 })
                 .fail(function () {
                     toastr.error("Unable to load data. Please try again", "Error");
