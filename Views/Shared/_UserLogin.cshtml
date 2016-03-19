@@ -13,7 +13,7 @@
                     <p class="req" data-bind="text:loginError"></p>
                     <section id="externalLogins">
                         @*@Html.Action("RemoveAccountList","Account")*@
-                        @Html.Partial("../Account/_ExternalLoginsListPartial", new Inspinia_MVC5_SeedProject.Models.ExternalLoginViewModel { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })
+                        @Html.Partial("../Account/_ExternalLoginsListPartial", new Inspinia_MVC5_SeedProject.Models.ExternalLoginViewModel { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
                     </section>
                 </div>
                 <div class="modal-footer">

@@ -1,7 +1,7 @@
 ﻿@model Inspinia_MVC5_SeedProject.Models.Ad
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Car Ad | sell your car";
 }
 
 
@@ -12,15 +12,11 @@
         <div class="col-md-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Create Ad</h5>
+                    <a class="btn btn-info btn-xs pull-right " href="/CreateAd">Post ad in another category</a>
+                    <h5>Create Car Ad</h5>
                 </div>
                 <div class="ibox-content">
-                    <form id="my-awesome-dropzone" data-bind="dropzone: { url: '/Electronics/FileUploadHandler' }" action="@Url.Action("FileUploadHandler", "Electronics")" method="post" enctype="multipart/form-data">
-                        <h2>Add Images</h2>
-                        <div id="dropzonePreview" class="dz-default dz-message">
-                        </div>
-                    </form>
-                    <br />
+                    @Html.Partial("~/Views/Shared/_Dropzone.cshtml")
                     @using (Html.BeginForm("CreateCarAd", "Vehicles", FormMethod.Post, new { id = "form" }))
                     {
                         @Html.AntiForgeryToken()
