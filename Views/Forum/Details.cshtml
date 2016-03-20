@@ -10,7 +10,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-9">
             <div class="ibox">
-                <div data-bind="visible:showQuestions().length < 1">@Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")</div>
+                <div data-bind="visible:!showQuestions()">@Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")</div>
                 <div id="FirstLoading" style="display:none" data-bind="foreach: showQuestions">
                     <div class="ibox-content" data-bind="attr:{'id':id}">
                         <div class="row">
@@ -262,7 +262,7 @@
                     });
                 }
                 else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
 
@@ -352,7 +352,7 @@
                     });
                 }
                 else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
 
@@ -381,7 +381,7 @@
                         toastr.info("You have reached the limit!");
                     }
                 } else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
             //delete answer reply
@@ -465,7 +465,7 @@
                         }
                     }
                     else {
-                        loginBtn();
+                        $("#inputEmail").modal('show');
                     }
             }
         }
@@ -512,7 +512,7 @@
                     });
                 }
                 else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
             //edit question reply
@@ -643,7 +643,7 @@
                     });
                 }
                 else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
 
@@ -677,7 +677,7 @@
                     });
                 }
                 else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
 
@@ -710,7 +710,7 @@
                         toastr.info("You reached the limit");
                     }
                 } else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
             
@@ -738,7 +738,7 @@
                         }
                     })
                 } else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
             //delete answer
@@ -800,7 +800,7 @@
                     }
                 }
                 else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
             
@@ -812,7 +812,7 @@
                         toastr.info("You reached the limit","Sorry!");
                     }
                 } else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
             self.addAnswer = function () {
@@ -840,7 +840,7 @@
                     }
                 }
                 else {
-                    loginBtn();
+                    $("#inputEmail").modal('show');
                 }
             }
         }
