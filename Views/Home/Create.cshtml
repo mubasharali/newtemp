@@ -26,7 +26,7 @@
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true)
                             
-                            @if (ViewBag.category == "Animals")
+                            @if (ViewBag.category == "Animals" || ViewBag.category == "books-sports-hobbies")
 {
     <div class="form-group">
         <label class="control-label col-md-2">Select category <span class="req">*</span></label>
@@ -103,7 +103,10 @@
             var category = $("#category").val();
             if (category == "Animals") {
                  self.availableCategories = ["Dog", "Bird", "Cat", "Fish", "Farm Animals", "others", "Pet Adoption", "Pet Accessories", "Pet Food", "Pet training", "Pet Clinics"];
-              }
+            }
+            else if (category == "books-sports-hobbies") {
+                self.availableCategories = ["Books & Magazines", "Classes", "Home tuitions", "Musical Instruments", "Sports Equipment", "Gym & Fitness", "other hobbies"];
+            }
             self.availableYears = ko.observableArray();
             self.loadYears = function () {
                 var firstYear = 1960;

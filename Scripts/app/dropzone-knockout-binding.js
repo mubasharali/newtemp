@@ -28,7 +28,7 @@
         $.extend(options, value);
 
         $(element).addClass('dropzone');
-        new Dropzone(element, options); // jshint ignore:line
+        new Dropzone(element, options);
     }
 };
 $(function () {

@@ -48,16 +48,7 @@
             <!-- Main view  -->
             @RenderBody()
 
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- tempAds -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-5427185622945199"
-                 data-ad-slot="1030384265"
-                 data-ad-format="auto"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+           
 
             @Html.Partial("/Views/Shared/_Chat.cshtml")
             @Html.Partial("~/Views/Shared/_UserLogin.cshtml")
@@ -81,6 +72,7 @@
     @Scripts.Render("~/scripts/selectize")
     @Scripts.Render("~/plugins/toastr")
     @Scripts.Render("~/plugins/ladda")
+    @Scripts.Render("~/plugins/truncate")
     <script src="~/Scripts/jquery.cookie.js"></script>
     <script src="~/Scripts/app/_SearchLocation.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
@@ -93,9 +85,9 @@
     <script>
         $(function () {
             $.connection.hub.start().done();
-            $.cookie("AWSFolderName", "Ads/", { path: '/' });
-            $.cookie("AWSUserFolder", "Users/", { path: '/' });
-            $.cookie("AWSCompanyFolder", "Companies/", { path: '/' });
+            $.cookie("AWSFolderName", "tempAds/", { path: '/' });
+            $.cookie("AWSUserFolder", "tempUsers/", { path: '/' });
+            $.cookie("AWSCompanyFolder", "tempCompanies/", { path: '/' });
             $.cookie("AWSURL", "https://s3.amazonaws.com/dealkr/", { path: '/' });
           //  $("#side-menu").css({ "display": "block" });
         })
@@ -107,6 +99,18 @@
                 loginBtn();
             }
         }
+        //ko.bindingHandlers.truncateLocation = {
+        //    update: function (element, valueAccessor, allBindingsAccessor) {
+        //        var originalText = ko.utils.unwrapObservable(valueAccessor()),
+        //            // 10 is a default maximum length
+        //            length = ko.utils.unwrapObservable(allBindingsAccessor().maxTextLength) || 12,
+        //            truncateLocation = originalText.length > length ? originalText.substring(0, length) + " ..." : originalText;
+        //        // updating text binding handler to show truncateLocation
+        //        ko.bindingHandlers.text.update(element, function () {
+        //            return truncateLocation;
+        //        });
+        //    }
+        //};
     </script>
 </body>
 </html>
