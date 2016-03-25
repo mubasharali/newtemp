@@ -33,6 +33,14 @@
         <div class="col-md-3 hidden-sm hidden-xs">
         </div>
         <div class="col-md-9 col-sm-12">
+            <div data-bind="if:loginUserId == id">
+                <div data-bind="visible:!isEmailConfirmed">
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h3>Confirm your email address</h3><p>Click on the link we sent at your email address. <a >I have not received any mail. I have checked Spam folder</a></p>
+                    </div>
+                </div>
+            </div>
             <div class="">
                 <img data-bind="attr:{src:dpLink}" width="200" height="200" class="img-circle circle-border m-b-md" alt="profile">
             </div>
@@ -303,6 +311,7 @@
             var self = this;
             data = data || {};
             self.id = data.Id;
+            self.isEmailConfirmed = data.isEmailConfirmed;
             self.UserName = ko.observable( data.UserName);
             self.city = ko.observable(data.city);
             self.gender = ko.observable(data.gender || "");

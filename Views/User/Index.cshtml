@@ -28,7 +28,7 @@
                             <br />
                             <small>
                                 @*<button class="btn btn-sm" data-bind="visible: loginUserId != id,click:function(){ return addFriend(id)} " style="margin-bottom:1px"><span data-bind="visible:!isFriend()">Add Friend</span><span data-bind="visible:isFriend">UnFriend</span></button>
-                                &nbsp;<button class="btn btn-sm" data-bind="visible: loginUserId != id,click:function(){ return sendMessage(id,name)}" style="margin-bottom:1px">Send message</button> &nbsp;<button data-bind="visible: loginUserId != id" style="margin-bottom:1px" class="btn btn-sm">Follow</button>*@
+    &nbsp;*@<button class="btn btn-sm" data-bind="visible: loginUserId != id,click:function(){ return sendMessage(id,name)}" style="margin-bottom:1px">Send message</button>@* &nbsp;<button data-bind="visible: loginUserId != id" style="margin-bottom:1px" class="btn btn-sm">Follow</button>*@
 
                                 <a class="btn btn-sm btn-default" data-bind="visible: loginUserId == id,attr:{href:'/User/Profile/'+ id}" style="margin-bottom:1px">Edit Profile</a>
                             </small>
