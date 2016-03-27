@@ -37,7 +37,7 @@
                 <div data-bind="visible:!isEmailConfirmed">
                     <div class="alert alert-success alert-dismissable">
                         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                        <h3>Confirm your email address</h3><p>Click on the link we sent at your email address. <a >I have not received any mail. I have checked Spam folder</a></p>
+                        <h3>Confirm your email address</h3><p>Click on the link we sent at <b data-bind="text:UserName"></b>. <a >I have not received any mail. I have checked Spam folder</a></p>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                                         <a data-bind="text:UserName"></a>
                                         <br>
                                     </td>
-                                    <td data-bind="visible:isNameEditing()">
+                                    <td data-bind="if:!isEmailConfirmed,visible:isNameEditing()">
                                         <input type="email" data-bind="value:UserName" class="form-control" />
                                     </td>
 
@@ -155,7 +155,7 @@
                                         </small>
 
                                     </td>
-                                    <td class="project-actions">
+                                    <td  class="project-actions">
                                         <a data-bind="click:updateProfile,visible:isNameEditing()" class="btn btn-white btn-sm"><i class="fa fa-save"></i> save </a>
                                         <a data-bind="click:editName,visible:!isNameEditing()" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
                                     </td>
