@@ -70,7 +70,7 @@
                             </th>
                         </tr>
                         <tbody data-bind="foreach:showCities">
-                            <tr>
+                            <tr data-bind="style:{color:status() == 'p' ? 'red' : 'gray'}">
                                 <td data-bind="visible:!isCityEditing(),text:cityName"> </td>
                                 <td data-bind="visible:isCityEditing()">
                                     <input type="text" data-bind="value:cityName" />
@@ -180,6 +180,7 @@
             }
             
             self.updateCity = function (city) {
+                city.status('a');
                 $.ajax({
                     url: '/api/Location/UpdateCity',
                     dataType: "json",
@@ -188,6 +189,7 @@
                     type: 'POST',
                     data: ko.toJSON(city),
                     success: function (data) {
+                        self.status('a');
                         self.isCityEditing(false);
                     },
                     error: function () {
