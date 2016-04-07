@@ -44,7 +44,7 @@
                 <div data-bind="visible:!isBrandEditing()">
                     <div data-bind="text:brand"></div>
                     <div data-bind="text:time"></div>
-                    <div data-bind="text:addedByName"> </div><button data-bind="visible:!status(),click:function(){ return approve($data,$parent.selectedOption())}">Approve</button>
+                    <a data-bind="attr:{href:'/User/Index/' + addedById}"><span data-bind="text:addedByName"> </span></a><button data-bind="visible:!status(),click:function(){ return approve($data,$parent.selectedOption())}">Approve</button>
                     <button data-bind="click:editBrandBtn">Edit</button>
                     <button data-bind="click:$parent.deleteBrandBtn">Delete</button>
                 </div>
@@ -60,7 +60,7 @@
                     (<span data-bind="text:brand"></span> )
 
                     <div data-bind="text:time"></div>
-                    <div data-bind="text:addedByName"></div>
+                    <a data-bind="attr:{href:'/User/Index/' + addedById}"><span data-bind="text:addedByName"> </span></a>
                     <button data-bind="visible:!status(),click: function(){ return approve($data,$parent.selectedOption())}">Approve</button>
                     <button data-bind="click:editModelBtn">Edit</button>
                     <button data-bind="click:$parent.deleteModelBtn">Delete</button>

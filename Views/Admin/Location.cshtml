@@ -75,7 +75,7 @@
                                 <td data-bind="visible:isCityEditing()">
                                     <input type="text" data-bind="value:cityName" />
                                 </td>
-                                <td data-bind="text:addedByName"> </td>
+                                <td> <a data-bind="attr:{href:'/User/Index/' + addedBy},text:addedByName"></a> </td>
                                 <td data-bind="text:addedOn"></td>
                                 <td data-bind="text:updatedByName"></td>
                                 <td data-bind="text:updatedOn"></td>
@@ -122,7 +122,7 @@
                                     <input type="text" data-bind="value:name" />
                                 </td>
                                 <td data-bind="text:cityName"></td>
-                                <td data-bind="text:addedByName"></td>
+                                <td > <a data-bind="attr:{href:'/User/Index/' + addedBy},text:addedByName"></a> </td>
                                 <td data-bind="text:addedOn"></td>
                                 @*<td data-bind="text:updatedByName"></td>
                                 <td data-bind="text:updatedOn"></td>*@
@@ -196,7 +196,6 @@
                         toastr.error("failed to update city", "Error!");
                     }
                 });
-                
             }
         };
         function PopularPlace(data) {
