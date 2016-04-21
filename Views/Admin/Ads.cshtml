@@ -62,7 +62,7 @@
                                         <span data-bind="visible:loginUserId == postedById">
                                             <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-xs pull-right confirmDelete"> Delete</a><a data-bind="click: function(){return editAd(id)}" class="btn btn-white btn-xs pull-right"> Edit</a>
                                         </span>
-                                        <a data-bind="attr:{href:'../Electronics/Details/' + id }"> <h2 data-bind="text:title" class="font-bold m-b-xs"></h2></a>
+                                        <a data-bind="attr:{href:adURL }"> <h2 data-bind="text:title" class="font-bold m-b-xs"></h2></a>
                                         <ul class="tag-list" data-bind="foreach:showTags" style="padding: 0">
                                             <li><a href=""><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
                                         </ul><br /><br />
@@ -248,6 +248,8 @@
 @Scripts.Render("~/plugins/slick")
 <script src="~/Scripts/UserLogin.js"></script>
 <script src="~/Scripts/_Comments.js"></script>
+<script src="~/Scripts/app/friendlyURL.js"></script>
+
     <script>
     var myAdId = $("#adId").val();
     function Biding(data) {
@@ -341,6 +343,7 @@
         self.postedByName = data.postedByName;
         self.postedById = data.postedById;
         self.id = data.id;
+        self.adURL = '../../Details/' + self.id + '/' + convertToSlug( self.title);
         self.time = getTimeAgo(data.time);
         self.loginUserId = data.islogin || "";
         self.loginUserProfileLink = '/Images/Users/p' + self.loginUserId + data.loginUserProfileExtension;

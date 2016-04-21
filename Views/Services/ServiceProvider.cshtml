@@ -1,84 +1,55 @@
-﻿@{
-    ViewBag.Title = "Buy and sell cars|Buy second hand cars";
+﻿@model IEnumerable<Inspinia_MVC5_SeedProject.Models.Ad>
+
+@{
+    ViewBag.Title = "Provide a service | Search Service Consumers";
 }
 
+<div class="row wrapper wrapper-content animated white-bg fadeInRight">
+    <div class="">
+        <div class="col-sm-12">
+            <p>&nbsp</p>
+            <div class="control-group form-horizontal">
+                <label class="control-label col-sm-5" for="select-repo">What are you looking for <br /><small class="text-navy hidden-xs">pick tags</small></label>
+                <div class="col-sm-5 col-md-4">
+                    <input id="select-tag" name="tags" data-bind="value:tags" class="repositories" placeholder="e.g, Mobile repair, plumber, travel agencies.." />
+                </div>
+            </div>
+            <p>&nbsp</p>
 
-
-<style>
-    .carouselContainer {
-        overflow: hidden;
-        //height:350px;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    #gallery {
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .product-imitation {
-        margin: 0px;
-        padding: 0px;
-        /apply max-padding or default image;
-    }
-
-    .carouselContainer img {
-        // height: 350px;
-        width: 250px;
-        height: 250px;
-    }
-
-    .showAds .ibox {
-        height: 420px;
-    }
-</style>
-
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-sm-4 col-md-3 col-lg-3">
+        </div>
+        <div class="col-lg-12">
             <div class="ibox">
-                <div class="ibox-title">
-                    <h5>Search Filters</h5>
-                    <div class="ibox-tools">
+                <div class="">
+                    @*<span>Select a  Category</span>*@<div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <h5> search by Brand/Model</h5>
-                    @Html.Partial("~/Views/Vehicles/_TreeCars.cshtml")
-                    <hr />
-                    <h5> search by tags</h5>
-                    <input id="select-tag" data-bind="value:tags" class="repositories" placeholder="Pick tags..." />
-                    <hr />
-                    <h5> search by Price</h5>
-                    <div id="ionrange_1"></div>
+                    <div class="row">
+                        <div data-bind="foreach: rows">
+                            <div class="col-sm-offset-1 col-sm-3">
+                                <ul class="sortable-list connectList agile-list" data-bind="foreach: $data">
+                                    <li style="padding:20px" data-bind="text:$data,click:subCategoryClicked" class="success-element"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
-            @Html.Partial("/Views/Shared/_CreateAlert.cshtml")
-            <br />
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- left side cars page -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-5427185622945199"
-                 data-ad-slot="8056269068"
-                 data-ad-format="auto"></ins>
-            <script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            adss
         </div>
         <div class="col-sm-8 col-md-9 col-lg-7">
             <div data-bind="visible:isLoading()">
                 @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
             </div>
             <div id="FirstLoading" style="display:none" data-bind="visible:!isLoading()">
-                <a data-bind="click:function(){ return createAd('/Vehicles/CreateCarAd')}" data-style="expand-left" class=" pull-right btn btn-danger">Sell your car</a>
+                <a data-bind="click:function(){ return createAd('/Company/Create')}" data-style="expand-left" class=" pull-right btn btn-danger">Provide a service </a>
+                <a data-bind="click:function(){ return createAd('/Company/Create')}" data-style="expand-left" class=" pull-right btn btn-danger">I need a service </a>
                 <span data-bind="text:showAds().length"> </span> results found<br />
-                @*<b>Summary:</b> Showing <span data-bind="visible: !( minPrice() != 0 || maxPrice() != 50000 || searchingCity() || brand() || model() || tags() )"> all </span> <b> <span data-bind="visible:laptopAccessories()"> Laptop/Computer Accessories </span> <span data-bind="visible:!laptopAccessories()">Laptops/Computers</span> </b><span data-bind="visible:brand || model"> of </span> <b> <span data-bind="text:brand"></span> <span data-bind="text:model"> </b>
+                <b>Summary:</b> Showing <span data-bind="visible: !( minPrice() != 0 || maxPrice() != 50000 || searchingCity()  || tags() )"> all </span> ads
                 <span data-bind="visible:tags()"> with tags <b> '<span data-bind="text:tags"></span>' </b></span>
 
                 <span data-bind="visible:minPrice()!= 0 && maxPrice()!= 50000">
@@ -88,16 +59,16 @@
                     <span data-bind="visible:minPrice() != 0"> with min price <b> <span data-bind="text:minPrice"></span> </b> </span>
                     <span data-bind="visible:maxPrice()!= 50000">with max price <b> <span data-bind="text:maxPrice"></span> </b> </span>
                 </span>
-                <span data-bind="visible:searchingCity"> from <b> <span data-bind="visible:searchingPP"><span data-bind="text:searchingPP"></span>,</span> <span data-bind="text:searchingCity"></span> </b> </span>*@
+                <span data-bind="visible:searchingCity"> from <b> <span data-bind="visible:searchingPP"><span data-bind="text:searchingPP"></span>,</span> <span data-bind="text:searchingCity"></span> </b> </span>
                 <div data-bind="foreach:showAds">
-                    @Html.Partial("/Views/Shared/_AdListView.cshtml")
-                </div>
+                        @Html.Partial("/Views/Shared/_AdListView.cshtml")
+                    </div>
+                
             </div>
         </div>
-
-        <div class="col-lg-2 hidden-md hidden-sm hidden-xs"> </div>
     </div>
 </div>
+
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
@@ -105,6 +76,7 @@
     <link href="~/Content/plugins/jsTree/style.css" rel="stylesheet" />
     @Styles.Render("~/bundles/tagStyles")
     @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+
 }
 
 @section Scripts{
@@ -115,23 +87,78 @@
     @Scripts.Render("~/plugins/slick")
     @Scripts.Render("~/plugins/jsTree")
     @Scripts.Render("~/plugins/ionRange")
-    <script src="~/Scripts/app/CarsTree.js"></script>
+
+    <script src="~/Scripts/app/SearchAds.js"></script>
     <script src="~/Scripts/app/slick-knockout-binding.js"></script>
     <script src="~/Scripts/app/CreateAlert.js"></script>
+    <script src="~/Scripts/app/ConvertToSlug.js"></script>
     <script src="~/Scripts/app/_AdListView.js"></script>
+        <script src="~/Scripts/app/SearchAds.js"></script>
     <script src="~/Scripts/app/_Truncate-knockout-binding.js"></script>
     <script src="~/Scripts/app/GetLoginUserId.js"></script>
     <script>
+        function HandleCategories() {
+            var self = this;
+           // self.selectedTag = ko.observable();
+            self.availableCategories = [];
+            self.availableCategories = ["Computer Repair", "Home Appliance Repair", "Movers and Packers", "Drivers and Taxi", "Event Services", "Maids and Domestic help", "Education and classes", "Web Development", "other services"];
 
+            subCategoryClicked = function (category) {
+                linktemp = "../" + convertToSlug(category);
+                window.location.href = linktemp;
+            }
+            var columedRow = {
+                items: ko.observableArray(),
+                columnLength: ko.observable(3)
+            };
+            $.each((self.availableCategories), function (i, item) {
+                columedRow.items.push(item);
+            });
+
+
+            //return an array of rows.  Each row is an array of items
+            columedRow.rows = ko.computed(function () {
+                var result = [],
+                    row,
+                    colLength = parseInt(this.columnLength(), 10);
+
+                //loop through items and push each item to a row array that gets pushed to the final result
+                for (var i = 0, j = this.items().length; i < j; i++) {
+                    if (i % colLength === 0) {
+                        if (row) {
+                            result.push(row);
+                        }
+                        row = [];
+                    }
+                    row.push(this.items()[i]);
+                }
+
+                //push the final row
+                if (row) {
+                    result.push(row);
+                }
+
+                return result;
+            }, columedRow);
+
+            ko.applyBindings(columedRow);
+        }
+        //function HandleSearch() {
+        //    var self = this;
+        //    self.selectedTag = ko.observable();
+        //}
         function viewModel() {
+
             SearchingLocation();
             CreateAlert();
-            TreeViewModel();
-            RefreshSearch();
+           TreeViewModel(); //in searchads.js
+          //  RefreshSearch();
             ChatViewModel();
             AccountViewModel();
             var self = this;
-
+           // HandleSearch();
+            HandleCategories();
+            
             return self;
         }
         //tree
@@ -198,6 +225,7 @@
         });
         $(function () {
             $('.ladda-button').ladda('bind', { timeout: 200000 });
+
             toastr.options = {
                 closeButton: true,
                 progressBar: true,
@@ -208,26 +236,15 @@
             $('.product-images').slick({
                 dots: true
             });
-            // ko.applyBindings(new viewModel, (document.getElementById('ads')));
-
-            // ko.applyBindings(new treeModel, document.getElementById('navigation'));
-            ko.applyBindings(new viewModel);
-            //window.onload = function () {
-            //    ko.applyBindings(new viewModel);
-            //};
             var length = $(window).width();
             if (length < 786) { //770
                 $(".collapse-link").click();
             }
+            ko.applyBindings(new viewModel);
         });
 
     </script>
 }
-
-
-
-
-
 
 
 
