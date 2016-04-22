@@ -48,21 +48,25 @@
                         <div data-bind="visible:statusError" class="alert alert-success">
                             <strong>Pending admin approval! </strong><span data-bind="text:statusError"></span>
                         </div>
-
+                        <div class="">
+                            <span data-bind="visible:loginUserId == postedById">
+                                <span class="alert alert-success" data-bind="visible:isRefreshable">
+                                    <strong> Is your ad still valid? </strong>
+                                    <a data-bind="click: function(){return Refresh(id)}" class="btn btn-white btn-lg "> Refresh</a>
+                                    <strong>OR delete it</strong>
+                                    <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-lg  confirmDelete"> Delete</a>
+                                    <br /><br />
+                                </span>
+                                
+                            </span>
+                        </div>
                         <div data-bind="visible:isVisible">
                             <input type="hidden" id="loginUserId" data-bind="value:loginUserId" />
 
                             <div data-bind="attr:{'id':id}">
                                 <div class="ibox product-detail">
                                     <div class="ibox-content">
-                                        <div class="row">
-                                            <span data-bind="visible:loginUserId == postedById">
-                                                <span data-bind="visible:isRefreshable">
-                                                    <a data-bind="click: function(){return Refresh(id)}" class="btn btn-white btn-lg "> Refresh</a>
-                                                    <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-lg pull-right confirmDelete"> Delete</a>
-                                                </span>
-                                            </span>
-                                        </div>
+                                        
                                         <div class="row">
                                             <div class="lightBoxGallery">
 
