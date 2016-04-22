@@ -10,8 +10,8 @@
         $image.attr('src', imgUrl);
         // $div.append($image);
         $a.append($image);
-        // $div.append($a);
-        $div.append($image);
+         $div.append($a);
+      //  $div.append($image);
         return $div;
     };
 
