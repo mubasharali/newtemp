@@ -14,6 +14,9 @@
       </mvcSiteMapNode>
     </mvcSiteMapNode>
     <mvcSiteMapNode title="About" controller="Home" action="About"/>
+    <mvcSiteMapNode title="Jobs" controller="Jobs" action="Index"/>
+    <mvcSiteMapNode title="RealEstate" controller="RealEstate" action="Index"/>
+    <mvcSiteMapNode title="Services" controller="Services" action="Index"/>
   </mvcSiteMapNode>
   
 </mvcSiteMap>
