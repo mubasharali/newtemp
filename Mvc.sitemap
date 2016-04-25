@@ -17,6 +17,8 @@
     <mvcSiteMapNode title="Jobs" controller="Jobs" action="Index"/>
     <mvcSiteMapNode title="RealEstate" controller="RealEstate" action="Index"/>
     <mvcSiteMapNode title="Services" controller="Services" action="Index"/>
+    <mvcSiteMapNode title="Pets-Animals" Url="/Pets-Animals"/>
+    <mvcSiteMapNode title="Cameras" Url="/Cameras"/>
   </mvcSiteMapNode>
   
 </mvcSiteMap>
