@@ -17,8 +17,20 @@
     <mvcSiteMapNode title="Jobs" controller="Jobs" action="Index"/>
     <mvcSiteMapNode title="RealEstate" controller="RealEstate" action="Index"/>
     <mvcSiteMapNode title="Services" controller="Services" action="Index"/>
-    <mvcSiteMapNode title="Pets-Animals" Url="/Pets-Animals"/>
-    <mvcSiteMapNode title="Cameras" Url="/Cameras"/>
+    <mvcSiteMapNode title="Pets-Animals" controller="Animals" action="Index"/>
+    <mvcSiteMapNode title="Cameras" controller="Electronics" action="Cameras"/>
+    <mvcSiteMapNode title="Books-Sports-Hobbies" controller="Education" action="Categories">
+      <mvcSiteMapNode title="Home-LifeStyle" controller="Education" action="homeL"/>
+      <mvcSiteMapNode title="Books-Magazines" controller="Education" action="abc"/>
+      <mvcSiteMapNode title="Classes" controller="Education" action="abc6"/>
+      <mvcSiteMapNode title="Home-tuitions" controller="Education" action="abc5"/>
+      <mvcSiteMapNode title="Musical-Instruments" controller="Education" action="abc4"/>
+      <mvcSiteMapNode title="Sports-Equipment" controller="Education" action="abc3"/>
+      <mvcSiteMapNode title="Gym-Fitness" controller="Education" action="abc2"/>
+      <mvcSiteMapNode title="other-hobbies" controller="Education" action="abc1"/>
+        
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Watches" controller="Education" action="watches"/>
   </mvcSiteMapNode>
   
 </mvcSiteMap>
