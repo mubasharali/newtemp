@@ -9,8 +9,8 @@
 $(document).ready(function () {
 
     var loginUserProfileExtension = $("#loginUserProfileExtension").text();
-    window.loginUserProfileExt = '/Images/profile.jpg';
-    if (loginUserProfileExtension != null && loginUserProfileExtension != "" && loginUserProfileExtension == "null") {
+    window.loginUserProfileExt = '/Images/Users/default.jpg';
+    if (loginUserProfileExtension != null && loginUserProfileExtension != "" && loginUserProfileExtension != "null") {
         window.loginUserProfileExt = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + "p" + loginUserProfileExtension;
     }
 
