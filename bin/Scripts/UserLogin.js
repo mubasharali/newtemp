@@ -57,6 +57,7 @@ function AccountViewModel() {
             type: 'POST',
             success: function (data) {
                 if (data == "Done") {
+                    self.loginError("Done! Redirecting..");
                     location.reload();
                 } else {
                     self.loginError("Some Error has occured.Please try again");
@@ -113,8 +114,7 @@ function AccountViewModel() {
             success: function (data) {
                 self.isUserLoginLoading(false);
                 if (data == "Done") {
-                    self.loginError("");
-                        
+                    self.loginError("Done! Redirecting..");
                     location.reload();
                 } else {
                     

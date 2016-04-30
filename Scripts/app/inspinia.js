@@ -10,9 +10,13 @@ $(document).ready(function () {
 
     var loginUserProfileExtension = $("#loginUserProfileExtension").text();
     window.loginUserProfileExt = '/Images/Users/default.jpg';
-    if (loginUserProfileExtension != null && loginUserProfileExtension != "" && loginUserProfileExtension != "null") {
+    var ss = loginUserProfileExtension.split('.');
+    if (ss.length > 1) {
         window.loginUserProfileExt = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + "p" + loginUserProfileExtension;
     }
+    //if (loginUserProfileExtension != null && loginUserProfileExtension != "" && loginUserProfileExtension != "null") {
+    //    window.loginUserProfileExt = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + "p" + loginUserProfileExtension;
+    //}
 
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {

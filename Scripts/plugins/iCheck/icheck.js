@@ -1,5 +1,5 @@
 /*!
- * iCheck v2.0.0 rc1, http://git.io/arlzeA
+ * icheck v2.0.0 rc1, http://git.io/arlzeA
  * =======================================
  * Cross-platform checkboxes and radio buttons customization
  *
@@ -1022,7 +1022,7 @@
       });
     };
 
-    // expose iCheck as an AMD module
+    // expose icheck as an AMD module
     if (typeof define == 'function' && define.amd) {
       define('icheck', [win.jQuery ? 'jquery' : 'zepto'], win.ichecked);
     } else {

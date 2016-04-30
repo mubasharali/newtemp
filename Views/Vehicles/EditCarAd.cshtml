@@ -251,15 +251,15 @@
                         //for company
                         if (data.companyName) {
                             var comid = $("#" + data.companyName);
-                            comid.iCheck('check');
+                            comid.icheck('check');
                             self.postAdUsing(data.companyName);
-                            $('.i-check').iCheck({
+                            $('.i-check').icheck({
                                 checkboxClass: 'icheckbox_square-green',
                                 radioClass: 'iradio_square-green',
                             });
-                            // $("#Netsol Technologies Limited").iCheck('check');
+                            // $("#Netsol Technologies Limited").icheck('check');
                         } else {
-                            $("#on").iCheck('check');
+                            $("#on").icheck('check');
                             self.postAdUsing("on");
                         }
 
@@ -278,28 +278,28 @@
                         self.selectedCity(data.location.cityName);
                         self.selectedCityOriginal = data.location.cityName;
                         if (data.type == true) {
-                            $("#sell").iCheck('check');
+                            $("#sell").icheck('check');
                         } else if (data.type == false) {
-                            $("#buy").iCheck('check');
+                            $("#buy").icheck('check');
                         }
                         if (data.isNegotiable == 'b') {
                             self.selectedVal("fixedPrice");
-                            $("#allowBiding").iCheck('check');
+                            $("#allowBiding").icheck('check');
                         } else if (data.isNegotiable == 'n') {
-                            $("#fixedPrice").iCheck('check');
+                            $("#fixedPrice").icheck('check');
                         } else if (data.isNegotiable == 'y') {
-                            $("#fixedPrice").iCheck('check');
-                            $("#isNegotiable").iCheck('check');
+                            $("#fixedPrice").icheck('check');
+                            $("#isNegotiable").icheck('check');
                         }
                         if (data.condition == 'u') {
-                            $('#used').iCheck('check');
+                            $('#used').icheck('check');
                             self.conditionChecked("used");
 
                         } else if (data.condition == 'b') {
-                            $('#unboxed').iCheck('check');
+                            $('#unboxed').icheck('check');
                             self.conditionChecked("unboxed");
                         } else if (data.condition == 'n') {
-                            $('#new').iCheck('check');
+                            $('#new').icheck('check');
                             self.conditionChecked("new");
 
                         }
@@ -519,10 +519,10 @@
                 $(element).autosize();
             }
         };
-        ko.bindingHandlers.iCheck = { // integrating icheck plugin using bh
+        ko.bindingHandlers.icheck = { // integrating icheck plugin using bh
             init: function (element, valueAccessor) {
                 //initialize icheck to the element
-                $(element).iCheck({
+                $(element).icheck({
                     radioClass: 'iradio_square-green'
                 });
                 $(element).on('ifChecked', function (event) {
@@ -658,7 +658,7 @@
                     }
                 }
             });
-            $('.i-check').iCheck({
+            $('.i-check').icheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
             });
