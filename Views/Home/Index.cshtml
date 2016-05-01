@@ -5,9 +5,19 @@
         <p>&nbsp</p>
         <div class="control-group form-horizontal">
             <label class="control-label col-sm-5" for="select-repo">What are you looking for @*<br /><small class="text-navy hidden-xs">pick tags</small>*@</label>
-            <div class="col-sm-5 col-md-4">
-                <input id="select-tag" name="tags" data-bind="value:selectedTag" class="repositories" placeholder="e.g, Samsung S3, evo, ups, washing mechine.." />
-
+            <div id="FirstLoading" style="display:none" data-bind="visible:!isPageLoading()">
+                <div class="col-sm-5 col-md-4">
+                    <input id="select-tag" name="tags" data-bind="value:selectedTag" class="repositories" placeholder="e.g, Samsung S3, evo, ups, washing mechine.." />
+                </div>
+            </div>
+            <div data-bind="visible:isPageLoading()">
+                <div class="sk-spinner sk-spinner-wave">
+                    <div class="sk-rect1"></div>
+                    <div class="sk-rect2"></div>
+                    <div class="sk-rect3"></div>
+                    <div class="sk-rect4"></div>
+                    <div class="sk-rect5"></div>
+                </div>
             </div>
         </div>
         <p>&nbsp</p>
@@ -597,7 +607,9 @@
             var self = this;
             self.showAds = ko.observableArray();
             self.selectedTag = ko.observable();
+            self.isPageLoading = ko.observable(false);
             self.selectedTag.subscribe(function () {
+                self.isPageLoading(true);
                 $.cookie("selectedTag", self.selectedTag(), { path: '/Search' });
                 window.location.href = "/Search";
             })
@@ -761,6 +773,7 @@
                 });
             }
         });
+        $("#FirstLoading").css({ "display": "block" });
         $(document).ready(function () {
 
             toastr.options = {

@@ -56,7 +56,7 @@
                             <br />
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" data-bind="click:submitClicked" value="Update" class="btn btn-primary" />
+                                    <input type="submit" data-bind="click:submitClicked" value="Update"  data-style="expand-left" class="ladda-button btn btn-primary" />
                                     <a href="/Details/@Model.Id/@ElectronicsController.URLFriendly( @Model.title )" class="btn btn-white">Cancel</a>
                                 </div>
                             </div>
@@ -104,10 +104,15 @@
             var self = this;
             UserCompanies_CreateAd(self);
             self.submitClicked = function () {
-                console.log(fileList);
                 $("input[id*='fileNames']").val(JSON.stringify(fileList));
                 window.btn_clicked = true;
                 $("#form").submit();
+                if ($("#form").valid()) {
+                    var savingBidLoader = $('.ladda-button').ladda();
+                    savingBidLoader.ladda('start');
+                } else {
+                    toastr.info("Fields with * are mandatory!");
+                }
             }
             self.conditionChecked = ko.observable(false);
             self.typeValue = ko.observable();
