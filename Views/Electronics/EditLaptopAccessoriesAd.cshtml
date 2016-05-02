@@ -262,15 +262,15 @@
                         //for company
                         if (data.companyName) {
                             var comid = $("#" + data.companyName);
-                            comid.icheck('check');
+                            comid.icheck('checked');
                             self.postAdUsing(data.companyName);
                             $('.i-check').icheck({
                                 checkboxClass: 'icheckbox_square-green',
                                 radioClass: 'iradio_square-green',
                             });
-                            // $("#Netsol Technologies Limited").icheck('check');
+                            // $("#Netsol Technologies Limited").icheck('checked');
                         } else {
-                            $("#on").icheck('check');
+                            $("#on").icheck('checked');
                             self.postAdUsing("on");
                         }
 
@@ -283,31 +283,31 @@
                         self.selectedCity(data.location.cityName);
                         self.selectedCityOriginal = data.location.cityName
                         if (data.type == true) {
-                            $("#sell").icheck('check');
+                            $("#sell").icheck('checked');
                         } else if (data.type == false) {
-                            $("#buy").icheck('check');
+                            $("#buy").icheck('checked');
                         }
                         if (data.isNegotiable == 'b') {
                             self.selectedVal("fixedPrice");
-                            $("#allowBiding").icheck('check');
+                            $("#allowBiding").icheck('checked');
                         } else if (data.isNegotiable == 'n') {
-                            $("#fixedPrice").icheck('check');
+                            $("#fixedPrice").icheck('checked');
                         } else if (data.isNegotiable == 'y') {
-                            $("#fixedPrice").icheck('check');
-                            $("#isNegotiable").icheck('check');
+                            $("#fixedPrice").icheck('checked');
+                            $("#isNegotiable").icheck('checked');
                         }
                         if (data.condition == 'u') {
-                            $('#used').icheck('check');
+                            $('#used').icheck('checked');
                             self.conditionChecked("used");
                             // self.condition1('used');
 
                         } else if (data.condition == 'b') {
-                            $('#unboxed').icheck('check');
+                            $('#unboxed').icheck('checked');
                             self.conditionChecked("unboxed");
                             //self.condition1("unboxed");
                             //self.condition1('new');
                         } else if (data.condition == 'n') {
-                            $('#new').icheck('check');
+                            $('#new').icheck('checked');
                             self.conditionChecked("new");
 
                         }

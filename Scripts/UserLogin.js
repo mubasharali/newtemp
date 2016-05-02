@@ -83,8 +83,8 @@ function AccountViewModel() {
                     if (data == "NewUser") {
                         $("#newUser").modal('show');
                     } else if (data == "Blocked") {
-                        toastr.info("You account has been blocked by administration!");
-                        self.loginError("You account has been blocked by administration!");
+                        toastr.info("Your account has been blocked by administration!");
+                        self.loginError("Your account has been blocked by administration!");
                     } else {
                         self.isPasswordSaved(data.isPasswordSaved);
                         $("#oldUser").modal('show');
@@ -98,7 +98,6 @@ function AccountViewModel() {
                 }
             });
         } else {
-            toastr.info("Please enter a valid email address");
             self.loginError("Please enter a valid email address");
         }
     }
@@ -120,11 +119,6 @@ function AccountViewModel() {
                     
                     var link = $('<a/>').text("Forget password").attr('href', '/Account/ForgetPassword');
                     self.loginError("Incorrect password." + link[0].outerHTML + " ?");
-                    //var linkText = "Forget password";
-                    //var link = $('a').text(linkText).attr('href', '/Account/ForgetPassword');
-                 //   self.loginError("Incorrect password." + linkText + " ?");
-                   // $('.req123').html(self.loginError());
-                    //console.log(an);
                 }
             },
             error: function () {
