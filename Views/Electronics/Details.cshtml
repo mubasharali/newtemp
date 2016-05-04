@@ -301,23 +301,23 @@
                                                 <dd data-bind="text:qualification"></dd>
                                                 <dt>exprience:</dt>
                                                 <dd data-bind="text:exprience"></dd>
-                                                <dt>Career Level</dt>
+                                                <dt>Career Level:</dt>
                                                 <dd data-bind="text:careerLevel"></dd>
-                                                <dt>Last Date To Apply</dt>
+                                                <dt>Last Date To Apply:</dt>
                                                 <dd data-bind="text:lastDateToApply"></dd>
-                                                <dt>Salary</dt>
+                                                <dt>Salary:</dt>
                                                 <dd data-bind="text:$parent.price"></dd>
-                                                <dt>Salary Type</dt>
+                                                <dt>Salary Type:</dt>
                                                 <dd data-bind="text:salaryType"></dd>
                                                 <span @*data-bind="visible:!showSkills().length == 0"*@>
-                                                    <dt>Skills</dt>
+                                                    <dt>Skills:</dt>
                                                     <dd><span data-bind="foreach:showSkills"> <span class="btn btn-xs btn-white" data-bind="text:name"></span></span> </dd>
                                                 </span>
-                                                <dt>Gender</dt>
+                                                <dt>Gender:</dt>
                                                 <dd data-bind="text:$parent.gender"></dd>
-                                                <dt>Job Type</dt>
+                                                <dt>Job Type:</dt>
                                                 <dd data-bind="text:$parent.subcategory"></dd>
-                                                <dt>Shift</dt>
+                                                <dt>Shift:</dt>
                                                 <dd data-bind="text:$parent.shift"></dd>
                                                 @*<dt>Year</dt>
                             <dd data-bind="text:year"></dd>
@@ -345,9 +345,9 @@
                                         <div class="text-right">
                                             <div class="btn-group">
                                                 <button data-bind="click:saveItem" class="btn btn-white btn-sm"><i data-bind="style:{color: isSaved()? 'red' : 'gray'}" class="fa fa-star"></i> <span data-bind="visible:isSaved()"> Remove from</span><span data-bind="visible:!isSaved()"> Add to</span>  wishlist </button>
-                                                <a data-bind="visible:companyId, attr:{href:companyLink}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="category == 'Jobs'">Posted by</span><span data-bind="category != 'Jobs'"> Seller </span>   (<span data-bind="text:companyName"></span> )</a>
+                                                <a data-bind="visible:companyId, attr:{href:companyLink}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="if:category == 'Jobs'">Posted by</span><span data-bind="if:category != 'Jobs'"> Seller </span>   (<span data-bind="text:companyName"></span> )</a>
 
-                                                <a data-bind="visible:!companyId,attr:{href:sellerProfile}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="category == 'Jobs'">Posted by</span> <span data-bind="category != 'Jobs'"> Seller profile</span> (<span data-bind="text:postedByName"></span> )</a>
+                                                <a data-bind="visible:!companyId,attr:{href:sellerProfile}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="if:category == 'Jobs'">Posted by</span> <span data-bind="if:category != 'Jobs'"> Seller profile</span> (<span data-bind="text:postedByName"></span> )</a>
                                             </div>
                                         </div>
                                         <p class="small text-muted"> when you contact <span data-bind="visible:companyId,text:companyName"></span><span data-bind="visible:!companyId,text:postedByName"></span>, don't forget to mention that you found this ad on dealkar.pk</p>
