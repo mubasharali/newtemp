@@ -137,10 +137,10 @@
                                                     <ul @*class="tag-list"*@ data-bind="foreach:showTags" style="padding: 0">
                                                         <li class="btn btn-white btn-xs"><a target="_blank" data-bind="attr:{href:link}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
                                                     </ul>
-                                                    <h2>About</h2>
-                                                    <span data-bind="visible:loginUserId == createdBy">
-                                                        <a data-bind="click:editLongAboutBtn" class="btn btn-white btn-xs "> Edit</a>
-                                                    </span>
+                                                    <h2>About<span data-bind="visible:loginUserId == createdBy">
+    <a data-bind="click:editLongAboutBtn" class="btn btn-white btn-xs "> Edit</a>
+</span></h2>
+                                                    
                                                     <div data-bind="visible:!isLongAboutEditing(),text:longAbout"></div>
                                                     <div data-bind="visible:isLongAboutEditing()">
                                                         <div class="col-sm-12">
