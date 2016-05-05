@@ -281,12 +281,14 @@
                                                 <dd><span data-bind="text:$parent.subcategory"></span> (<span data-bind="if:$parent.type=='Want to buy'">For rent</span><span data-bind="if:$parent.type!='Want to buy'">For sale</span>)</dd>
                                                 <dt>Area:</dt>
                                                 <dd><span data-bind="text:area"></span> sq ft</dd>
-                                                <dt>Bed rooms:</dt>
-                                                <dd data-bind="text:bedroom"></dd>
-                                                <dt>Bath room:</dt>
-                                                <dd data-bind="text:bathroom"></dd>
-                                                <dt>Floor</dt>
-                                                <dd data-bind="text:floor"></dd>
+                                                <span data-bind="if:$parent.subcategory != 'plot & land'">
+                                                    <dt>Bed rooms:</dt>
+                                                    <dd data-bind="text:bedroom"></dd>
+                                                    <dt>Bath room:</dt>
+                                                    <dd data-bind="text:bathroom"></dd>
+                                                    <dt>Floor</dt>
+                                                    <dd data-bind="text:floor"></dd>
+                                                </span>
                                             </dl>
                                         </div>
                                         <div data-bind="with: showJob">
