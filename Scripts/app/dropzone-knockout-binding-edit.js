@@ -11,18 +11,26 @@
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             init: function () {
                 var myDropzone = this;
-                fileList = [];
-                i = 1;
+                myDropzone1 = this;
                 this.on("addedfile", function (file) {
                     isFilesUploading = true;
                 });
                 this.on("success", function (file, serverFileName) {
+                    fileList = [];
+                    i = 1;
                     var abc = $.map(serverFileName, function (item) { return (item); });
                     $.each(abc, function (index, value) {
                         fileList[i] = { "fileName": value, "fileId": i++ };
-                    })
+                    });
                     isFilesUploading = false;
                 });
+                if (images) {
+                    for (i = 0; i < images.length; i++) {
+                        myDropzone.emit("addedfile", images[i]);
+                        myDropzone.emit("thumbnail", images[i], "/Images/Ads/");
+                        myDropzone.emit("complete", images[i]);
+                    }
+                }
             }
         };
 
@@ -32,10 +40,3 @@
         new Dropzone(element, options);
     }
 };
-$(function () {
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    if (w < 786) {
-        $("#dropzonePreview").removeClass("dz-message");
-    }
-});
