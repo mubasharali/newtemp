@@ -133,7 +133,7 @@
             </div>
             <div class="modal-footer">
                 <div data-bind="visible:!isNeedAServiceSubmitting()">
-                    <button type="button" data-bind="click:saveNeedAService" data-style="expand-left" id="saveNeedAServiceBtn" class="btn btn-primary">Submit</button>
+                    <button type="button" data-bind="click:saveNeedAService" class=" btn btn-primary">Submit</button>@*updted*@
                     <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
                 </div>
                 <div data-bind="visible:isNeedAServiceSubmitting()">
@@ -252,8 +252,7 @@
                     toastr.info("Please enter a famous place near you in " + self.selectedCity());
                     return;
                 }
-                var sss = $("#saveNeedAServiceBtn").ladda();
-                sss.ladda('start');
+                self.isNeedAServiceSubmitting(true);
                     $.ajax({
                         url: '/api/Company/SaveNeedAService?title=' + self.needAServiceTitle() + '&tags=' + self.needAServiceTags() + '&city=' + self.selectedCity() + '&pp=' + self.selectedPopularPlace() + '&ExectLocation=' + self.exectLocation(),
                         dataType: "json",
@@ -261,12 +260,12 @@
                         cache: false,
                         type: 'POST',
                         success: function (data) {
-                            sss.ladda('stop');
+                            self.isNeedAServiceSubmitting(false);
                             $("#needAService").modal('hide');
                             toastr.info("Soon service providers will contact you!","Done!");
                         },
                         error: function (jqXHR, status, thrownError) {
-                            sss.ladda('stop');
+                            self.isNeedAServiceSubmitting(false);
                             toastr.error("failed.Please refresh page and try again", "Error");
                         }
                     });
