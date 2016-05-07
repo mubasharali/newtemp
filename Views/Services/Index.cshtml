@@ -65,10 +65,10 @@
                 </div>*@
                 <div class="row">
                     <br /> <br /><br />
-                    <div class="col-sm-6" data-bind="foreach: showAds.slice(0,showAds().length / 2) ">
+                    <div class="col-lg-offset-1 col-sm-6 col-lg-5" data-bind="foreach: showAds.slice(0,showAds().length / 2) ">
                         @Html.Partial("~/Views/Company/_CompanyListView.cshtml")
                     </div>
-                    <div class="col-sm-6" data-bind="foreach: showAds.slice(showAds().length / 2)">
+                    <div class="col-lg-offset-1 col-sm-6 col-lg-5" data-bind="foreach: showAds.slice(showAds().length / 2)">
                         @Html.Partial("~/Views/Company/_CompanyListView.cshtml")
                     </div>
                 </div>
@@ -133,8 +133,8 @@
             </div>
             <div class="modal-footer">
                 <div data-bind="visible:!isNeedAServiceSubmitting()">
+                    <button type="button" data-bind="click:saveNeedAService" data-style="expand-left" id="saveNeedAServiceBtn" class="btn btn-primary">Submit</button>
                     <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
-                    <button type="button" data-bind="click:saveNeedAService" data-style="expand-left" id="saveNeedAServiceBtn"  class="btn btn-primary">Submit</button>
                 </div>
                 <div data-bind="visible:isNeedAServiceSubmitting()">
                     <div class="sk-spinner sk-spinner-wave">

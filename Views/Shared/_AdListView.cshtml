@@ -2,7 +2,8 @@
     <div class="ibox">
         <div class="ibox-content product-box">
             <div class="media">
-                <a data-bind="attr:{href:link}" class="pull-left hidden-xs">
+                
+                <a data-bind="attr:{href:link},visible:category != 'Services'" class="pull-left hidden-xs">
                     <div class="product-imitation">
                         <div class="carouselContainer">
                             <span id="gallery" data-gallery=""

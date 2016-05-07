@@ -43,8 +43,10 @@
                     <div class=" alert alert-success">
                         <strong>If you are service provider then we recommend you to <a href="/Company/Create"> create a business page! </a></strong>
                     </div>
-                    <div data-bind="foreach:showAds">
-                        @Html.Partial("/Views/Shared/_AdListView.cshtml")
+                    <div class="col-lg-12">
+                        <div data-bind="foreach:showAds">
+                            @Html.Partial("/Views/Shared/_AdListView.cshtml")
+                        </div>
                     </div>
                     @*<div class="row">
                         <br /> <br /><br />
