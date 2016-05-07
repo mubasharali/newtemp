@@ -24,7 +24,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Select Brand</label>
+                                <label class="control-label col-md-2">Select Brand<span class="req">*</span></label>
                                 <div class="col-md-10">
                                     <select id="select-brand" required class="demo-default" name="brand" data-bind="options: availableBrands,
                        value: selectedBrand,
@@ -34,7 +34,7 @@
                             </div>
                             <div data-bind="with:selectedBrand">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Select Model</label>
+                                    <label class="control-label col-md-2">Select Model<span class="req">*</span></label>
                                     <div class="col-md-10">
                                         <select id="select-model" required class="demo-default" name="model" data-bind="options: $parent.availableModels,
                        value: $parent.selectedModel,
@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Color</label>
+                                <label class="control-label col-md-2">Color<span class="req">*</span></label>
                                 <div class="col-md-10">
                                     <select id="select-color" required class="demo-default" name="color" data-bind="options: availableColors,
                        value: selectedColor,
