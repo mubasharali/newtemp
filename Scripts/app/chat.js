@@ -167,8 +167,11 @@ function ChatViewModel() {
             msg.message = self.newMessage();
             msg.message = $.trim(msg.message);
             if (msg.message != "") {
-                self.isSendingChatMessage(true);
-                self.hub.server.addMessage(msg).fail(function (err) { toastr.error("failed to send message", "Error!"); });
+                $.connection.hub.start().done(function () {
+                    self.isSendingChatMessage(true);
+                    self.hub.server.addMessage(msg).fail(function (err) { toastr.error("failed to send message", "Error!"); });
+                });
+                
             } else {
                 toastr.info("You cannot send empty message");
             }
