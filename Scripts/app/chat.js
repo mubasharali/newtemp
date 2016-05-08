@@ -133,6 +133,7 @@ function ChatViewModel() {
     }
     self.hub.client.loadNewMessage = function (data) {
         self.newMessage('');
+        self.isSendingChatMessage(false);
         if (data != null) {
             self.showChat.push(new Message(data,self.sendMessageTo()));
         }
@@ -168,7 +169,6 @@ function ChatViewModel() {
             if (msg.message != "") {
                 self.isSendingChatMessage(true);
                 self.hub.server.addMessage(msg).fail(function (err) { toastr.error("failed to send message", "Error!"); });
-                self.isSendingChatMessage(false);
             } else {
                 toastr.info("You cannot send empty message");
             }
