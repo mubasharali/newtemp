@@ -63,7 +63,7 @@
                             <img data-bind="attr:{src:$parent.loginUserProfileLink}" alt="image" class="img-circle">
                         </a>
                         <div class="media-body">
-                            <textarea class="msgTextArea form-control" data-bind="value:newCommentReply,valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup:checkEnter1}" placeholder="Write reply (Enter to post)"></textarea>
+                            <textarea class="msgTextArea form-control" data-bind="attr:{disabled:isCommentReplyPosting()},value:newCommentReply,valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup:checkEnter1}" placeholder="Write reply (Enter to post)"></textarea>
 
                         </div>
                     </div>

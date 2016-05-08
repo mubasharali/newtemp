@@ -375,9 +375,7 @@
                 if (loginUserId) {
                     if (self.newAnswerReply().length < 500) {
                         if (e.keyCode == 13) {
-                            self.isSavingAnswerReply(true);
                             self.addAnswerReply(loginUserId, id);
-                            self.isSavingAnswerReply(false);
                         }
                     } else {
                         self.newAnswerReply( self.newAnswerReply().slice(0, -1));
@@ -447,6 +445,7 @@
                     reply.time = new Date($.now());
                     if (loginUserId) {
                         if (reply.description() != null && reply.description().trim() != "") {
+                            self.isSavingAnswerReply(true);
                             $.ajax({
                                 url: '/api/Forum/PostAnswerReply',
                                 dataType: "json",
@@ -455,10 +454,12 @@
                                 type: 'POST',
                                 data: ko.toJSON(reply),
                                 success: function (data) {
+                                    self.isSavingAnswerReply(false);
                                     self.showAnswerReplies.push(new AnswerReply(data));
                                     self.newAnswerReply('');
                                 },
                                 error: function () {
+                                    self.isSavingAnswerReply(false);
                                     toastr.error("failed to post comment", "Error!");
                                 }
                             })
@@ -707,9 +708,7 @@
                 if (self.loginUserId) {
                     if (self.newQuestionReply().length < 500) {
                         if (e.keyCode == 13) {
-                            self.isSavingQuestionReply(true);
                             self.addQuestionReply();
-                            self.isSavingQuestionReply(false);
                         }
                     } else {
                         self.newQuestionReply(self.newQuestionReply().slice(0, -1));
@@ -788,6 +787,7 @@
                     reply.description (self.newQuestionReply());
                     reply.time = new Date($.now());
                     if (reply.description() != null && reply.description().trim() != "") {
+                        self.isSavingQuestionReply(true);
                         $.ajax({
                             url: '/api/Forum/PostQuestionReply',
                             dataType: "json",
@@ -796,10 +796,12 @@
                             type: 'POST',
                             data: ko.toJSON(reply),
                             success: function (data) {
+                                self.isSavingQuestionReply(false);
                                 self.showQuestionReplies.push(new QuestionReply(data));
                                 self.newQuestionReply('');
                             },
                             error: function () {
+                                self.isSavingQuestionReply(false);
                                 toastr.error("failed to post comment", "Error!");
                             }
                         })

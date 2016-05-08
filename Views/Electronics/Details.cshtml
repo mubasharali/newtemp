@@ -139,11 +139,10 @@
                                             <li><a target="_blank" data-bind="attr:{href:tagLink}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
                                         </ul><br /><br />
                                         <hr>
-                                        <span data-bind="visible:!showJob()">
-                                            @*remove this*@
                                             <span data-bind="visible:loginUserId != postedById">
-                                                <button data-bind="click:function(){ return sendMessage(postedById,postedByName)}" class="btn btn-primary pull-right">Chat with seller</button>
+                                                <button data-bind="click:function(){ return sendMessage(postedById,postedByName)}" class="btn btn-primary pull-right">Chat <span data-bind="visible:!showJob()"> with  seller</span></button>
                                             </span>
+                                        <span data-bind="visible:!showJob()">
                                             <h1 class="product-main-price">
                                                 <span data-bind="if:!isBidingAllowed">
                                                     <span data-bind="if:price">

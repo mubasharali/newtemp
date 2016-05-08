@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Chat";
+    ViewBag.Title = "Chat Room";
 }
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -102,25 +102,13 @@
                                                 <div class="feed-element">
                                                     
                                                     
-                                                        <small data-bind="text:time" class="pull-right text-navy">1m ago</small>
-                                                    <strong><a data-bind="text:name,click:openChat">Monica Smith</a></strong>
-                                                        <div data-bind="text:message">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</div>
+                                                        <small data-bind="text:time" class="pull-right text-navy"></small>
+                                                    <strong><a data-bind="text:name,click:openChat"></a></strong>
+                                                        <div data-bind="text:message"></div>
                                                     
                                                 </div>
-                                                @*<a data-bind="click:openChat,text:name"></a>
-                                                <span data-bind="text:message"></span>
-                                                <span data-bind="text:time"></span>*@
                                             </div>
                                         </div>
-                                        @*
-                        <div class="chat-user">
-                            <span class="pull-right label label-primary">Online</span>
-                            <img class="chat-avatar" src="~/Images/a2.jpg" alt="">
-                            <div class="chat-user-name">
-                                <a href="#">Michael Smith</a>
-                            </div>
-                        </div>
-                                        *@
 
                                     </div>
                                 </div>
@@ -132,8 +120,8 @@
                         <div class="col-sm-8 col-md-9">
                             <div class="form-chat">
                                 <div class="input-group input-group-sm">
-                                    <input type="text" placeholder="Enter message.." data-bind="value:newMessage,valueUpdate:'afterkeydown',event:{keyup:checkMsgEnter}" class="form-control"> <span class="input-group-btn">
-                                        <button class="btn btn-primary" data-bind="click: function(){ return sendMessage()} " type="button">
+                                    <input type="text" placeholder="Enter message.." data-bind="attr:{disabled:isSendingChatMessage()},value:newMessage,valueUpdate:'afterkeydown',event:{keyup:checkMsgEnter}" class="form-control"> <span class="input-group-btn">
+                                        <button class="btn btn-primary" data-bind="attr:{disabled:isSendingChatMessage()},click: function(){ return sendMessage()} " type="button">
                                             Send
                                         </button>
                                     </span>
@@ -243,6 +231,7 @@
                 self.onlineUsers = ko.observableArray();
                 self.sendMessageTo = ko.observable();
                 self.sendMessgeToName = ko.observable();
+                self.isSendingChatMessage = ko.observable(false);
                 self.getAllChatUsers = function () {
                     $.ajax({
                         url: '/api/Chat/GetAllChatUsers',
@@ -339,7 +328,7 @@
                                     self.sendMessage();
                                 }
                                 else {
-                                    toastr.info("Connection not established to server");
+                                    toastr.info("Connection not established to server","Please wait");
                                 }
                             }
                         } else {
@@ -386,7 +375,9 @@
                         msg.message = self.newMessage();
                         msg.message = $.trim(msg.message);
                         if (msg.message != "") {
+                            self.isSendingChatMessage(true);
                             self.hub.server.addMessage(msg).fail(function (err) { toastr.error("failed to send message", "Error!"); });
+                            self.isSendingChatMessage(false);
                         } else {
                             toastr.info("You cannot send empty message");
                         }
@@ -401,7 +392,9 @@
                         msg.message = self.newMessage();
                         msg.message = $.trim(msg.message);
                         if (msg.message != "") {
+                            self.isSendingChatMessage(true);
                             self.hub.server.addMessage(msg).fail(function (err) { toastr.error("failed to send message", "Error!"); });
+                            self.isSendingChatMessage(false);
                         } else {
                             toastr.info("You cannot send empty message");
                         }

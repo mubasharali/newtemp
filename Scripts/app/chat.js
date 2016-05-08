@@ -49,6 +49,7 @@ function ChatViewModel() {
     self.onlineUsers = ko.observableArray();
     self.sendMessageTo = ko.observable();
     self.sendMessgeToName = ko.observable();
+    self.isSendingChatMessage = ko.observable(false);
     self.sendTo = function (data) {
         if (self.loginUserId1) {
             self.sendMessageTo(data.id);
@@ -115,7 +116,12 @@ function ChatViewModel() {
         if (self.loginUserId1) {
             if (self.newMessage().length < 1000) {
                 if (e.keyCode == 13) {
-                    self.sendMessage();
+                    if (isConnectionReady()) {
+                        self.sendMessage();
+                    }
+                    else {
+                        toastr.info("Connection not established to server", "Please wait");
+                    }
                 }
             } else {
                 self.newMessage(self.newMessage().slice(0, -1));
@@ -160,7 +166,9 @@ function ChatViewModel() {
             msg.message = self.newMessage();
             msg.message = $.trim(msg.message);
             if (msg.message != "") {
+                self.isSendingChatMessage(true);
                 self.hub.server.addMessage(msg).fail(function (err) { toastr.error("failed to send message", "Error!"); });
+                self.isSendingChatMessage(false);
             } else {
                 toastr.info("You cannot send empty message");
             }

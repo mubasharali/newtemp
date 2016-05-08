@@ -54,8 +54,8 @@
         <!-- ko scrollToEnd: showChat --><!-- /ko -->
         <div class="form-chat">
             <div class="input-group input-group-sm">
-                <input type="text" data-bind="value:newMessage,valueUpdate:'afterkeydown',event:{keyup:checkMsgEnter}" class="form-control"> <span class="input-group-btn">
-                    <button class="btn btn-primary" data-bind="click:sendMessage" type="button">
+                <input type="text" data-bind="attr:{disabled:isSendingChatMessage()},value:newMessage,valueUpdate:'afterkeydown',event:{keyup:checkMsgEnter}" class="form-control"> <span class="input-group-btn">
+                    <button class="btn btn-primary" data-bind="attr:{disabled:isSendingChatMessage()},click:sendMessage" type="button">
                         Send
                     </button>
                 </span>
