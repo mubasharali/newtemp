@@ -89,7 +89,7 @@
                                     </div>
                                     @*<a data-bind="click:toggleQuestionReply">Reply</a>*@
                                     <div style="margin-left:30px" data-bind="visible:isQuestionReplyVisible">
-                                        <textarea class="msgTextArea form-control" placeholder="Write comment (Enter to post)" data-bind="hasFocus:isQuestionReplyFocused,value:newQuestionReply,valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup:checkEnter1}"></textarea>
+                                        <textarea class="msgTextArea form-control" placeholder="Write comment (Enter to post)" data-bind="attr:{disabled:isSavingQuestionReply()},hasFocus:isQuestionReplyFocused,value:newQuestionReply,valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup:checkEnter1}"></textarea>
                                         <span data-bind="visible:newQuestionReply().length > 400 && newQuestionReply().length < 500">
                                             You can Enter only <span data-bind="text:499 - newQuestionReply().length"></span> more characters.
                                         </span>
@@ -158,7 +158,7 @@
                                         </div>
                                     </div>
                                     <div style="margin-left:40px;" data-bind="visible:isAnswerReplyVisible()">
-                                        <textarea class="msgTextArea form-control" placeholder="Write comment (Enter to post)" data-bind="hasFocus:isAnswerReplyFocused,value:newAnswerReply,valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup: function(data,event){ return checkEnter2($parent.loginUserId,id,data,event)}}"></textarea>
+                                        <textarea class="msgTextArea form-control" placeholder="Write comment (Enter to post)" data-bind="attr:{disabled:isSavingAnswerReply()},hasFocus:isAnswerReplyFocused,value:newAnswerReply,valueUpdate:'afterkeydown', jqAutoresize: {},event:{keyup: function(data,event){ return checkEnter2($parent.loginUserId,id,data,event)}}"></textarea>
                                         <span data-bind="visible:newAnswerReply().length > 400 && newAnswerReply().length < 500">
                                             You can Enter only <span data-bind="text:499 - newAnswerReply().length"></span> more characters.
                                         </span>
@@ -370,11 +370,14 @@
                     self.isAnswerReplyVisible(false);
                 }
             }
+            self.isSavingAnswerReply = ko.observable(false);
             self.checkEnter2 = function (loginUserId,id,d, e) {
                 if (loginUserId) {
                     if (self.newAnswerReply().length < 500) {
                         if (e.keyCode == 13) {
+                            self.isSavingAnswerReply(true);
                             self.addAnswerReply(loginUserId, id);
+                            self.isSavingAnswerReply(false);
                         }
                     } else {
                         self.newAnswerReply( self.newAnswerReply().slice(0, -1));
@@ -699,11 +702,14 @@
                     self.isQuestionReplyVisible(false);
                 }
             }
+            self.isSavingQuestionReply = ko.observable(false);
             self.checkEnter1 = function (d, e) {
                 if (self.loginUserId) {
                     if (self.newQuestionReply().length < 500) {
                         if (e.keyCode == 13) {
+                            self.isSavingQuestionReply(true);
                             self.addQuestionReply();
+                            self.isSavingQuestionReply(false);
                         }
                     } else {
                         self.newQuestionReply(self.newQuestionReply().slice(0, -1));

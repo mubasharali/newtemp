@@ -331,7 +331,8 @@
                                         </div>
                                         <h4>Details</h4>
                                         <div data-bind="text:description" class="small text-muted">
-                                        </div>
+                                        </div><br />
+                                        <p class="small text-muted">When you contact <span data-bind="visible:companyId,text:companyName"></span><span data-bind="visible:!companyId,text:postedByName"></span>, don't forget to mention that you found this ad on dealkar.pk</p>
 
                                         <div data-bind="with:showLocation">
                                             <h5 data-bind="with:cityName">Location</h5>
@@ -352,7 +353,6 @@
                                                 <a data-bind="visible:!companyId,attr:{href:sellerProfile}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="if:category == 'Jobs' || category == 'Services'"> Posted by</span> <span data-bind="if:category != 'Jobs' && category != 'Services'"> Seller profile</span> (<span data-bind="text:postedByName"></span>)</a>
                                             </div>
                                         </div><br />
-                                        <p class="small text-muted"> when you contact <span data-bind="visible:companyId,text:companyName"></span><span data-bind="visible:!companyId,text:postedByName"></span>, don't forget to mention that you found this ad on dealkar.pk</p>
 
                                     </div>
                                 </div>
@@ -1124,6 +1124,7 @@
             //    self.newComment('');
             //}
             self.newComment = ko.observable();
+            self.isCommentPosting = ko.observable(false);
             self.addcomment = function () {
                 if (self.loginUserId) {
                     var com = new comment();
@@ -1132,7 +1133,8 @@
                     //com.description(com.description().slice(0, -1));
                     if (com.description() != null && com.description().trim() != "") {
                         com.time = new Date($.now());
-                        com.description = com.description().slice(0, - 1);
+                        com.description = com.description().slice(0, -1);
+                        self.isCommentPosting(true);
                         //self.commentsHub.server.addComment(com).fail(function (err) { toastr.error("failed to post comment ", "Error!"); });
                         $.ajax({
                             url: '/api/Comment/PostComment',
@@ -1144,9 +1146,11 @@
                             success: function (data) {
                                 self.showComment.push(new comment(data));
                                 self.newComment('');
+                                self.isCommentPosting(false);
                             },
                             error: function (jqXHR, status, thrownError) {
                                 toastr.error("failed to post comment", "Error");
+                                self.isCommentPosting(false);
                             }
                         });
                     }

@@ -218,6 +218,7 @@
             }
         }
         self.newCommentReply = ko.observable();
+        self.isCommentReplyPosting = ko.observable(false);
         self.addCommentReply = function (islog) { //change
             if (islog) {
                 var reply = new commentReply();
@@ -226,7 +227,7 @@
                 reply.description(self.newCommentReply());
                 if (reply.description() != null && reply.description().trim() != "") {
                     //myhub.server.AddCommentReply(reply).fail(function (err) { toastr.error("failed to post comment reply", "Error!"); });
-
+                    self.isCommentReplyPosting(true);
                     $.ajax({
                         url: '/api/Comment/PostCommentReply',
                         dataType: "json",
@@ -237,8 +238,10 @@
                         success: function (data) {
                             self.showCommentReply.push(new commentReply(data));
                             self.newCommentReply('');
+                            self.isCommentReplyPosting(false);
                         },
                         error: function () {
+                            self.isCommentReplyPosting(false);
                             toastr.error("failed to post comment reply", "Error!");
                         }
                     });
