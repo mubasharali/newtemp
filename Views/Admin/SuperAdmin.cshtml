@@ -89,6 +89,7 @@
                     },
                 });
             }
+            self.loadAdmins();
             self.makeAdminBtn = function () {
                 $.ajax({
                     url: '/api/Admin/MakeAdmin?email=' + self.adminEmail(),
