@@ -7,7 +7,7 @@
         <div class="col-sm-6">
             <h2>Admins list</h2>
             <div data-bind="foreach:showAdmins">
-                <a data-bind="attr:{href:'/User/Index/' + id },text:name"></a>
+                <a data-bind="attr:{href:'/User/Index/' + id },text:name"></a><br />
             </div>
             <h2>Make admin</h2>
             <input type="email" data-bind="value:adminEmail" />
