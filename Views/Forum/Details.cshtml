@@ -75,7 +75,11 @@
                                                             <i class="fa fa-clock-o"></i> <a data-bind="text:time"></a>
                                                             <i class="fa fa-user"></i> <a data-bind="attr:{href:postedByLink},text:postedByName"></a>
                                                             <span data-bind="if: postedById === $parent.loginUserId"><a data-bind="click:editQuestionReply">edit</a> <a data-bind="click:$parent.deleteQuestionReply">delete</a></span>
-
+                                                        <span data-bind="visible:postedById != $parent.loginUserId">
+                                                            <span data-bind="visible:isAdmin()">
+                                                                <a data-bind="click:$parent.deleteQuestionReply" class="btn btn-white btn-xs pull-right">Delete</a>
+                                                            </span>
+                                                        </span>
 </div>
                                                 </div>
                                             </div>
@@ -100,13 +104,19 @@
 
                             </div>
 
-                            
-                        <h2>Answers</h2>
+                            <br />
+                        <h2>Answers OR Discussions</h2>
+                        <br />
                         <div class="row m-t-sm">
                             <div data-bind="foreach:showAnswers">
                                 <div class="vote-item" data-bind="visible:!isAnswerEditing()">
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <span data-bind="visible:postedById != $parent.loginUserId">
+                                                <span data-bind="visible:isAdmin()">
+                                                    <a data-bind="click:$parent.deleteAnswer" class="btn btn-white btn-xs pull-right">Delete</a>
+                                                </span>
+                                            </span>
                                             <small data-bind="if: postedById === $parent.loginUserId" class="pull-right"><a data-bind="click:$parent.deleteAnswer" class="btn btn-white btn-xs pull-right">Delete</a><a data-bind="click:function(){return editAnswer($parent.id)}" class="btn btn-white btn-xs pull-right">Edit</a></small>
                                             <div class="vote-actions">
                                                 <a data-bind="click:function(){return voteAnswer(id,$parent.loginUserId,true)}">
@@ -143,8 +153,12 @@
                                                         </a>
                                                         <i class="fa fa-user"></i> <a data-bind="attr:{href:postedByLink},text:postedByName"></a>
                                                         <i class="fa fa-clock-o"></i> <a data-bind="text:time"></a>
-                                                        <span data-bind="if: postedById === $parents[1].loginUserId"><a data-bind="click:function(d,e){return editAnswerReply(id,d,e)}">edit</a>-<a data-bind="click:$parent.deleteAnswerReply">delete</a></span>
-
+                                                        <span data-bind="if: postedById === $parents[1].loginUserId"><a data-bind="click:function(d,e){return editAnswerReply(id,d,e)}">edit</a><a data-bind="click:$parent.deleteAnswerReply">delete</a></span>
+                                                        <span data-bind="visible:postedById != $parents[1].loginUserId">
+                                                            <span data-bind="visible:isAdmin()">
+                                                                <a data-bind="click:$parent.deleteAnswerReply" class="btn btn-white btn-xs pull-right">Delete</a>
+                                                            </span>
+                                                        </span>
                                                     </div>
                                                 </div>
 

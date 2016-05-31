@@ -58,6 +58,13 @@
         }
         self.likeCommentReply = function (id, loginUserId, isup) {
             if (loginUserId) {
+                if (isup) {
+                    self.isliked(true);
+                    self.isunliked(false);
+                } else {
+                    self.isliked(false);
+                    self.isunliked(true);
+                }
                 $.ajax({
                     url: '/api/Comment/likeCommentReply?id=' + id + '&isup=' + isup,
                     dataType: "json",
@@ -191,6 +198,15 @@
         }
         self.likeComment = function (id, loginUserId, isup) {
             if (loginUserId) {
+             //   var currentStatus = self.isliked();
+                if (isup) {
+                    self.isliked(true);
+                    self.isunliked(false);
+                   // self.voteUpCount(self.voteUpCount()++);
+                } else {
+                    self.isliked(false);
+                    self.isunliked(true);
+                }
                 $.ajax({
                     url: '/api/Comment/likeComment?id=' + id + '&isup=' + isup,
                     dataType: "json",

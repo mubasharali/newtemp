@@ -13,6 +13,7 @@
             <input type="email" data-bind="value:adminEmail" />
             <button class="btn btn-default" data-bind="click:makeAdminBtn">Submit</button>
         </div>
+        @*visit user profile on the basis of email*@
         <div class="col-sm-6">
             <h2>Block User</h2>
             <input type="email" data-bind="value:blockUserEmail" placeholder="email" />
@@ -22,6 +23,11 @@
             <h2>Block User</h2>
             <input type="email" data-bind="value:blockUserId" placeholder="id" />
             <button class="btn btn-default" data-bind="click:blockUserIdBtn">Submit</button>
+        </div>
+        <div class="col-sm-6">
+            <h2>Send Email</h2>
+            @*<input type="email" data-bind="value:blockUserId" placeholder="id" />*@
+            <button class="btn btn-default" data-bind="click:sendEmail">Submit</button>
         </div>
     </div>
     <hr /><hr />
@@ -64,6 +70,19 @@
                     type: 'POST',
                     success: function (data) {
                         toastr.info("Success");
+                    },
+                    error: function () {
+                        toastr.info("Error! please refresh page and try again");
+                    },
+                });
+            }
+            self.sendEmail = function () {
+                $.ajax({
+                    url: '/api/Admin/SendEmail',
+                    dataType: "json",
+                    type: 'POST',
+                    success: function (data) {
+                        toastr.info("done");
                     },
                     error: function () {
                         toastr.info("Error! please refresh page and try again");
