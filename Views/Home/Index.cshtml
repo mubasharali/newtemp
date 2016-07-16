@@ -1,4 +1,7 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Home_Page.cshtml";
+}
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <br /> <br /><br />
     <div class="col-sm-12">
@@ -32,19 +35,39 @@
         <div class="col-xs-12"><br /><br />
 <br />
             <div class="row">
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/MobilesTablets">
-                        <div class="widget navy-bg p-lg text-center">
+
+                <div class="col-lg-3 col-sm-4 col-xs-12 ">
+                    @*<a href="/MobilesTablets" class="  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-mobile fa-4x"></i>
                                 <h3 class="m-xs">Mobiles</h3>
                                 <p>&nbsp;</p>
                             </div>
+                    </a>*@
+                    <a style="width:70%" href="/MobilesTablets" class="btn widget  btn-outline btn-primary">
+                        <div class="m-b-md">
+                            <i class="fa fa-mobile fa-4x"></i>
+                            <h3 class="m-xs">Mobiles</h3>
+                        </div>
+
+                    </a>
+                </div>
+                <div class="col-lg-3 col-sm-4 col-xs-12">
+                    <a style="width:70%"  href="/Laptops-Computers" class="btn widget  btn-outline btn-primary">
+                        <div class="m-b-md">
+                            <i class="fa fa-laptop fa-4x"></i>
+                            <h3 class="m-xs">Laptops</h3>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/RealEstate">
+                <div class="col-lg-3 col-sm-4 col-xs-12">
+                    <a style="width:70%" href="/RealEstate"  class="btn widget  btn-outline btn-primary">
+                            <div class="m-b-md">
+                                <i class="fa fa-home fa-4x"></i>
+                                <h3 class="m-xs">Real Estate</h3>
+                            </div>
+                    </a>
+                     @*<a href="/RealEstate">
                         <div class="widget navy-bg p-lg text-center">
                             <div class="m-b-md">
                                 <i class="fa fa-home fa-4x"></i>
@@ -52,182 +75,157 @@
                                 <p>&nbsp;</p>
                             </div>
                         </div>
-                    </a>
+                    </a>*@
                 </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Jobs">
-                        <div class="widget navy-bg p-lg text-center">
+                <div class="col-lg-3 col-sm-4 col-xs-12">
+                    <a style="width:70%" href="/Jobs"  class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-suitcase fa-4x"></i>
                                 <h3 class="m-xs">Jobs</h3>
-                                <p>&nbsp;</p>
-                            </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Services">
-                        <div class="widget navy-bg p-lg text-center">
+                <div class="col-lg-3 col-sm-4 col-xs-12">
+                    <a style="width:70%" href="/Services"  class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-cogs fa-4x"></i>
                                 <h3 class="m-xs">Services</h3>
-                                <p>&nbsp;</p>
-                            </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Pets-Animals">
-                        <div class="widget navy-bg p-lg text-center">
-                            <div class="m-b-md">
-                                <i class="fa fa-paw fa-4x"></i>
-                                <h3 class="m-xs">Pets & Animals</h3>
-                                <p>&nbsp;</p>
-                            </div>
+                <div class="col-lg-3 col-sm-4 col-xs-12">
+                    <a style="width:70%" href="/Cars" class="btn widget  btn-outline btn-primary">
+                        <div class="m-b-md">
+                            <i class="fa fa-car fa-4x"></i>
+                            <h3 class="m-xs">Cars</h3>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/books-sports-hobbies">
-                        <div class="widget navy-bg p-lg text-center">
-                            <div class="m-b-md">
-                                <i class="fa fa-mortar-board fa-4x"></i>
-                                <h3 class="m-xs">Books, Sports & Hobbies</h3>
-                            </div>
+                <div class="col-lg-3 col-sm-4 col-xs-12">
+                    <a  style="width:70%"  href="/Bikes" class="btn widget  btn-outline btn-primary">
+                        <div class="m-b-md">
+                            <i class="fa fa-motorcycle fa-4x"></i>
+                            <h3 class="m-xs">Bikes</h3>
                         </div>
                     </a>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Cameras">
-                        <div class="widget navy-bg p-lg text-center">
+                
+            @*</div>
+            <div class="row">*@
+                <div class="col-lg-3 col-sm-4 col-xs-12 hidden-lg">
+            <a  style="width:70%"  href="/Pets-Animals"  class="btn widget  btn-outline btn-primary">
+                    <div class="m-b-md">
+                        <i class="fa fa-paw fa-4x"></i>
+                        <h3 class="m-xs">Pets & Animals</h3>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-sm-4 col-xs-12">
+            <a  style="width:70%"  href="/books-sports-hobbies"  class="btn widget  btn-outline btn-primary">
+                    <div class="m-b-md">
+                        <i class="fa fa-mortar-board fa-4x"></i>
+                        <h3 class="m-xs">Study@*Books, Sports & Hobbies*@</h3>
+                </div>
+            </a>
+        </div>
+                @*<div class="col-lg-2 col-sm-4 col-xs-6">
+                    <a href="/Cameras" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-camera fa-4x"></i>
                                 <h3 class="m-xs">Camera</h3>
                                 <p class="visible-lg">&nbsp;</p>
-                            </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Games">
-                        <div class="widget navy-bg p-lg text-center">
+                    <a href="/Games" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-gamepad fa-4x"></i>
                                 <h3 class="m-xs">Games</h3>
                                 <p  class="visible-lg">&nbsp;</p>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Laptops-Computers">
-                        <div class="widget navy-bg p-lg text-center">
-                            <div class="m-b-md">
-                                <i class="fa fa-laptop fa-4x"></i>
-                                <h3 class="m-xs">Laptops-Computers</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/TV-DVD-Multimedia">
-                        <div class="widget navy-bg p-lg text-center">
-                            <div class="m-b-md">
-                                <i class="fa fa-play fa-4x"></i>
-                                <h3 class="m-xs">TV-DVD-Multimedia</h3>
-                            </div>
-                        </div>
                     </a>
                 </div>
                 
                 <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Home-Appliances">
-                        <div class="widget navy-bg p-lg text-center">
+                    <a href="/TV-DVD-Multimedia" class="btn widget  btn-outline btn-primary">
+                            <div class="m-b-md">
+                                <i class="fa fa-play fa-4x"></i>
+                                <h3 class="m-xs">TV-DVD-Multimedia</h3>
+                            </div>
+                    </a>
+                </div>
+                
+                <div class="col-lg-2 col-sm-4 col-xs-6">
+                    <a href="/Home-Appliances" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-television fa-4x"></i>
                                 <h3 class="m-xs">Home Appliances</h3>
-                            </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Other-Electronics">
-                        <div class="widget navy-bg p-lg text-center">
+                    <a href="/Other-Electronics" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-bolt fa-4x"></i>
                                 <h3 class="m-xs">Other Electronics</h3>
                             </div>
-                        </div>
                     </a>
-                </div>
+                </div>*@
             </div>
             <div class="row">
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Cars">
-                        <div class="widget navy-bg p-lg text-center">
+                @*<div class="col-lg-2 col-sm-4 col-xs-6">
+                    <a href="/Cars" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-car fa-4x"></i>
                                 <h3 class="m-xs">Cars</h3>
                                 <p class="visible-lg">&nbsp;</p>
                             </div>
-                        </div>
                     </a>
                 </div>
                 <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Bikes">
-                        <div class="widget navy-bg p-lg text-center">
+                    <a href="/Bikes" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-motorcycle fa-4x"></i>
                                 <h3 class="m-xs">Bikes</h3>
                                 <p class="visible-lg">&nbsp;</p>
                             </div>
-                        </div>
                     </a>
-                </div>
+                </div>*@
                 
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Commerical-Vehicles">
-                        <div class="widget navy-bg p-lg text-center">
+                @*<div class="col-lg-2 col-sm-4 col-xs-6">
+                    <a href="/Commerical-Vehicles" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-truck fa-4x"></i>
                                 <h3 class="m-xs">Commerical Vehicles</h3>
-                            </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="vehicles-spare-parts">
-                        <div class="widget navy-bg p-lg text-center">
+                    <a href="vehicles-spare-parts" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-sitemap fa-4x"></i>
                                 <h3 class="m-xs">Vehicles Spare parts</h3>
                             </div>
-                        </div>
                     </a>
                 </div>
                 <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Other-Vehicles">
-                        <div class="widget navy-bg p-lg text-center">
+                    <a href="/Other-Vehicles" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-ship fa-4x"></i>
                                 <h3 class="m-xs">Other Vehicles</h3>
                                 <p class="visible-lg">&nbsp;</p>
                             </div>
-                        </div>
                     </a>
                 </div>
                 <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Vehicles-for-rent">
-                        <div class="widget navy-bg p-lg text-center">
+                    <a href="/Vehicles-for-rent" class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-money fa-4x"></i>
                                 <h3 class="m-xs">Vehicles for rent</h3>
                             </div>
-                        </div>
                     </a>
-                </div>
+                </div>*@
             </div>
         </div>
         <div class="row"></div>
@@ -290,8 +288,8 @@
                 
             </div>
         </div>
-    </div>
-    <div class="row">
+    </div>*@
+    @*<div class="row">
         <div class="col-lg-10 col-lg-offset-1">
 
 
@@ -349,84 +347,142 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
+    </div>*@
+    
+@*</section>*@
+<div class="row">
+    <br /><br /><br /><br />
+</div>
+
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1">
+
+        <div class="slick_demo_2 showAds" data-bind="foreach:showAds">
+
+            <div>
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div class="product-imitation">
+                            <div class="carouselContainer">
+                                <span id="gallery" data-gallery=""
+                                                                            data-bind="slick: images,
+                                      slickOptions: { slidesToShow: 3,
+                                    slidesToScroll: 1,
+                                    autoplay: true,
+                                    autoplaySpeed: 2000,},
+                                      slickIndex: imageIndex">
+                                                                      </span>
+                                <div data-bind="visible:images().length == 0"><h2><br /><br /><br /><br /> No Images<br /><br /><br /><br /><br /></h2></div>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <span class="product-price">
+                                <span data-bind="if:!isBidingAllowed">
+                                    <span data-bind="if:price">
+                                        <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted">Rs. <span data-bind="html:isNegotiable"></span></small>
+                                    </span>
+                                    <span data-bind="if:!price">Price on contact</span>
+                                </span>
+                                <span data-bind="if:isBidingAllowed">
+                                    <span data-bind="if:price">
+                                        <span data-bind="if:highestBid() == '-Infinity'">
+                                            <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted ">Rs. (Initial Bid) </small>
+                                        </span>
+                                        <span data-bind="ifnot:highestBid() == '-Infinity'">
+                                            <span data-bind="text:highestBid"></span> <small style="font-size:13px" class="text-muted ">Rs. (current Bid) </small>
+                                        </span>
+                                    </span>
+                                    <span data-bind="if:!price">
+                                        <span data-bind="if:highestBid() == '-Infinity'">
+                                            No Bid yet
+                                        </span>
+                                        <span data-bind="ifnot:highestBid() == '-Infinity'">
+                                            <span data-bind="text:highestBid"></span> <small style="font-size:13px" class="text-muted ">Rs. (current Bid) </small>
+                                        </span>
+                                    </span>
+                                </span>
+                            </span>
+                            <small class="text-muted" data-bind="text:category"></small>
+                            <a href="#" class="product-name" data-bind="text:title,attr:{href:link}"> </a>
 
 
-            <h4 class="text-center m">
-                Jobs
-            </h4>
 
+                            <div class="small m-t-xs" data-bind="foreach:showTags">
+                                <a target="_blank" data-bind="attr:{href:'/Tag/'+name}"> <span class="btn btn-xs btn-white" data-bind="text:name"></span></a>
+                            </div>
+                            <div class="m-t text-righ">
 
-
-            <div class="slick_demo_2">
-
-                <div>
-                    <div class="ibox-content">
-                        <h2>Slide 1</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <div class="ibox-content">
-                        <h2>Slide 2</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <div class="ibox-content">
-                        <h2>Slide 3</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <div class="ibox-content">
-                        <h2>Slide 4</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
+                               
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>*@
+    <div class="visible-xs"> <br /><br /><br /><br /></div>
+</div>
 <style>
     .slick_demo_2 .ibox-content {
         margin: 0 10px;
     }
-    
 </style>
-@*<section id="contact" class="gray-section contact">
+<style>
+    .carouselContainer {
+        overflow: hidden;
+        //height:350px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #gallery {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .product-imitation {
+        margin: 0px;
+        padding: 0px;
+      //   width:250px !important;
+        /apply max-padding or default image;
+    }
+
+    .carouselContainer img {
+        // height: 350px;
+        width: 250px;
+        height: 250px;
+       // overflow:hidden;
+    }
+
+    .showAds .ibox {
+      //  height: 350px;
+      //  width:259px;
+    }
+</style>
+<section id="contact" class="gray-section contact hidden-xs">
     <div class="container">
         <div class="row m-b-lg">
             <div class="col-lg-12 text-center">
                 <div class="navy-line"> </div>
-                <h1>Contact Us</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+                <br /><br /><br /><br /><br />
+
+                <h1 class="navbar-brand logo-name">dealkar.pk</h1><br /><br /><br /><br /><br />
+                <h1 style="font-size:26px" class="vote-info navbar-brand"> Wait na kar, deal kar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="list-inline social-icon">
+    <li>
+        <a target="_blank" href="https://twitter.com/dealkarpk"><i class="fa fa-twitter"></i></a>
+    </li>
+    <li>
+        <a target="_blank" href="https://www.facebook.com/dealkar.pk/"><i class="fa fa-facebook"></i></a>
+    </li>
+    @*<li>
+        <a target="_blank" href="#"><i class="fa fa-linkedin"></i></a>
+    </li>*@
+</span></h1>
             </div>
         </div>
         <div class="row m-b-lg">
-            <div class="col-lg-3 col-lg-offset-3">
+            @*<div class="col-lg-3 col-lg-offset-3">
                 <address>
                     <strong><span class="navy">Company name, Inc.</span></strong><br />
                     795 Folsom Ave, Suite 600<br />
@@ -438,13 +494,12 @@
                 <p class="text-color">
                     Consectetur adipisicing elit. Aut eaque, totam corporis laboriosam veritatis quis ad perspiciatis, totam corporis laboriosam veritatis, consectetur adipisicing elit quos non quis ad perspiciatis, totam corporis ea,
                 </p>
-            </div>
+            </div>*@
         </div>
-        <div class="row">
+        @*<div class="row">
             <div class="col-lg-12 text-center">
-                <a href="mailto:test@email.com" class="btn btn-primary">Send us mail</a>
                 <p class="m-t-sm">
-                    Or follow us on social platform
+                    Follow us on social platform
                 </p>
                 <ul class="list-inline social-icon">
                     <li>
@@ -457,15 +512,11 @@
                         <a href="#"><i class="fa fa-linkedin"></i></a>
                     </li>
                 </ul>
+                <p><br /><br /><br /><br /></p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-                <p><strong>&copy; 2015 Company Name</strong><br /> consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-            </div>
-        </div>
+        </div>*@
     </div>
-</section>*@
+</section>
 
 @section Styles {
     @Styles.Render("~/plugins/slickStyles")
@@ -479,14 +530,18 @@
     @Scripts.Render("~/plugins/timeago")
     @Scripts.Render("~/plugins/autosize")
     @Scripts.Render("~/plugins/slick")
-
+<script src="~/Scripts/app/slick-knockout-binding.js"></script>
+<script src="~/Scripts/app/CreateAlert.js"></script>
+<script src="~/Scripts/app/_Truncate-knockout-binding.js"></script>
+<script src="~/Scripts/app/GetLoginUserId.js"></script>
     <script>
-       
+        //start of _adListView
         function Tag(data) {
             var self = this;
             data = data || {};
             self.id = data.id;
             self.name = data.name;
+            self.link = "/Tag/" + data.id + "/" + convertToSlug(self.name);
         }
         function Bid(data) {
             var self = this;
@@ -495,26 +550,36 @@
         }
         var imageUrls = [];
         function adImages(data, adId, imagesCount) {
-            //var self = this;
-            //data = data || {};
-            //self.link = "/Images/Ads/" + adId + '_' + imagesCount + data.imageExtension;// also loop after _
-            //imageUrls.push(self.link);
-            return "/Images/Ads/" + adId + '_' + imagesCount + data.imageExtension;
-
+            return $.cookie("AWSURL") + $.cookie("AWSFolderName") + adId + '_' + imagesCount + data;
         }
-        var imageIndex = ko.observable(1);
-        function ad(data) {
+        function Location(data) {
+            var self = this;
+            data = data || {};
+            self.cityId = data.cityId;
+            self.cityName = data.cityName;
+            self.popularPlaceId = data.popularPlaceId;
+            self.popularPlace = data.popularPlace;
+            self.exectLocation = data.exectLocation;
+        }
+        function convertToSlug(Text) {
+            return Text
+                .toLowerCase()
+                .replace(/[^\w ]+/g, '')
+                .replace(/ +/g, '-')
+            ;
+        }
+        function Ad(data) {
             var self = this;
 
-            //slick
-            // self.images = ko.observableArray(imageUrls);
             self.images = ko.observable();
             self.options = {};
             self.imageIndex = ko.observable(1);
 
             data = data || {};
-
             self.title = data.title;
+            self.category = data.category;
+            self.subcategory = data.subcategory;
+            self.subsubcategory = data.subsubcategory;
             self.description = ko.observable(data.description);
             self.postedByName = data.postedByName;
             self.postedById = data.postedById;
@@ -527,7 +592,18 @@
             self.showImages = ko.observable();
             self.views = data.views;
             self.price = data.price || "";
-            self.link = "/MobilesTablets/Details/" + data.id;
+            self.link = "/Details/" + data.id + "/" + convertToSlug(data.title);
+            var loginUserId1 = getLoginUserId(self.loginUserId); //to access self.loginUserId outside this function
+
+            self.brand = data.brand;
+            self.model = data.model;
+
+            self.floor = data.floor;
+            self.bedroom = data.bedroom;
+            self.area = data.area;
+
+            self.exprience = data.exprience;
+            self.qualification = data.qualification;
 
             //biding
             self.highestBid = ko.observable();
@@ -537,11 +613,14 @@
             self.bidAmount = ko.observable();
 
             self.showTags = ko.observableArray();
-
+            self.adLocation = ko.observable();
             self.sellerProfile = function () {
                 window.location.href = "/User/Index/" + self.postedById;
             }
-
+            if (data.location != null) {
+                self.adLocation(new Location(data.location));
+            }
+            self.isNegotiable = "";
             if (data.isNegotiable == "b") {
                 self.isBidingAllowed = true;
             } else if (data.isNegotiable == "y") {
@@ -552,6 +631,7 @@
             if (self.price == "") {
                 self.isNegotiable = "";
             }
+
             if (data.bid != null) {
                 var biding = $.map(data.bid, function (item) { return new Bid(item); });
                 self.highestBid(Math.max.apply(Math, data.bid.map(function (o) { return o.price; })));
@@ -589,9 +669,55 @@
                 }
             }
         }
+        //edn of _adListView
+
+        function slick1() {
+            $('.slick_demo_2').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                centerMode: true,
+                focus: false,
+                responsive: [
+                    {
+                        breakpoint: 1624, //1024
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            // dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 1024, //1024
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                           // dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 680, //600
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 440, //480
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        }
+        
         function ViewModel() {
             
-        ingLocation();
+        SearchingLocation();
             AccountViewModel();
             ChatViewModel();
             var self = this;
@@ -604,7 +730,7 @@
                 window.location.href = "/Search";
             })
             self.loadad = function () {
-                url_address = '/api/Electronic/GetMobileTrends';
+                url_address = '/api/Search/GetTrendingAds';
                 $.ajax({
                     url: url_address,
                     dataType: "json",
@@ -612,9 +738,23 @@
                     cache: false,
                     type: 'GET',
                     success: function (data) {
-                        var mappedads = $.map(data, function (item) { return new ad(item); });
+                        var mappedads = $.map(data, function (item) { return new Ad(item); });
                         self.showAds(mappedads);
-
+                        //remove from this
+                        $.ajax({
+                            url : url_address,
+                            dataType: "json",
+                            contentType: "application/json",
+                            cache: false,
+                            type: 'GET',
+                            success: function (data) {
+                                slick1();
+                            },
+                            error: function () {
+                                toastr.error("failed to search. Please refresh page and try again", "Error!");
+                            }
+                        });
+                        //to this
                     },
                     error: function () {
                         toastr.error("Unable to load data. Please try again", "Error");
@@ -631,103 +771,103 @@
                 return '';
             }
         }
-        ko.bindingHandlers.slick = (function () {
-            var createImageDiv = function (imgUrl) {
+        //ko.bindingHandlers.slick = (function () {
+        //    var createImageDiv = function (imgUrl) {
 
-                $a = $('<a>');
-                $a.attr('href', imgUrl);
-                //$a.attr('data-gallery', '#blueimp-gallery');
-                $a.attr('target', '_blank');
-                $div = $('<div>');
-                $image = $('<img>');
-                $image.attr('src', imgUrl);
-                // $div.append($image);
-                $a.append($image);
-                $div.append($a);
-                return $div;
-            };
+        //        $a = $('<a>');
+        //        $a.attr('href', imgUrl);
+        //        //$a.attr('data-gallery', '#blueimp-gallery');
+        //        $a.attr('target', '_blank');
+        //        $div = $('<div>');
+        //        $image = $('<img>');
+        //        $image.attr('src', imgUrl);
+        //        // $div.append($image);
+        //        $a.append($image);
+        //        $div.append($a);
+        //        return $div;
+        //    };
 
-            // Initializes the carousel
-            var init = function (element, valueAccessor, allBindingsAccessor) {
-                // Clears the div
-                $(element).empty();
-                // Creates the inner divs with images
-                var images = ko.unwrap(valueAccessor());
-                if (images) {
-                    images.forEach(function (imgUrl) {
-                        $(element).append(createImageDiv(imgUrl));
-                    });
-                }
+        //    // Initializes the carousel
+        //    var init = function (element, valueAccessor, allBindingsAccessor) {
+        //        // Clears the div
+        //        $(element).empty();
+        //        // Creates the inner divs with images
+        //        var images = ko.unwrap(valueAccessor());
+        //        if (images) {
+        //            images.forEach(function (imgUrl) {
+        //                $(element).append(createImageDiv(imgUrl));
+        //            });
+        //        }
 
-                // try to recover slickOptions
-                var options = allBindingsAccessor().slickOptions || {};
+        //        // try to recover slickOptions
+        //        var options = allBindingsAccessor().slickOptions || {};
 
-                // Initialize slick on the div, with provided options
-                $(element).slick(options);
+        //        // Initialize slick on the div, with provided options
+        //        $(element).slick(options);
 
-                //handle disposal, if KO removes the element
-                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                    $(element).slick('unslick');
-                });
+        //        //handle disposal, if KO removes the element
+        //        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+        //            $(element).slick('unslick');
+        //        });
 
-                // check if there is slickIndex
-                var slickIndex = allBindingsAccessor().slickIndex;
-                if (slickIndex) {
-                    $(element).slick('slickGoTo', ko.unwrap(slickIndex));
-                }
-                // If it's obervable, subscribe to its changes
-                if (ko.isObservable(slickIndex)) {
-                    slickIndex.subscribe(function (idx) {
-                        $(element).slick('slickGoTo', idx);
-                    });
-                }
-                // It if's writable observable, update when slick current index changes
-                if (ko.isWritableObservable(slickIndex)) {
-                    $(element).on('afterChange', function (evt, slick, pos) {
-                        slickIndex(pos);
-                    })
-                }
+        //        // check if there is slickIndex
+        //        var slickIndex = allBindingsAccessor().slickIndex;
+        //        if (slickIndex) {
+        //            $(element).slick('slickGoTo', ko.unwrap(slickIndex));
+        //        }
+        //        // If it's obervable, subscribe to its changes
+        //        if (ko.isObservable(slickIndex)) {
+        //            slickIndex.subscribe(function (idx) {
+        //                $(element).slick('slickGoTo', idx);
+        //            });
+        //        }
+        //        // It if's writable observable, update when slick current index changes
+        //        if (ko.isWritableObservable(slickIndex)) {
+        //            $(element).on('afterChange', function (evt, slick, pos) {
+        //                slickIndex(pos);
+        //            })
+        //        }
 
-                // Check if the array of images is an observable array
-                var imagesArray = valueAccessor();
-                // If it's observable array, subscribe to changes
-                if (ko.isObservable(imagesArray) && 'destroyAll' in imagesArray) {
-                    imagesArray.subscribe(function (changes) {
-                        console.log(changes);
-                        if (changes) {
-                            changes.forEach(function (change) {
-                                if (change.status == 'added') {
-                                    // Add new img div at index
-                                    var imgDiv = createImageDiv(change.value)[0];
-                                    var index = change.index;
-                                    var slideCount = $(element).slick('getSlick').slideCount;
-                                    // if the index is out of range (which can happen
-                                    // with push, and splice), include at the end
-                                    var addBefore = true;
-                                    if (index >= slideCount) {
-                                        index = slideCount - 1;
-                                        addBefore = false;
-                                    }
-                                    $(element).slick('slickAdd', imgDiv, index, addBefore);
-                                } else if (change.status == 'deleted') {
-                                    // delete img div at index
-                                    $(element).slick('slickRemove', change.index);
-                                }
-                            });
-                        }
-                    }, null, 'arrayChange');
-                } // if observable array
-            }
+        //        // Check if the array of images is an observable array
+        //        var imagesArray = valueAccessor();
+        //        // If it's observable array, subscribe to changes
+        //        if (ko.isObservable(imagesArray) && 'destroyAll' in imagesArray) {
+        //            imagesArray.subscribe(function (changes) {
+        //                console.log(changes);
+        //                if (changes) {
+        //                    changes.forEach(function (change) {
+        //                        if (change.status == 'added') {
+        //                            // Add new img div at index
+        //                            var imgDiv = createImageDiv(change.value)[0];
+        //                            var index = change.index;
+        //                            var slideCount = $(element).slick('getSlick').slideCount;
+        //                            // if the index is out of range (which can happen
+        //                            // with push, and splice), include at the end
+        //                            var addBefore = true;
+        //                            if (index >= slideCount) {
+        //                                index = slideCount - 1;
+        //                                addBefore = false;
+        //                            }
+        //                            $(element).slick('slickAdd', imgDiv, index, addBefore);
+        //                        } else if (change.status == 'deleted') {
+        //                            // delete img div at index
+        //                            $(element).slick('slickRemove', change.index);
+        //                        }
+        //                    });
+        //                }
+        //            }, null, 'arrayChange');
+        //        } // if observable array
+        //    }
 
-            //update the control when the view model changes
-            var update = function (element, valueAccessor) {
-                var images = ko.unwrap(valueAccessor());
-                // Do something to update the content
-                console.log('update');
-            }
+        //    //update the control when the view model changes
+        //    var update = function (element, valueAccessor) {
+        //        var images = ko.unwrap(valueAccessor());
+        //        // Do something to update the content
+        //        console.log('update');
+        //    }
 
-            return { init: init, update: update };
-        })();
+        //    return { init: init, update: update };
+        //})();
         $('#select-tag').selectize({
             valueField: 'name',
             labelField: 'name',
@@ -775,37 +915,7 @@
             };
             ko.applyBindings(new ViewModel);
             $.connection.hub.start().done();
-            $('.slick_demo_2').slick({
-                infinite: true,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                centerMode: true,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3,
-                            infinite: true,
-                            dots: true
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
+            
         })
 
     </script>

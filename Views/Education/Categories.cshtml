@@ -52,7 +52,6 @@
     <script src="~/Scripts/app/_Truncate-knockout-binding.js"></script>
 <script src="~/Scripts/app/ConvertToSlug.js"></script>
     <script src="~/Scripts/app/GetLoginUserId.js"></script>
-    <script src="~/Scripts/app/GoogleAnalytics.js"></script>
     <script>
         //animal search.js page
         var title = ko.observable($("#search").val());
@@ -68,6 +67,9 @@
             availableCategories = ["Watches", "Clothes","Footware", "Jewellery","Baby products","health and beauty products", "Furniture", "Household", "Home Decoration","others in home and lifeStyle"];
         } else if (category == "Vehicles") {
             availableCategories = ["Cars", "Bikes", "Commerical Vehicles", "Vehicles for rent", "other vehicles", "Vehicles Spare parts"];
+        }
+        else if (category == "Electronics") {
+            availableCategories = ["Laptops Computers", "Cameras", "Tv DVD Multimedia", "Games", "Home Appliances", "other electronics"];
         }
         var selectedCategory = ko.observable();
 

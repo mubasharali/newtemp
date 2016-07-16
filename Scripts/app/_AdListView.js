@@ -12,7 +12,7 @@ function Bid(data) {
 }
 var imageUrls = [];
 function adImages(data, adId, imagesCount) {
-    return $.cookie("AWSURL") + $.cookie("AWSFolderName") + adId + '_' + imagesCount + data.imageExtension;
+    return $.cookie("AWSURL") + $.cookie("AWSFolderName") + adId + '_' + imagesCount + data.imageExtension; 
 }
 function Location(data) {
     var self = this;
@@ -108,26 +108,5 @@ function Ad(data) {
         var img = $.map(data.adImages, function (item, ia) { return adImages(item, data.id, imagesCount++); });
         self.showImages(img);
         self.images(img);
-    }
-    self.report = function (id, loginUserId) {
-        if (loginUserId) {
-            $.ajax({
-                url: '/api/Electronic/reportAd?id=' + id,
-                dataType: "json",
-                contentType: "application/json",
-                cache: false,
-                type: 'POST',
-                success: function (data) {
-                    self.isReported(true);
-                    self.reportedCount(data);
-                },
-                error: function (xhr, status, error) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    toastr.info(err.Message);
-                }
-            })
-        } else {
-            toastr.info("You must be login to report this ad", "Na na!");
-        }
     }
 }

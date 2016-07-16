@@ -2,19 +2,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="T7hZi6YPdzdd_bKbed1Hsq6xWxusKQNCGw0fshYoX4E" /> @*dealkar.pk*@
     @*<meta name="google-site-verification" content="orv0gPJPIeitRMIAGV_0VbMTx3DfWKJa32R4E9Vrr20" />*@ @*newtemp*@
-    <link rel="icon" href="~/Images/others/favicon.png" >
+    <link rel="icon" href="~/Images/others/favicon.png">
     <title>
-         @if (ViewBag.Title != null)
+        @if (ViewBag.Title != null)
         { @ViewBag.Title }
         else
         { <text>Free Classified Pakistan, Post and search Ads online </text> }
-    - dealkar.pk
+        - dealkar.pk
     </title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
@@ -22,10 +22,10 @@
 
     @RenderSection("Styles", required: false)
     @Styles.Render("~/Content/css")
-@Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/font-awesome/css")
     @Styles.Render("~/scripts/selectizeStyles")
-  @Styles.Render("~/plugins/laddaStyles")
-    <link href="~/Content/myStyles.css" rel="stylesheet" /> 
+    @Styles.Render("~/plugins/laddaStyles")
+    <link href="~/Content/myStyles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script>
         //dealkar.pk-official
@@ -40,17 +40,15 @@
         ga('send', 'pageview');
     </script>
 </head>
-<body class="fixed-sidebar fixed-nav mini-navbar">
+<body class="fixed-sidebar fixed-nav">
 
     <!-- Wrapper-->
     <div id="wrapper">
 
         <!-- Navigation -->
-
         <div id="loadNavigation">
-
+          @Html.Partial("_Navigation")
         </div>
-
         <!-- Page wraper -->
         <div id="page-wrapper" class="gray-bg">
 
@@ -66,7 +64,7 @@
             <!-- Main view  -->
             @RenderBody()
 
-           
+
 
             @Html.Partial("/Views/Shared/_Chat.cshtml")
             @Html.Partial("~/Views/Shared/_UserLogin.cshtml")
@@ -107,10 +105,10 @@
             });
         });
     </script>
-        @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
     <script>
         $(function () {
-            
+
             $.cookie("AWSFolderName", "Items/", { path: '/' });
             $.cookie("AWSUserFolder", "Users/", { path: '/' });
             $.cookie("AWSCompanyFolder", "Companies/", { path: '/' });
@@ -123,22 +121,22 @@
                 positionClass: 'toast-top-right',
                 onclick: null
             };
-            //$("#side-menu").css({ "display": "block" });
-            var $loadNavigation = $('#loadNavigation');
-            //$loadNavigation.load('/Home/Navigation');
-
-            $.ajax({
-                type: "GET",
-                url: "/Home/Navigation",
-                data: {},
-                success: function (data) {
-                    $loadNavigation.html(data);
-                    $('#side-menu').delay(500).metisMenu();
-                },
-                error: function (xhr, status, error) {
-                    alert(xhr.responseText);
-                }
-            });
+            
+            // $('#loadNavigation').load('~/Views/Shared/_Navigation.cshtml');
+            //var $loadNavigation = $('#loadNavigation');
+            //$.ajax({
+            //    type: "GET",
+            //    url: "/Home/Navigation",
+            //    data: {},
+            //    success: function (data) {
+            //        $loadNavigation.html(data);
+            //        $("#side-menu").css({ "display": "block" });
+            //    },
+            //    error: function (xhr, status, error) {
+            //        $loadNavigation.text("Error! Please refresh page");
+            //    }
+            //});
+            $("#side-menu").css({ "display": "block" });
         })
         function authForFeedback() {
             if (loginUserId() != "Visitor") {
@@ -148,8 +146,9 @@
                 loginBtn();
             }
         }
-        
-        
+
+
     </script>
 </body>
 </html>
+
