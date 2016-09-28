@@ -211,7 +211,8 @@
                 searchField: 'name',
                 options: [],
                 create: true,
-                maxItems: 6,
+                maxItems: 4,
+                createFilter: function (input) { return input.length <= 18; },
                 render: {
                     option: function (item, escape) {
                         return '<div>' +

@@ -166,9 +166,15 @@
                                 <div class="form-group">
                                     <label>salary </label>
                                     <div class="row">
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-4">
                                             <div class="input-group">
-                                                <input type="number" name="salary" class="form-control">
+                                                <input type="number" placeholder="min salary" name="salary" class="form-control">
+                                                <span class="input-group-addon">Rs</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <input type="number" placeholder="max salary" name="maxSalary" class="form-control">
                                                 <span class="input-group-addon">Rs</span>
                                             </div>
                                         </div>
@@ -251,7 +257,9 @@
                 toastr.info("Fields with * are mandatory!");
             }
         }
-        self.availableCategories = ko.observableArray(new Array("Accountancy", "Administration", "Advertising", "Aerospace", "Apprenticeships", "Automotive", "Banking", "Call Center", "Catering", "Charity", "Construction", "Creative", "Customer Service", "Digital", "Education", "Engineering", "Finance", "FMCG", "Graduate", "HealthCare", "Hospitality", "HR", "Insurance", "IT", "Legal", "Leisure", "Logistics", "Management Consultancy", "Manufacturing", "Marketing", "Media", "Nursing", "Oil and Gas", "PA", "Pharmaceutical", "PR", "Property", "Public Sector", "Recruitment Sales", "Renewable Energy", "Retail", "Sales", "Science", "Secretarial", "Senior Appointments", "Social Work", "Teaching", "Telecoms", "Tourism", "Transport", "Travel", "Utilities", "Wholesale"));
+        self.availableCategories = ko.observableArray(new Array("Customer Service", "It", "Online Jobs", "Marketing", "Advertising & PR", "Sales", "Clerical & Administration", "Human Resources", "Education", "Hotels & Tourism", "Accounting & Finance", "Manufacturing", "Part time Jobs", "Other Jobs"));
+
+            //self.availableCategories = ko.observableArray(new Array("Accountancy", "Administration", "Advertising", "Aerospace", "Apprenticeships", "Automotive", "Banking", "Call Center", "Catering", "Charity", "Construction", "Creative", "Customer Service", "Digital", "Education", "Engineering", "Finance", "FMCG", "Graduate", "HealthCare", "Hospitality", "HR", "Insurance", "IT", "Legal", "Leisure", "Logistics", "Management Consultancy", "Manufacturing", "Marketing", "Media", "Nursing", "Oil and Gas", "PA", "Pharmaceutical", "PR", "Property", "Public Sector", "Recruitment Sales", "Renewable Energy", "Retail", "Sales", "Science", "Secretarial", "Senior Appointments", "Social Work", "Teaching", "Telecoms", "Tourism", "Transport", "Travel", "Utilities", "Wholesale"));
         self.selectedCategory = ko.observable();
         self.typeValue = ko.observable("sell");
         self.conditionChecked = ko.observable(false);
@@ -419,8 +427,9 @@
             labelField: 'name',
             searchField: 'name',
             options: [],
-            maxItems: 6,
+            maxItems: 4,
             create: true,
+            createFilter: function (input) { return input.length <= 18; },
             render: {
                 option: function (item, escape) {
                     return '<div>' +
@@ -455,8 +464,9 @@
             labelField: 'name',
             searchField: 'name',
             options: [],
-            maxItems: 6,
+            maxItems: 4,
             create: true,
+            createFilter: function (input) { return input.length <= 18; },
             render: {
                 option: function (item, escape) {
                     return '<div>' +

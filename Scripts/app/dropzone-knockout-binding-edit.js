@@ -24,6 +24,23 @@
                     });
                     isFilesUploading = false;
                 });
+                this.on("removedfile", function (file) {
+                    x = confirm('Do you want to delete?');
+                    if (!x) return false;
+                    $.ajax({
+                        url: '/api/Admin/deleteImage?path=' +file.name ,
+                        dataType: "json",
+                        contentType: "application/json",
+                        cache: false,
+                        type: 'POST',
+                        success: function (data) {
+                            
+                        },
+                        error: function () {
+                            toastr.error("Please refresh page and try again", "Error!");
+                        }
+                    });
+                });
                 if (images) {
                     for (i = 0; i < images.length; i++) {
                         myDropzone.emit("addedfile", images[i]);

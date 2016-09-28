@@ -1,4 +1,28 @@
 ﻿
+.example_responsive_1 { width: auto; height: 50px !important; }
+@media(min-width: 500px) { .example_responsive_1 { width: auto; height: 50px !important; } }
+/*@media(min-width: 800px) { .example_responsive_1 { width: 728px; height: 40px; } }*/
+        
+
+
+
+    @media(max-width:786px){
+   .product-imitation {
+        margin: 0px;
+        padding: 0px;
+        width: 130px !important;
+        height: 130px !important;
+        /apply max-padding or default image;
+    }
+   .product-imitation img {
+        width: 140px !important;
+        height: 150px !important;
+        margin-top:-10px;
+        margin-left:-10px;
+       // object-fit:cover;
+        /apply max-padding or default image;
+    }
+}
         .selectize-control.repositories .selectize-dropdown > div {
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }

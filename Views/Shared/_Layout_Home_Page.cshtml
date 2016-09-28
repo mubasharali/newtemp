@@ -5,16 +5,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="dealkar.pk is fast growing classified website. Buy or sell mobiles, laptops, houses , used cars, bikes, find jobs, home services, repair electronic or kitchen appliances and more" />
+    @*<meta name="keywords" content="Bakra, OLX, Classifieds, Free Classifieds, free Classified ads, Free Ads, Classifieds Pakistan, Free Advertisement, online advertisement, Car, Bikes, Mobiles, Laptops, Houses, Apartments, Jobs, Realestate, Used Stuff, Local Ads, Ads For Sale, Jobs Pakistan, IT, Marketing, Online Jobs,Pakistan, work from home,bolee, hafeezcentre, dealkar, dealker, dealkr" />*@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="T7hZi6YPdzdd_bKbed1Hsq6xWxusKQNCGw0fshYoX4E" /> @*dealkar.pk*@
     @*<meta name="google-site-verification" content="orv0gPJPIeitRMIAGV_0VbMTx3DfWKJa32R4E9Vrr20" />*@ @*newtemp*@
     <link rel="icon" href="~/Images/others/favicon.png">
     <title>
-        @if (ViewBag.Title != null)
+        @*@if (ViewBag.Title != null)
         { @ViewBag.Title }
         else
-        { <text>Free Classified Pakistan, Post and search Ads online </text> }
-        - dealkar.pk
+        { <text>Classified website @(Session["City"] == null ? "" : " in " + Session["City"].ToString())</text> }
+        - dealkar.pk*@
+        dealkar.pk
     </title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
@@ -66,7 +69,7 @@
 
 
 
-            @Html.Partial("/Views/Shared/_Chat.cshtml")
+            @*@Html.Partial("/Views/Shared/_Chat.cshtml")*@
             @Html.Partial("~/Views/Shared/_UserLogin.cshtml")
             <!-- Footer -->
             @Html.Partial("_Footer")
@@ -75,7 +78,7 @@
         <!-- End page wrapper-->
         <!-- Right Sidebar -->
         @*@Html.Partial("_RightSidebar")*@
-
+        <div id="Searching-city" style="display:none">@Session["City"]</div>
     </div>
     <!-- End wrapper-->
     @Scripts.Render("~/bundles/jquery")
@@ -90,7 +93,6 @@
     @Scripts.Render("~/plugins/ladda")
     @Scripts.Render("~/plugins/truncate")
     <script src="~/Scripts/jquery.cookie.js"></script>
-    <script src="~/Scripts/app/_SearchLocation.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
     <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/app/chat.js"></script>
@@ -108,7 +110,6 @@
     @RenderSection("scripts", required: false)
     <script>
         $(function () {
-
             $.cookie("AWSFolderName", "Items/", { path: '/' });
             $.cookie("AWSUserFolder", "Users/", { path: '/' });
             $.cookie("AWSCompanyFolder", "Companies/", { path: '/' });
@@ -121,21 +122,6 @@
                 positionClass: 'toast-top-right',
                 onclick: null
             };
-            
-            // $('#loadNavigation').load('~/Views/Shared/_Navigation.cshtml');
-            //var $loadNavigation = $('#loadNavigation');
-            //$.ajax({
-            //    type: "GET",
-            //    url: "/Home/Navigation",
-            //    data: {},
-            //    success: function (data) {
-            //        $loadNavigation.html(data);
-            //        $("#side-menu").css({ "display": "block" });
-            //    },
-            //    error: function (xhr, status, error) {
-            //        $loadNavigation.text("Error! Please refresh page");
-            //    }
-            //});
             $("#side-menu").css({ "display": "block" });
         })
         function authForFeedback() {
@@ -146,7 +132,85 @@
                 loginBtn();
             }
         }
+        function SearchingLocation() {
+            var self = this;
+            self._isSearchCityLoading = ko.observable(false);
+            self._isSearchPPLoading = ko.observable(false);
+            console.log($.cookie("searchCity"));
+            console.log($.cookie("searchPP"));
+            searchingCity = ko.observable();
+            searchingPP = ko.observable();
+            searchingCities = ko.observableArray();
+            searchingPPs = ko.observableArray();
+            self._searchingLocationError = ko.observable();
+            self.searchLocationBtn = function () {
+                $("#setLocation").modal('hide');
+            }
+            //searchingCity.subscribe(function () {
 
+            //})
+            self.isLocationClicked = ko.observable(false);
+            self.setLocationClicked = function () {
+                self.isLocationClicked(true);
+
+                var sub = searchingCity.subscribe(function (value) {
+                    $.cookie("searchCity", searchingCity(), { path: '/' });
+                    if (searchingCity() != null && searchingCity() != "") {
+                        $("#setLocation").submit();
+                        // window.location.href = "/Shared/SetLocation?city=" + searchingCity();
+                        //searchingPP("");
+                    }
+
+                    // self._loadPopularPlaces();
+                })
+
+                //var iddd = $("#setLocation select");
+                //iddd.click();
+
+                var sel = $('#searching-city').selectize();
+                sel[0].selectize.focus();
+
+                //  var sel = $('#searching-city').selectize();
+                //sel[0].sel.focus();
+                //  $(this).parent().siblings('div.bottom').find("input.post").focus();
+            }
+
+            self.loadCities = function () {
+                self._isSearchCityLoading(true);
+                $.ajax({
+                    url: '/api/Location/GetCities',
+                    dataType: "json",
+                    contentType: "application/json",
+                    cache: false,
+                    type: 'GET',
+                    success: function (data) {
+                        self._isSearchCityLoading(false);
+                        $.each((data), function (i, item) { searchingCities.push(item) });
+                        searchingCities.push("All Pakistan");
+                        self._searchingLocationError("");
+                        var session_city = $("#Searching-city").text();
+                        if (session_city != "" && session_city != null) {
+                            searchingCity(session_city);
+                        }
+                        // searchingCity($.cookie("searchCity"));
+                        var sel = $('#searching-city').selectize({
+                            sortField: {
+                                field: 'text',
+                                direction: 'asc'
+                            },
+                        });
+                    },
+                    error: function (jqXHR, status, thrownError) {
+                        self._searchingLocationError("Error! Check your internet connection and refresh page");
+                        self._isSearchCityLoading(false);
+                        toastr.error("failed to load Cities.Please refresh page and try again", "Error");
+                    }
+                });
+            }
+            self.loadCities();
+
+
+        }
 
     </script>
 </body>

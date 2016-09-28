@@ -16,6 +16,32 @@ function SearchingLocation() {
     //searchingCity.subscribe(function () {
         
     //})
+    self.isLocationClicked = ko.observable(false);
+    self.setLocationClicked = function () {
+        self.isLocationClicked(true);
+
+        var sub = searchingCity.subscribe(function (value) {
+            $.cookie("searchCity", searchingCity(), { path: '/' });
+            if (searchingCity() != null && searchingCity() != "") {
+                $("#setLocation").submit();
+               // window.location.href = "/Shared/SetLocation?city=" + searchingCity();
+                //searchingPP("");
+            }
+
+            // self._loadPopularPlaces();
+        })
+
+        //var iddd = $("#setLocation select");
+        //iddd.click();
+
+        var sel = $('#searching-city').selectize();
+        sel[0].selectize.focus();
+
+      //  var sel = $('#searching-city').selectize();
+//sel[0].sel.focus();
+      //  $(this).parent().siblings('div.bottom').find("input.post").focus();
+    }
+
     self.loadCities = function () {
         self._isSearchCityLoading(true);
         $.ajax({
@@ -27,9 +53,10 @@ function SearchingLocation() {
             success: function (data) {
                 self._isSearchCityLoading(false);
                 $.each((data), function (i, item) { searchingCities.push(item) });
+                searchingCities.push("All Pakistan");
                 self._searchingLocationError("");
                 searchingCity($.cookie("searchCity"));
-                $('#searching-city').selectize({
+                var sel = $('#searching-city').selectize({
                     sortField: {
                         field: 'text',
                         direction: 'asc'
@@ -79,13 +106,7 @@ function SearchingLocation() {
         });
     }
     self.loadCities();
-    var sub = searchingCity.subscribe(function (value) {
-        if (!searchingCity()) {
-            searchingPP("");
-        }
-        $.cookie("searchCity", searchingCity(), { path: '/'});
-        self._loadPopularPlaces();
-    })
+   
     searchingPP.subscribe(function (value) {
         $.cookie("searchPP", searchingPP(), { path: '/' });
     })

@@ -26,7 +26,7 @@
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true)
                             
-                            @if (ViewBag.category == "Animals" || ViewBag.category == "books-sports-hobbies" || ViewBag.category== "Home-LifeStyle")
+                            @if (ViewBag.category == "Animals" || ViewBag.category == "Education-Learning" || ViewBag.category== "Fashion" || ViewBag.category == "Services")
 {
     <div class="form-group">
         <label class="control-label col-md-2">Select category <span class="req">*</span></label>
@@ -113,13 +113,16 @@
             self.selectedCategory = ko.observable();
             var category = $("#category").val();
             if (category == "Animals") {
-                 self.availableCategories = ["Dog", "Bird", "Cat", "Fish", "Farm Animals", "others", "Pet Adoption", "Pet Accessories", "Pet Food", "Pet training", "Pet Clinics"];
+                self.availableCategories = ["Dogs", "Aquariums", "Pet Food & Accessories", "Other Pets"];
+                 //self.availableCategories = ["Dog", "Bird", "Cat", "Fish", "Farm Animals", "others", "Pet Adoption", "Pet Accessories", "Pet Food", "Pet training", "Pet Clinics"];
             }
-            else if (category == "books-sports-hobbies") {
-                self.availableCategories = ["Books & Magazines", "Classes", "Home tuitions", "Musical Instruments", "Sports Equipment", "Gym & Fitness", "other hobbies"];
+            else if (category == "Education-Learning") {
+                self.availableCategories = ["Books & Study Material", "Classes", "Home Tuitions", "Courses", "Others in Education & Learning"];
             }
-            else if (category == "Home-LifeStyle") {
-                self.availableCategories = ["Watches","Clothes","Footware","Jewellery","Baby Products","Health and beauty products","Furniture","HouseHold","Home Decoration","others in home and lifeStyle"];
+            else if (category == "Fashion") {
+                self.availableCategories = ["Watches","Clothes","Footwear","Jewellery","Others in Fashion"];
+            } else if (category == "Services") {
+                self.availableCategories = ["Education & Classes", "Web Development", "Electronics & Computer Repair", "Maids & Domestic Help", "Health & Beauty", "Movers & Packers", "Drivers & Taxi", "Event Services", "Other Services"];
             }
             self.availableYears = ko.observableArray();
             self.loadYears = function () {
@@ -330,6 +333,7 @@
                 options: [],
                 maxItems: 4,
                 create: true,
+                createFilter: function(input) { return input.length <= 18; },
                 render: {
                     option: function (item, escape) {
                         return '<div>' +

@@ -65,21 +65,6 @@ var title = ko.observable($("#search").val());
 var tags = ko.observable("");
 var minPrice = ko.observable(0);
 var maxPrice = ko.observable(50000);
-selectedModel.subscribe(function () {
-    RefreshSearch();
-})
-mobileAccessories.subscribe(function () {
-    RefreshSearch();
-})
-minPrice.subscribe(function () {
-    RefreshSearch();
-});
-maxPrice.subscribe(function () {
-    RefreshSearch();
-});
-tags.subscribe(function () {
-    RefreshSearch();
-})
 
 function TreeViewModel() {
     var self = this;

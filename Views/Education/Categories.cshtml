@@ -1,6 +1,6 @@
 ﻿
 @{
-    //if (ViewBag.category == "Books-Sports-Hobbies")
+    //if (ViewBag.category == "Education-Learning")
     //{
     //    ViewBag.Title = ViewBag.category + " classified";
     //}
@@ -60,13 +60,13 @@
         var minPrice = ko.observable(0);
         var maxPrice = ko.observable(50000);
         var availableCategories = [];
-        if (category == "Books-Sports-Hobbies") {
-            availableCategories = ["Books & Magazines", "Classes", "Home tuitions", "Musical Instruments", "Sports Equipment", "Gym & Fitness", "other hobbies"];
+        if (category == "Education-Learning") {
+            availableCategories = ["Books & Study Material", "Classes", "Home tuitions", "Musical Instruments", "Sports Equipment", "Gym & Fitness", "other hobbies"];
         }
-        else if (category == "Home-LifeStyle") {
-            availableCategories = ["Watches", "Clothes","Footware", "Jewellery","Baby products","health and beauty products", "Furniture", "Household", "Home Decoration","others in home and lifeStyle"];
+        else if (category == "Fashion") {
+            availableCategories = ["Watches", "Clothes","Footwear", "Jewellery","Others in Fashion"];
         } else if (category == "Vehicles") {
-            availableCategories = ["Cars", "Bikes", "Commerical Vehicles", "Vehicles for rent", "other vehicles", "Vehicles Spare parts"];
+            availableCategories = ["Cars", "Bikes", "Commercial Vehicles", "Vehicles for rent", "other vehicles", "Vehicles Spare parts"];
         }
         else if (category == "Electronics") {
             availableCategories = ["Laptops Computers", "Cameras", "Tv DVD Multimedia", "Games", "Home Appliances", "other electronics"];

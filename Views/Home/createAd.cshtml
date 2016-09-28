@@ -43,7 +43,7 @@ create electronic ad:
                                         Laptops / Computers
                                     </li>
                                     <li data-bind="click:cameras" class="info-element">Camera</li>
-                                    <li data-bind="click:TVDVDMultimediaClicked" class="info-element">TV-DVD-Multimedia</li>
+                                    <li data-bind="click:TVDVDMultimediaClicked" class="info-element">TV - Video - Audio</li>
                                     <li data-bind="click:gamesClicked" class="info-element">Games</li>
                                     <li data-bind="click:homeAppliancesClicked" class="info-element">Home Appliances</li>
                                     <li data-bind="click:otherElectronicsClicked" class="info-element">Other Electronics</li>
@@ -53,7 +53,7 @@ create electronic ad:
                                         Cars
                                     </li>
                                     <li data-bind="click:bikesClicked" class="info-element">Bikes, MotorCycle, Scooter</li>
-                                    <li data-bind="click:commericalVehiclesClicked" class="info-element">Commerical Vehicles</li>
+                                    <li data-bind="click:commercialVehiclesClicked" class="info-element">Commercial Vehicles</li>
                                     <li data-bind="click:vehiclesForRentClicked" class="info-element">Vehicles for rent</li>
                                     <li data-bind="click:otherVehiclesClicked" class="info-element">Other Vehicles</li>
                                     <li data-bind="click:sparePartsClicked" class="info-element">Spare parts</li>
@@ -103,10 +103,14 @@ create electronic ad:
                 self.category = ko.observable();
                 self.subcategory = ko.observable();
                 self.categorySelected = ko.observable(false);
-                self.categoryList = ["Mobiles", "Electronics", "Jobs", "Vehicles", "Real Estate", "Pets & Animals", "books-sports-hobbies","Home and life style","Services"];
+                self.categoryList = ["Mobiles & Tablets", "Electronics", "Jobs", "Vehicles", "Real Estate", "Pets & Animals", "Education & Learning","Home and life style","Services"];
                 self.categoryClicked = function (data) {
                     self.categorySelected(true);
                     self.category(data);
+                    if (self.category() == "Mobiles & Tablets") {
+                        self.loading(true);
+                        window.location.href = '/MobilesTablets/Create';
+                    }
                     if (self.category() == "Jobs" ) {
                         self.loading(true);
                         window.location.href = '/Jobs/Create';
@@ -119,17 +123,18 @@ create electronic ad:
                         self.loading(true);
                         window.location.href = '/Home/Create?category=Animals';
                     }
-                    if (self.category() == "books-sports-hobbies") {
+                    console.log(self.category());
+                    if (self.category() == "Education & Learning") {
                         self.loading(true);
-                        window.location.href = '/Home/Create?category=books-sports-hobbies';
+                        window.location.href = '/Home/Create?category=Education-Learning';
                     }
                     if (self.category() == "Home and life style") {
                         self.loading(true);
-                        window.location.href = '/Home/Create?category=Home-LifeStyle';
+                        window.location.href = '/Home/Create?category=Fashion';
                     }
                     if (self.category() == "Services") {
                         self.loading(true);
-                        window.location.href = '/Services';
+                        window.location.href = '/Home/Create?category=Services';
                     }
                 }
                 self.backButtonUnderSubcategory = function () {
@@ -146,10 +151,12 @@ create electronic ad:
                 }
                 //electronics
                 self.laptops = function () {
-                    self.subcategory("laptops");
+                    self.loading(true);
+                    window.location.href = '/Electronics/CreateLaptopAd';
                 }
                 self.cameras = function () {
-                    self.subcategory("cameras");
+                    self.loading(true);
+                    window.location.href = '/Electronics/CreateCameraAd';
                 }
                 self.cameraClicked = function () {
                     self.loading(true);
@@ -161,7 +168,7 @@ create electronic ad:
                 }
                 self.TVDVDMultimediaClicked = function () {
                     self.loading(true);
-                    window.location.href = '/Home/Create?category=Electronics&subcategory=TV-DVD-Multimedia';
+                    window.location.href = '/Home/Create?category=Electronics&subcategory=TV - Video - Audio';
                 }
                 self.gamesClicked = function () {
                     self.loading(true);
@@ -192,9 +199,9 @@ create electronic ad:
                     self.loading(true);
                     window.location.href = '/Vehicles/CreateBikeAd';
                 }
-                self.commericalVehiclesClicked = function () {
+                self.commercialVehiclesClicked = function () {
                     self.loading(true);
-                    window.location.href = '/Home/Create?category=Vehicles&subcategory=commerical-vehicles';
+                    window.location.href = '/Home/Create?category=Vehicles&subcategory=commercial-vehicles';
                 }
                 self.vehiclesForRentClicked = function () {
                     self.loading(true);

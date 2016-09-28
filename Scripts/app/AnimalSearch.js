@@ -3,7 +3,8 @@ var title = ko.observable($("#search").val());
 var tags = ko.observable("");
 var minPrice = ko.observable(0);
 var maxPrice = ko.observable(50000);
-var availableCategories = ["Dog", "Bird", "Cat", "Fish","Farm Animals","others","Pet Adoption","Pet Accessories","Pet Food","Pet training","Pet Clinics"];
+var availableCategories = ["Dogs", "Aquariums", "Pet Food & Accessories", "Other Pets"];
+//var availableCategories = ["Dog", "Bird", "Cat", "Fish","Farm Animals","others","Pet Adoption","Pet Accessories","Pet Food","Pet training","Pet Clinics"];
 var selectedCategory = ko.observable();
 minPrice.subscribe(function () {
     RefreshSearch();

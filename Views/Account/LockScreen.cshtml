@@ -22,24 +22,24 @@
 <body class="gray-bg">
 
     <div class="lock-word animated fadeInDown">
-        <span class="first-word">LOCKED</span><span>SCREEN</span>
+        @*<span class="first-word">LOCKED</span><span>SCREEN</span>*@
     </div>
     <div class="middle-box text-center lockscreen animated fadeInDown">
-        <div data-bind="with:showUser">
+        <div @*data-bind="with:showUser"*@>
             <div class="m-b-md">
-                <img alt="image" width="180" height="180" class="img-circle circle-border" data-bind="attr:{src:dpLink}">
+                <img alt="image" width="180" height="180" class="img-circle circle-border" src="@ViewBag.pictureUrl" @*data-bind="attr:{src:dpLink}"*@>
             </div>
-            <h3 data-bind="text:name"></h3>
+            <h3>@ViewBag.name</h3>
             <p>Almost Done! Please enter your email  </p>
 
             @using (Html.BeginForm("CallBackFromLockScreen", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <input type="hidden" name="name" value="@ViewBag.name" />
+                <input id="name" type="hidden" name="name" value="@ViewBag.name" />
                 <input type="hidden" name="city" value="@ViewBag.city" />
                 <input type="hidden" name="gender" value="@ViewBag.gender" />
                 <input type="hidden" name="dateOfBirth" value="@ViewBag.dateOfBirth" />
-                <input type="hidden" name="pictureUrl" value="@ViewBag.pictureUrl" />
+                <input id="pictureUrl" type="hidden" name="pictureUrl" value="@ViewBag.pictureUrl" />
                 <input type="hidden" name="Login" value="@ViewBag.Login" />
                 <div class="form-group">
                     <input type="email" class="form-control" name="email" placeholder="Enter email" required>
@@ -49,10 +49,10 @@
             
         </div>
     </div>
-    @*@section Styles {
+    @section Styles {
         @Styles.Render("~/plugins/toastrStyles")
 
-    }*@
+    }
 
    
         @Scripts.Render("~/bundles/jquery")
@@ -77,23 +77,23 @@
             function viewModel() {
 
                 var self = this;
-                self.showUser = ko.observable();
-                self.getUser = function () {
-                    $.ajax({
-                        url: '/api/User/GetSimpleUser',
-                        dataType: "json",
-                        contentType: "application/json",
-                        cache: false,
-                        type: 'GET',
-                        success: function (data) {
-                            self.showUser(new Profile(data));
-                        },
-                        error: function () {
-                            toastr.error("failed to get data. Please refresh page", "Error");
-                        }
-                    });
-                }
-                self.getUser();
+                //self.showUser = ko.observable();
+                //self.getUser = function () {
+                //    $.ajax({
+                //        url: '/api/User/GetSimpleUser',
+                //        dataType: "json",
+                //        contentType: "application/json",
+                //        cache: false,
+                //        type: 'GET',
+                //        success: function (data) {
+                //            self.showUser(new Profile(data));
+                //        },
+                //        error: function () {
+                //            toastr.error("failed to get data. Please refresh page", "Error");
+                //        }
+                //    });
+                //}
+                //self.getUser();
                 return self;
             }
             //tree

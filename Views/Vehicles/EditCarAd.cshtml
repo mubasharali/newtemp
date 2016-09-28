@@ -317,7 +317,7 @@
                         self.mobileId = data.laptopad.id;
                         self.selectedModel(data.carad.model);
                         self.selectedModelOriginal = data.carad.model;
-                        self.selectedColor(data.carad.color.trim());
+                        self.selectedColor(data.carad.color);
                         self.selectedBrand(data.carad.brand);
                         self.selectedBrandOriginal = self.selectedBrand();
 
@@ -360,7 +360,8 @@
                             valueField: 'name',
                             labelField: 'name',
                             searchField: 'name',
-                            maxItems: 6,
+                            maxItems: 4,
+                            createFilter: function (input) { return input.length <= 18; },
                             create: true,
                             render: {
                                 option: function (item, escape) {

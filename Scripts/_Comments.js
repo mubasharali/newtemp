@@ -3,6 +3,9 @@
     function commentReply(data) {
         var self = this;
         data = data || {};
+        //if (data.description != null && data.description != "") {
+        //    data.description = data.description.replace("/n", "<br/>");
+        //}
         self.description = ko.observable(data.description);
         self.postedByName = data.postedByName;
         self.postedById = data.postedById;
@@ -92,6 +95,7 @@
             }
         }
     }
+    loginUserProfileLink = '/Images/Users/default.jpg';
     function comment(data,hub) {
         var self = this;
         self.hub = hub;

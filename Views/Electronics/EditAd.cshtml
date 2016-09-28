@@ -224,6 +224,7 @@
                             options: self.selectedTags, //not working
                             create: true,
                             maxItems: 4,
+                            createFilter: function (input) { return input.length <= 18; },
                             render: {
                                 option: function (item, escape) {
                                     return '<div>' +

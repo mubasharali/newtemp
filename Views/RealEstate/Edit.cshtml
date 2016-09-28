@@ -157,7 +157,7 @@
             self.availablebathrooms = ["1", "2", "3", "4", "5"];
             self.selectedbathroom = ko.observable();
             self.selectedCategory = ko.observable();
-            self.availableCategories = ["apartment", "house", "plot & land", "Shop", "Office", "PG & Flatmates", "other commerical places"]; //reference over HomeController/create page
+            self.availableCategories = ["apartment", "house", "plot & land", "Shop", "Office", "PG & Flatmates", "other commercial places"]; //reference over HomeController/create page
          
             self.loadAd = function () {
                 $.ajax({
@@ -241,8 +241,9 @@
                             valueField: 'name',
                             labelField: 'name',
                             searchField: 'name',
-                            maxItems: 6,
+                            maxItems: 4,
                             create: true,
+                            createFilter: function (input) { return input.length <= 18; },
                             render: {
                                 option: function (item, escape) {
                                     return '<div>' +

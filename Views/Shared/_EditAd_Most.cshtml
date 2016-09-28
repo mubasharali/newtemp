@@ -17,7 +17,7 @@ else
         <input type="text" class="form-control" name="title" value="@Model.title" />
     </div>
 </div>
-@if (!(Model.subcategory == "vehicles-for-rent"))
+@if (!(Model.subcategory == "vehicles-for-rent" || Model.category == "Services"))
 {
 <div class="form-group">
     <label class="col-sm-2 control-label">Type<span class="req">*</span></label>
@@ -129,7 +129,7 @@ else
 </div>
 <div data-bind="with:selectedCity">
     <div class="form-group">
-        <label class="control-label col-md-2">Famous Place</label>
+        <label class="control-label col-md-2">Famous place</label>
         <div class="col-md-10">
             <select id="select-popularPlace" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
                        value: $parent.selectedPopularPlace,
@@ -139,7 +139,7 @@ else
 </div>
 <div data-bind="with:selectedPopularPlace">
     <div class="form-group">
-        <label class="control-label col-md-2">Exect location</label>
+        <label class="control-label col-md-2">Exact location</label>
         <div class="col-md-10">
             <input type="text" class="form-control" data-bind="value:$parent.exectLocation" name="exectLocation" />
         </div>
@@ -149,7 +149,7 @@ else
     <hr />
     <h2>Choose</h2><br />
     <div class="form-group">
-        <label class="control-label col-md-2">Post ad using</label>
+        <label class="control-label col-md-2">Post ad using<span class="req">*</span></label>
         <div class="col-md-10">
             <div data-bind="foreach:showCompanies">
                 <div class="radio">

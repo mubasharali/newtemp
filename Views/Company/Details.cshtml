@@ -196,7 +196,7 @@
                                                         <div class="row">
                                                             <div data-bind="with:selectedcityName">
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-2">Famous Place</label>
+                                                                    <label class="control-label col-md-2">Famous place</label>
                                                                     <div class="col-md-10">
                                                                         <select id="select-popularPlace" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
                        value: $parent.selectedpopularPlace,
@@ -208,7 +208,7 @@
                                                         <div class="row">
                                                             <div data-bind="with:selectedpopularPlace">
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-2">Exect location</label>
+                                                                    <label class="control-label col-md-2">Exact location</label>
                                                                     <div class="col-md-10">
                                                                         <input type="text" class="form-control" data-bind="value:$parent.exectLocation" name="exectLocation" />
                                                                     </div>
@@ -266,7 +266,7 @@
                                                         <div class="row">
                                                             <div data-bind="with:BcityName">
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-2">Famous Place</label>
+                                                                    <label class="control-label col-md-2">Famous place</label>
                                                                     <div class="col-md-10">
                                                                         <select id="select-popularPlace1" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
                        value: $parent.BpopularPlace,
@@ -278,7 +278,7 @@
                                                         <div class="row">
                                                             <div data-bind="with:BpopularPlace">
                                                                 <div class="form-group">
-                                                                    <label class="control-label col-md-2">Exect location</label>
+                                                                    <label class="control-label col-md-2">Exact location</label>
                                                                     <div class="col-md-10">
                                                                         <input type="text" class="form-control" data-bind="value:$parent.BexectLocation" />
                                                                     </div>
@@ -354,7 +354,7 @@
                                                             <div class="row">
                                                                 <div data-bind="with:selectedCity">
                                                                     <div class="form-group">
-                                                                        <label class="control-label col-md-2">Famous Place</label>
+                                                                        <label class="control-label col-md-2">Famous place</label>
                                                                         <div class="col-md-10">
                                                                             <select id="select-popularPlace2" class="demo-default" name="popularPlace" data-bind="options: $parent.availablePopularPlaces,
                        value: $parent.selectedPP,
@@ -366,7 +366,7 @@
                                                             <div class="row">
                                                                 <div data-bind="with:selectedPP">
                                                                     <div class="form-group">
-                                                                        <label class="control-label col-md-2">Exect location</label>
+                                                                        <label class="control-label col-md-2">Exact location</label>
                                                                         <div class="col-md-10">
                                                                             <input type="text" class="form-control" data-bind="value:$parent.exectLocation" />
                                                                         </div>
@@ -1338,8 +1338,9 @@
                     labelField: 'name',
                     searchField: 'name',
                    // options: [],
-                    maxItems: 6,
+                    maxItems: 5,
                     create: true,
+                    createFilter: function (input) { return input.length <= 18; },
                     render: {
                         option: function (item, escape) {
                             return '<div>' +

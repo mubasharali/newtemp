@@ -359,6 +359,7 @@
                             searchField: 'name',
                             maxItems: 4,
                             create: true,
+                            createFilter: function (input) { return input.length <= 18; },
                             render: {
                                 option: function (item, escape) {
                                     return '<div>' +
@@ -525,6 +526,7 @@
                 options: [],
                 maxItems: 4,
                 create: true,
+                createFilter: function (input) { return input.length <= 18; },
                 render: {
                     option: function (item, escape) {
                         return '<div>' +

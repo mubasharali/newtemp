@@ -27,14 +27,22 @@
                             @Html.ValidationSummary(true)
                             <input type="hidden" name="files" id="fileNames" />
                             <div class="form-group">
-                                <label class="control-label col-md-2">Select Brand<span class="req">*</span></label>
+                                <label class="control-label col-md-2">Select category <span class="req">*</span></label>
                                 <div class="col-md-10">
-                                    <select id="select-brand" required class="demo-default" name="brand" data-bind="options: availableBrands,
+                                    <select class="form-control" name="subsubcategory" required data-bind="options: availableCategories,
+                       value: selectedCategory,
+                       optionsCaption: 'Select category'"></select>
+                                </div>
+                            </div>
+                            <div @*data-bind="visible:selectedCategory == 'Laptops'"*@ class="form-group">
+                                <label class="control-label col-md-2">Select Brand</label>
+                                <div class="col-md-10">
+                                    <select id="select-brand"  class="demo-default" name="brand" data-bind="options: availableBrands,
                        value: selectedBrand,
                        optionsCaption: 'Choose brand...'"></select>
                                 </div>
                             </div>
-                            <div data-bind="with:selectedBrand">
+                            @*<div data-bind="with:selectedBrand">
                                 <div class="form-group">
                                     <label class="control-label col-md-2">Select Model<span class="req">*</span></label>
                                     <div class="col-md-10">
@@ -43,14 +51,14 @@
                        optionsCaption: 'Choose model...'"></select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
 
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Color<span class="req">*</span></label>
+                                <label class="control-label col-md-2">Color</label>
                                 <div class="col-md-10">
-                                    <select id="select-color" name="color" required placeholder="choose color">
+                                    <select id="select-color" name="color"  placeholder="choose color">
                                         <option value="">Choose color</option>
                                         <option value="white">White</option>
                                         <option value="Black">Black</option>
@@ -124,7 +132,9 @@
                     toastr.info("Fields with * are mandatory!");
                 }
             }
-        self.typeValue = ko.observable("sell");
+            self.availableCategories = ["Laptops", "Computers", "Hard Disk", "Internet", "Moniters", "Printers", "Other Accessories"];
+            self.selectedCategory = ko.observable();
+            self.typeValue = ko.observable("sell");
         self.conditionChecked = ko.observable(false);
         self.selectedVal = ko.observable();
         self.selectedVal.subscribe(function (val) {
@@ -309,6 +319,7 @@
             options: [],
             maxItems: 4,
             create: true,
+            createFilter: function (input) { return input.length <= 18; },
             render: {
                 option: function (item, escape) {
                     return '<div>' +
@@ -365,17 +376,16 @@
                     required: true,
                     maxlength: 15
                 },
-                model: {
-                    required: true,
-                    maxlength: 20
-                },
+                //model: {
+                //    required: true,
+                //    maxlength: 20
+                //},
                 description: {
                     required: true,
                     minlength: 25,
                     maxlength: 1000
                 },
                 color: {
-                    required: true,
                     maxlength: 20
                 },
                 price: {

@@ -3,9 +3,12 @@
 }
 <input type="hidden" id="adId" value="@ViewBag.adId" />
 <input type="hidden" id="currentPage" value="@HttpContext.Current.Request.Url.AbsolutePath" />
-
-
-
+@model Inspinia_MVC5_SeedProject.Models.AdDetailViewModel
+@using System.Configuration;
+@using Inspinia_MVC5_SeedProject;
+@{
+    ViewBag.title = Model.title + (Session["City"] == null ? "" : " in " + Session["City"].ToString());
+}
 <style>
     .carouselContainer {
         overflow: visible;
@@ -13,123 +16,670 @@
     }
 
         .carouselContainer img {
-           // height: 350px;
-           height:auto;
-           width:100%;
+            // height: 350px;
+            height: auto;
+            width: 100%;
         }
 </style>
-
+<div style="display:none">
+    <div id="ad_id">@Model.Id</div>
+    <div id="ad_category">@Model.category</div>
+    <div id="ad_subcategory">@Model.subcategory</div>
+    <div id="ad_subsubcategory">@Model.subsubcategory</div>
+    <div id="loginUserId">@Model.loginUserId</div>
+    <div id="postedByName">@Model.name</div>
+    <div id="time">@Model.time</div>
+    <div id="title">@Model.title</div>
+    <div id="postedById">@Model.postedBy</div>
+    <div id="postedByName">@Model.AspNetUser.Email</div>
+    <div id="city">@(Session["City"] == null ? "" : Session["City"].ToString())</div>
+</div>
 <div class="wrapper wrapper-content animated fadeInRight">
-
     <div class="row">
         <div class="col-sm-3 hidden-sm hidden-xs">
-            
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3540353581324370"
+                 data-ad-slot="3103703247"
+                 data-ad-format="auto"></ins>
+            <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+           
         </div>
         <div class="col-md-9">
-            <div data-bind="visible:isLoading()">
-                @Html.Partial("/Views/Shared/_LoadingBoxes.cshtml")
-            </div>
-            <div id="showItem" style="display:none">
-                <div data-bind="visible:error()" class="alert alert-success">
-                    <strong>Error! </strong><span data-bind="text:error"></span>
-                </div>
+            <div class="row">
+                <div id="showItem">
+                    @*<div data-bind="visible:error()" class="alert alert-success">
+                        <strong>Error! </strong><span data-bind="text:error"></span>
+                    </div>*@
+                    <div>
+                        <div>
+                            @if (Model.status == "p")
+                            {
+                                <div data-bind="visible:statusError" class="alert alert-success">
+                                    <strong>Pending admin approval! </strong> This ad will be visible to public after admin approval.
+                                </div>
+                            }
+                            else
+                            {
+                                if (Model.loginUserId == Model.postedBy)
+                                {
+                                    <div style="display:none" class="FirstLoading">
+                                        <span class="alert alert-success" data-bind="visible:isRefreshable">
+                                            <strong> Is your ad still valid? </strong>
+                                            <a data-bind="click: function(){return Refresh()}" class="btn btn-white btn-lg "> Refresh</a>
+                                            <strong>OR delete it</strong>
+                                            <a data-bind="click: function(){return deleteAd()}" class="btn btn-white btn-lg  confirmDelete"> Delete</a>
+                                            <br /><br />
+                                        </span>
+                                    </div>
+                                }
 
-                <div data-bind="visible:!isLoading()">
-                    <div data-bind="with: showItem()">
-                        <div data-bind="visible:statusError" class="alert alert-success">
-                            <strong>Pending admin approval! </strong><span data-bind="text:statusError"></span>
-                        </div>
-                        <div class="">
-                            <span data-bind="visible:loginUserId == postedById">
-                                <span class="alert alert-success" data-bind="visible:isRefreshable">
-                                    <strong> Is your ad still valid? </strong>
-                                    <a data-bind="click: function(){return Refresh(id)}" class="btn btn-white btn-lg "> Refresh</a>
-                                    <strong>OR delete it</strong>
-                                    <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-lg  confirmDelete"> Delete</a>
-                                    <br /><br />
-                                </span>
-
-                            </span>
-                        </div>
-                        <div data-bind="visible:isVisible">
-                            <input type="hidden" id="loginUserId" data-bind="value:loginUserId" />
-
-                            <div data-bind="attr:{'id':id}">
-                                <div class="ibox product-detail">
-                                    <div class="ibox-content">
+                                <div >
+                                    <div>
+                                        <div class="ibox product-detail">
+                                            <div class="ibox-content">
 
 
+                                                <div class="row">
+                                                    <div class="">
+                                                       
+                                                        <div class="col-md-5 col-sm-7">
+                                                            <div class="carouselContainer ">
+                                                                <div>
+                                                                    @Model.AdImages.Count images attached
+                                                                </div>
+                                                                <div id="gallery" style="display:none">
+                                                                    @{ 
+                                                                        int imgCount = 1;
+                                                                        foreach (var img in Model.AdImages)
+                                                                        {
+                                                                        <div><img src="@ConfigurationManager.AppSettings["aws"]@ConfigurationManager.AppSettings["Bucketname"]/@ConfigurationManager.AppSettings["FolderName"]@(Model.Id + "_" + imgCount++)@img.imageExtension" /></div>
+                                                                            }
+                                                                        }
+                                                                </div>
+                                                                <br /><br />
+                                                            </div>
 
-
-                                        <div class="row">
-                                            <div class="">
-                                                @*lightBoxGallery*@
-
-                                            <div class="col-md-5 col-sm-7">
-
-                                                <div class="carouselContainer ">
-                                                    <div><span data-bind="text:images().length"></span>  images attched</div>
-
-                                                    <div id="gallery" data-gallery=""
-                                                         data-bind="slick: images,
-                slickOptions: {dots:true, initialSlide:0,autoplay:true,autoplaySpeed: 1000,infinite: false,speed: 1000,fade: true,},
-                slickIndex: imageIndex">
+                                                        </div>
+                                                        <div class="col-sm-5 hidden-lg hidden-md hidden-xs">
+                                                            <a href="/feedback-contact">Display your banner ad here</a>
+                                                            
+                                                        </div>
                                                     </div>
-                                                    <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                                                    @*<div id="blueimp-gallery" class="blueimp-gallery">
-                                                        <div class="slides"></div>
-                                                        <h3 class="title"></h3>
-                                                        <a class="prev">‹</a>
-                                                        <a class="next">›</a>
-                                                        <a class="close">×</a>
-                                                        <a class="play-pause"></a>
-                                                        <ol class="indicator"></ol>
-                                                    </div>*@
-                                                    <div data-bind="visible:images().length == 0">
-                                                        Display your banner ad here
-                                                        @*adsbygoogle*@
+                                                    <div class="col-md-7 col-sm-12">
+                                                        @if (Model.loginUserId != Model.postedBy)
+                                                        {
+                                                            if (Model.isAdmin)
+                                                            {
+                                                                <a data-bind="click: function(){return deleteAd()}" class="btn btn-white btn-xs pull-right confirmDelete"> Delete</a>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <a data-bind="click: function(){return deleteAd()}" class="btn btn-white btn-xs pull-right confirmDelete"> Delete</a><a data-bind="click: function(){return editAd()}" class="btn btn-white btn-xs pull-right"> Edit</a>
+                                                        }
+                                                        <h2 class="font-bold m-b-xs">@Model.title</h2>
+                                                        <ul class="tag-list" style="padding: 0">
+                                                            @foreach (var tag in Model.AdTags)
+                                                            {
+                                                                <li> <a target="_blank" href="/Tag/@tag.tagId/@tag.Tag.name.GenerateSlug()" class="btn btn-xs btn-white"><i class="fa fa-tag"></i> @tag.Tag.name </a></li>
+                                                            }
+                                                        </ul><br /><br />
+                                                        <hr>
+                                                        @*@if (Model.isnegotiable == "b")
+                                                        {
+                                                            <button data-bind="click:placeBidButton" class="btn btn-primary pull-right">Place Bid</button>
+                                                        }*@
+
+                                                        @if (Model.loginUserId != Model.postedBy && Model.category != "Jobs")
+                                                        {
+                                                            <button data-bind="click:function(){ return sendMessage12()}" class="btn btn-primary pull-right">Chat with seller</button>
+                                                        }
+                                                        @*<span data-bind="visible:loginUserId != postedById">
+                <button data-bind="click:function(){ return sendMessage(postedById,postedByName)}" class="btn btn-primary pull-right">Chat <span data-bind="visible:!showJob()"> with  seller</span></button>
+            </span>*@
+                                                        @if (Model.category != "Jobs")
+                                                        {
+                                                            <h1 class="product-main-price">
+                                                                @if (Model.isnegotiable != "b")
+                                                                {
+                                                                    if (Model.price != null)
+                                                                    {
+                                                                        <text>@Model.price <small style="font-size:13px" class="text-muted ">Rs</small></text>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <text>Price on Contact</text>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (Model.price != null)
+                                                                    {
+                                                                        if (Model.maxBid == null)
+                                                                        {
+                                                                            <text>@Model.price <small style="font-size:13px" class="text-muted ">Rs. (Initial Bid) </small></text>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <text>@Model.maxBid.price <small style="font-size:13px" class="text-muted ">Rs. (current Bid) Initial Bid = @Model.price </small></text>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (Model.maxBid == null)
+                                                                        {
+                                                                            <text>No Bid yet </text>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <text>@Model.maxBid.price Rs. (current Bid)</text>
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                            </h1>
+                                                            <hr />
+                                                        }
+                                                        <style>
+                                                            dt {
+                                                                float: left;
+                                                                clear: left;
+                                                                margin-right: 5px;
+                                                                font-weight: bold;
+                                                            }
+
+                                                            dd {
+                                                                margin-left: 0px;
+                                                            }
+                                                        </style>
+                                                        @if (Model.category == "Animals")
+                                                        {
+                                                            <dl class="dl-horizontal m-t-md small">
+                                                                <dt>Category:</dt>
+                                                                <dd>@Model.subcategory</dd>
+                                                            </dl>
+                                                        }
+                                                        @if (Model.category == "Education-Learning" || Model.category == "Fashion")
+                                                        {
+                                                            <dl class="dl-horizontal m-t-md small">
+                                                                <dt>Category:</dt>
+                                                                <dd>@Model.subcategory</dd>
+                                                                @if (Model.condition != "z" && Model.condition != "")
+                                                                {
+                                                                    <dt>Condition:</dt>
+                                                                    if (Model.condition == "n")
+                                                                    {
+                                                                        <dd>New</dd>
+                                                                    }
+                                                                    else if (Model.condition == "u")
+                                                                    {
+                                                                        <dd>Used</dd>
+                                                                    }
+                                                                    else if (Model.condition == "b")
+                                                                    {
+                                                                        <dd>Unboxed</dd>
+                                                                    }
+                                                                }
+                                                            </dl>
+                                                        }
+                                                        @if (Model.subcategory == "vehicles-for-rent")
+                                                        {
+                                                            <dl class="dl-horizontal m-t-md small">
+                                                                <dt>Condition</dt>
+                                                                @if (Model.condition == "n")
+                                                                {
+                                                                    <dd> New</dd>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <dd> Used</dd>
+                                                                }
+                                                            </dl>
+                                                        }
+                                                        @if (Model.MobileAd != null)
+                                                        {
+                                                            <dl class="dl-horizontal m-t-md small">
+                                                                <dt>condition:</dt>
+                                                                @if (Model.condition == "n")
+                                                                {
+                                                                    <dd>New</dd>
+                                                                }
+                                                                else if (Model.condition == "u")
+                                                                {
+                                                                    <dd>Used</dd>
+                                                                }
+                                                                else if (Model.condition == "b")
+                                                                {
+                                                                    <dd>Unboxed</dd>
+                                                                }
+                                                                <dt>Type:</dt>
+                                                                @if (Model.type == true)
+                                                                {
+                                                                    <dd>For Sale</dd>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <dd>Want to buy</dd>
+                                                                }
+                                                                @if (Model.MobileAd.MobileModel != null)
+                                                                {
+                                                                    <dt>Brand:</dt>
+                                                                    <dd>@Model.MobileAd.MobileModel.Mobile.brand</dd>
+                                                                }
+                                                                @if(Model.MobileAd.MobileModel.model != null && Model.MobileAd.MobileModel.model != "") {
+                                                                    <dt>Model:</dt>
+                                                                    <dd>@Model.MobileAd.MobileModel.model</dd>
+                                                                }
+                                                            </dl>
+                                                        }
+                                                        @if (Model.BikeAd != null)
+                                                        {
+                                                            <dl class="dl-horizontal m-t-md small">
+                                                                @if (Model.BikeAd.BikeModel1 != null)
+                                                                {
+                                                                    <dt>Brand:</dt>
+                                                                    <dd>@Model.BikeAd.BikeModel1.BikeBrand.brand</dd>
+                                                                }
+                                                                <dt>condition:</dt>
+                                                                <dd>
+                                                                    @if (Model.condition == "n")
+                                                                    { <text>New</text> }
+                                                                    else
+                                                                    {<text>Used</text> }
+                                                                </dd>
+                                                                @if (Model.BikeAd.kmDriven != null)
+                                                                {
+                                                                    <dt>Km Driven</dt>
+                                                                    <dd>@Model.BikeAd.kmDriven Km</dd>
+                                                                }
+                                                                @if (Model.BikeAd.year != null)
+                                                                {
+                                                                    <dt>Year</dt>
+                                                                    <dd>@Model.BikeAd.year</dd>
+                                                                }
+                                                                @if (Model.BikeAd.noOfOwners != null)
+                                                                {
+                                                                    <dt>Number of owners</dt>
+                                                                    <dd>@Model.BikeAd.noOfOwners</dd>
+                                                                }
+                                                                @if (Model.BikeAd.registeredCity != null)
+                                                                {
+                                                                    <dt>Registered City</dt>
+                                                                    <dd>@Model.BikeAd.registeredCity</dd>
+                                                                }
+
+                                                            </dl>
+                                                        }
+                                                        @if (Model.CarAd != null)
+                                                        {
+                                                            <dl class="dl-horizontal m-t-md small">
+                                                                <dt>Brand:</dt>
+                                                                <dd>@Model.CarAd.CarModel1.CarBrand.brand</dd>
+                                                                @if (Model.CarAd.CarModel1.model != "")
+                                                                {
+                                                                    <dt>Model:</dt>
+                                                                    <dd>@Model.CarAd.CarModel1.model</dd>
+                                                                }
+                                                                @if (Model.CarAd.color != null)
+                                                                {
+                                                                    <dt>color:</dt>
+                                                                    <dd>@Model.CarAd.color</dd>
+                                                                }
+
+                                                                <dt>condition:</dt>
+                                                                <dd>
+                                                                    @if (Model.condition == "n")
+                                                                    { <text>New</text> }
+                                                                    else
+                                                                    {<text>Used</text> }
+                                                                </dd>
+                                                                @if (Model.CarAd.kmDriven != null)
+                                                                {
+                                                                    <dt>Km Driven</dt>
+                                                                    <dd>@Model.CarAd.kmDriven Km</dd>
+                                                                }
+                                                                @if (Model.CarAd.year != null)
+                                                                {
+                                                                    <dt>Year</dt>
+                                                                    <dd>@Model.CarAd.year</dd>
+                                                                }
+                                                                @if (Model.CarAd.noOfOwners != null)
+                                                                {
+                                                                    <dt>Number of owners</dt>
+                                                                    <dd>@Model.CarAd.noOfOwners</dd>
+                                                                }
+                                                                @if (Model.CarAd.registeredCity != null)
+                                                                {
+                                                                    <dt>Registered City</dt>
+                                                                    <dd>@Model.CarAd.registeredCity</dd>
+                                                                }@if (Model.CarAd.fuelType != null)
+                                                                {
+                                                                    <dt>Fuel type</dt>
+                                                                    <dd>@Model.CarAd.fuelType</dd>
+                                                                }
+                                                                @if (Model.CarAd.transmission != null)
+                                                                {
+                                                                    <dt>Transmission</dt>
+                                                                    <dd>@Model.CarAd.transmission</dd>
+                                                                }
+                                                                @if (Model.CarAd.assembly != null)
+                                                                {
+                                                                    <dt>Assembly</dt>
+                                                                    <dd>@Model.CarAd.assembly</dd>
+                                                                }
+                                                                @if (Model.CarAd.engineCapacity != null)
+                                                                {
+                                                                    <dt>Engine Capacity</dt>
+                                                                    <dd>@Model.CarAd.engineCapacity cc</dd>
+                                                                }
+
+
+                                                            </dl>
+                                                        }
+                                                        @if (Model.House != null)
+                                                        {
+                                                            <dl class="dl-horizontal m-t-md small">
+                                                                <dt>Category:</dt>
+                                                                <dd>
+                                                                    @Model.subcategory ( @if (Model.type == true)
+                                                                    { <text>For sale</text>}
+                                                                    else
+                                                                    { <text>For rent</text>})
+                                                                    @if (Model.House.area != null)
+                                                                    {
+                                                                    <dt>Area:</dt>
+                                                                    <dd>@Model.House.area sq ft</dd>
+                                                                    }
+                                                                    @if (Model.subcategory != "plot & land")
+                                                                    {
+                                                                        <dt>Bed rooms:</dt>
+                                                                        <dd>@Model.House.bedroom</dd>
+                                                                        <dt>Bath room:</dt>
+                                                                        <dd>@Model.House.bathroom</dd>
+                                                                        <dt>Floor</dt>
+                                                                        <dd>@Model.House.floor</dd>
+                                                                    }
+                                                                </dl>
+                                                        }
+                                                        @if (Model.JobAd != null)
+                                                        {
+                                                            <dl class="dl-horizontal m-t-md small">
+                                                                <dt>Category:</dt>
+                                                                <dd>@Model.JobAd.category1</dd>
+                                                                <dt>Job Type:</dt>
+                                                                <dd>@Model.subcategory</dd>
+
+                                                                <dt>Seats:</dt>
+                                                                <dd>@Model.JobAd.seats</dd>
+                                                                <dt>Qualification:</dt>
+                                                                <dd>@Model.JobAd.qualification</dd>
+                                                                <dt>Experience:</dt>
+                                                                @if (Model.JobAd.exprience == "n")
+                                                                {
+                                                                    <dd>Not Required</dd>
+                                                                }
+                                                                else if (Model.JobAd.exprience == "1")
+                                                                {
+                                                                    <dd>1 year</dd>
+                                                                }
+                                                                else if (Model.JobAd.exprience == "2")
+                                                                {
+                                                                    <dd>2 year</dd>
+                                                                }
+                                                                else if (Model.JobAd.exprience == "3")
+                                                                {
+                                                                    <dd>3 year</dd>
+                                                                }
+                                                                else if (Model.JobAd.exprience == "4")
+                                                                {
+                                                                    <dd>4 year</dd>
+                                                                }
+                                                                else if (Model.JobAd.exprience == "5")
+                                                                {
+                                                                    <dd>5 year</dd>
+                                                                }
+                                                                else if (Model.JobAd.exprience == "f")
+                                                                {
+                                                                    <dd>Fresh Graduate</dd>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <dd> </dd>
+                                                                }
+                                                                <dt>Career Level:</dt>
+                                                                <dd>@Model.JobAd.careerLevel</dd>
+                                                                <dt>Last Date To Apply:</dt>
+                                                                <dd>@Model.JobAd.lastDateToApply</dd>
+                                                                <dt>Salary:</dt>
+                                                                <dd>@Model.price - @Model.JobAd.maxPrice</dd>
+                                                                <dt>Salary Type:</dt>
+                                                                <dd>
+                                                                    @if (Model.JobAd.salaryType == "d")
+                                                                    {
+                                                                        <text>per day</text>
+                                                                    }
+                                                                    else if (Model.JobAd.salaryType == "m")
+                                                                    {
+                                                                        <text>per month</text>
+                                                                    }
+                                                                    else if (Model.JobAd.salaryType == "y")
+                                                                    {
+                                                                        <text>per year </text>
+                                                                    }
+                                                                    else if (Model.JobAd.salaryType == "h")
+                                                                    {
+                                                                        <text>per hour</text>
+                                                                    }
+                                                                    else if (Model.JobAd.salaryType == "w")
+                                                                    {
+                                                                        <text>per week</text>
+                                                                    }
+
+                                                                </dd>
+                                                                <span>
+                                                                    <dt>Skills:</dt>
+                                                                    <dd>
+                                                                        @foreach (var skill in Model.JobSkills)
+                                                                        {
+                                                                            <span class="btn btn-xs btn-white">@skill.Skill.name</span>
+                                                                        }
+                                                                    </dd>
+                                                                </span>
+                                                            </dl>
+                                                        }
+                                                        <h4>Details</h4>
+                                                        <div class="small text-muted">
+                                                            @Html.Raw(Model.description.Replace("\n", "<br/>"))
+                                                        </div><br />
+
+                                                        <p class="small text-muted">When you contact @Model.name, don't forget to mention that you found this ad on dealkar.pk</p>
+                                                        <div class="col-lg-12 ">
+                                                            <div class="widget style1 lazur-bg">
+                                                                <div class="row vertical-align">
+                                                                    <i class="fa fa-phone fa-2x"></i>
+                                                                    @if (Model.phoneNumber != null)
+                                                                    {
+                                                                        if (Model.phoneNumber == "")
+                                                                        {
+                                                                            <text>Phone number is hidden @*<a data-bind="click:function(){ return sendMessage(postedById,postedByName)}"> send message</a>*@ <span style="font-size:20px" class="font-bold"> @*@Model.AspNetUser.PhoneNumber*@ (@Model.name) </span></text>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="font-bold" style="font-size:20px">@Model.phoneNumber (@Model.name)</span>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (Model.AspNetUser.hidePhoneNumber == true)
+                                                                        {
+                                                                            <text>Phone number is hidden @*<a data-bind="click:function(){ return sendMessage(postedById,postedByName)}"> send message</a>*@ <span style="font-size:20px" class="font-bold"> (@Model.name) </span></text>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="font-bold" style="font-size:20px">@Model.AspNetUser.PhoneNumber (@Model.AspNetUser.Email)</span>
+                                                                        }
+                                                                    }
+
+                                                                    @*<span data-bind="if:phoneNumberLocal == null">
+                            <span data-bind="if: phoneNumber == ''">Phone number is hidden <a data-bind="click:function(){ return sendMessage(postedById,postedByName)}"> send message</a></span> <span style="font-size:20px" class="font-bold"> <span data-bind="text:phoneNumber"></span> (<span data-bind="text:userName"></span>) </span>
+                        </span>*@
+                                                                    @*<span data-bind="if:phoneNumberLocal != null">
+                            <span data-bind="if: phoneNumberLocal == ''">Phone number is hidden <a data-bind="click:function(){ return sendMessage(postedById,postedByName)}"> send message</a></span> <span style="font-size:20px" class="font-bold"> <span data-bind="text:phoneNumberLocal"></span> (<span data-bind="text:name"></span>) </span>                                                    <div data-bind="with:showLocation">
+                        </span>*@
+                                                                    @if (Model.AdsLocation != null)
+                                                                    {
+                                                                        if (Model.AdsLocation.City != null && Model.AdsLocation.City.cityName != "")
+                                                                        {
+                                                                            <i class="fa fa-map-marker"></i>
+                                                                            if (Model.AdsLocation.exectLocation != null && Model.AdsLocation.exectLocation != "")
+                                                                            {
+                                                                                <text>@Model.AdsLocation.exectLocation, </text>
+                                                                            }
+                                                                            if (Model.AdsLocation.popularPlace != null)
+                                                                            {
+                                                                                if (Model.AdsLocation.popularPlace.name != null && Model.AdsLocation.popularPlace.name != "")
+                                                                                {
+                                                                                    <text>@Model.AdsLocation.popularPlace.name, </text>
+                                                                                }
+                                                                            }
+                                                                            @Model.AdsLocation.City.cityName
+                                                                            @*<span data-bind="if:exectLocation">
+                                    <span data-bind="text:exectLocation"></span>,
+                                </span>
+                                <span data-bind="if:popularPlace">
+                                    <span data-bind="text:popularPlace"></span>,
+                                </span>
+                                <span data-bind="text:cityName"></span>*@
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <br />
+
+                                                        <div class="text-right">
+                                                            <div class="btn-group">
+                                                                @if (Model.isnegotiable == "b")
+                                                                {
+                                                                    <button data-bind="click:placeBidButton" class="btn btn-white btn-sm"><i class="fa fa-rocket"></i> Place Bid</button>
+                                                                }<button data-bind="click:saveItem" id="savedCount" style="display:none" class="btn btn-white btn-sm FirstLoading"><i data-bind="style:{color: isSaved()? 'red' : 'gray'}" class="fa fa-star"></i> <span data-bind="visible:isSaved()"> Remove from</span><span data-bind="visible:!isSaved()"> Add to</span>  wishlist </button>
+                                                                @*<button id="savedCount" class="btn btn-white btn-sm"><i data-bind="style:{color: isSaved()? 'red' : 'gray'}" class="fa fa-star"></i> <span data-bind="visible:isSaved()"> Remove from</span><span data-bind="visible:!isSaved()"> Add to</span>  wishlist </button>*@
+                                                                @*<a data-bind="visible:companyId, attr:{href:companyLink}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="if:category == 'Jobs' || category == 'Services'"> Posted by</span><span data-bind="if:category != 'Jobs' && category != 'Services'"> Seller </span>   (<span data-bind="text:companyName"></span>)</a>
+
+                    <a data-bind="visible:!companyId,attr:{href:sellerProfile}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="if:category == 'Jobs' || category == 'Services'"> Posted by</span> <span data-bind="if:category != 'Jobs' && category != 'Services'"> Seller profile</span> (<span data-bind="text:postedByName"></span>)</a>*@
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        @if (Model.isnegotiable == "b")
+                                                        {
+                                                            <div class="FirstLoading">
+                                                                <div data-bind="visible:placeBid">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-2">Bid amount</label>
+                                                                            <div class="col-sm-8">
+                                                                                <div class="input-group m-b">
+                                                                                    <span class="input-group-addon">Rs</span><input type="number" placeholder="place bid.." data-bind="value:newBidPrice,hasFocus:placeBidFocused" class="form-control" pattern="[0-9]*" name="price" required />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-2"><button data-style="expand-left" class="ladda-button btn btn-success" data-bind="click:postBid">Submit</button></div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <span data-bind="text:showBidings().length"></span><text> bid(s)</text>
+                                                                <ul class="sortable-list connectList agile-list" data-bind="foreach:showBidings">
+                                                                    <li class="success-element">
+                                                                        <span data-bind="visible:!isEditing()">
+                                                                            <a data-bind="attr:{href:postedByProfileLink}"><span data-bind="text:postedByName"></span></a>
+                                                                            <strong class="col-xs-offset-3"> Rs <span data-bind="text:price"></span></strong>
+                                                                            <div class="agile-detail">
+                                                                                <div data-bind="if:loginUserId() == postedById">
+                                                                                    <a data-bind="click:$parent.deleteBid" class="pull-right btn btn-xs btn-white">Delete</a><a data-bind="click:editBidButton" class="pull-right btn btn-xs btn-white">Edit</a>
+                                                                                </div>
+                                                                                <i class="fa fa-clock-o"></i> <span data-bind="text:time"></span>
+                                                                            </div>
+                                                                        </span>
+                                                                        <span data-bind="visible:isEditing()">
+                                                                            <div class="input-group m-b">
+                                                                                <span class="input-group-addon">Rs</span><input type="number" data-bind="value:price" class="form-control" pattern="[0-9]*" name="price" required />
+                                                                            </div>
+                                                                            <button data-style="zoom-out" id="updateBid" class="ladda-button btn btn-success" data-bind="click:function(){return updateBid($parent.id)}">Update</button>
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </div>
-
-
                                             </div>
-                                            <div class="col-sm-5 hidden-lg hidden-md hidden-xs">
-                                                Display your banner ad here
-                                                @*adsbygoogle*@
-                                            </div>
-                                        </div>
-                                        <div class="col-md-7 col-sm-12">
-                                            <span data-bind="visible:(loginUserId != postedById ) ">
-                                                <span data-bind="visible:isAdmin()">
-                                                    <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-xs pull-right confirmDelete"> Delete</a>
+                                            <div class="ibox-footer">
+                                                <span class="pull-right">
+                                                    <i class="fa fa-clock-o"></i> @UrlHelperExtensions.Timeago(Model.time)
                                                 </span>
-                                            </span>
-                                            <span data-bind="visible:loginUserId == postedById">
-                                                <a data-bind="click: function(){return deleteAd(id)}" class="btn btn-white btn-xs pull-right confirmDelete"> Delete</a><a data-bind="click: function(){return editAd(id)}" class="btn btn-white btn-xs pull-right"> Edit</a>
-                                            </span>
-                                            <h2 data-bind="text:title" class="font-bold m-b-xs"></h2>
-                                            <ul class="tag-list" data-bind="foreach:showTags" style="padding: 0">
-                                                <li><a target="_blank" data-bind="attr:{href:tagLink}"><i class="fa fa-tag"></i>&nbsp; <span data-bind="text:name"></span> </a></li>
-                                            </ul><br /><br />
-                                            <hr>
-                                            <span data-bind="visible:loginUserId != postedById">
-                                                <button data-bind="click:function(){ return sendMessage(postedById,postedByName)}" class="btn btn-primary pull-right">Chat <span data-bind="visible:!showJob()"> with  seller</span></button>
-                                            </span>
-                                            <span data-bind="visible:!showJob()">
-                                                <h1 class="product-main-price">
+                                                Views (@Model.views) -  Wishlist (@Model.SaveAdsCount) - @if (Model.isReported)
+                                                {<span data-toggle="modal" data-target="#report"> <span style="color:red"><i class="fa fa-flag"></i> </span> <span> Report</span> (</span >@Model.ReportedAdsCount<text>)</text> }
+                                                else
+                                                {
+                                                    <span data-toggle="modal" data-target="#report"> <span style="color:gray"><i class="fa fa-flag"></i> </span> <span> Report</span> (</span>@Model.ReportedAdsCount<text>)</text>
+}
+
+
+
+</div><div style="display:none" class="FirstLoading">
+    @Html.Partial("~/Views/Shared/_Comments.cshtml")
+</div>
+                                        </div>
+                                           
+                                    </div>
+                                </div>
+                                
+                        }
+                            
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="similarAds" style="display:none" class="col-lg-12">
+                    <h3 data-bind="visible:showSimilarAds().length > 0">Similar ads:</h3>
+                    <div data-bind="foreach:showSimilarAds">
+                        <div class="row">
+                            <div class="ibox">
+                                <div class="ibox-content product-box">
+                                    <div class="media">
+                                        <a data-bind="attr:{href:link},visible:category != 'Services'" class="pull-left">
+                                          
+                                            <div class="product-imitation">
+                                                <div class="carouselContainer @*similarAds*@">
+                                                    <div data-bind="visible:!images()">  
+<img src="~/Images/others/no_image.jpg" /></div>
+                                                    <img data-bind="attr:{src:images}" />
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="media-body">
+                                            <div class="product-desc">
+                                                <span class="product-price">
                                                     <span data-bind="if:!isBidingAllowed">
                                                         <span data-bind="if:price">
-                                                            <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted">Rs. <span data-bind="html:isNegotiable"></span></small>
+                                                            <span data-bind="text:price"></span> <small style="font-size:13px">Rs</small>
+                                                            <span data-bind="if:maxPrice"> - <span data-bind="text:maxPrice"></span></span>
                                                         </span>
-                                                        <span data-bind="if:!price">Price on contact</span>
+                                                        <span data-bind="if:!price"><span data-bind="if:category == 'Jobs'">Salary</span><span data-bind="if:category != 'Jobs'">Price</span> on contact</span>
                                                     </span>
                                                     <span data-bind="if:isBidingAllowed">
                                                         <span data-bind="if:price">
                                                             <span data-bind="if:highestBid() == '-Infinity'">
-                                                                <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted ">Rs. (Initial Bid) </small>
+                                                                <span data-bind="text:price"></span> <small style="font-size:13px">Rs. (Initial Bid) </small>
                                                             </span>
                                                             <span data-bind="ifnot:highestBid() == '-Infinity'">
-                                                                <span data-bind="text:highestBid"></span> <small style="font-size:13px" class="text-muted ">Rs. (current Bid) Initial Bid = <span data-bind="text:price"></span> </small>
+                                                                <span data-bind="text:highestBid"></span> <small style="font-size:13px">Rs. (current Bid) </small>
                                                             </span>
                                                         </span>
                                                         <span data-bind="if:!price">
@@ -137,512 +687,194 @@
                                                                 No Bit yet
                                                             </span>
                                                             <span data-bind="ifnot:highestBid() == '-Infinity'">
-                                                                <span data-bind="text:highestBid"></span> <small style="font-size:13px" class="text-muted ">Rs. (current Bid) </small>
+                                                                <span data-bind="text:highestBid"></span> <small style="font-size:13px">Rs. (current Bid) </small>
                                                             </span>
                                                         </span>
                                                     </span>
-                                                </h1>
-                                                <hr />
-                                            </span>
-                                            <div data-bind="with:showCamera">
-                                                <dl class="dl-horizontal m-t-md small">
-                                                    <dt>Category:</dt>
-                                                    <dd data-bind="text:category"></dd>
-
-                                                    <dt data-bind="with:brand">Brand:</dt>
-                                                    <dd data-bind="text:brand"></dd>
-                                                </dl>
-                                            </div>
-
-                                            <style>
-                                                dt {
-                                                    float: left;
-                                                    clear: left;
-                                                    margin-right: 5px;
-                                                    font-weight: bold;
-                                                }
-
-                                                dd {
-                                                    margin-left: 0px;
-                                                }
-                                            </style>
-
-                                            <div data-bind="visible:category == 'Animals' || category=='books-sports-hobbies' || category == 'Home-LifeStyle'">
-                                                <dl class="dl-horizontal m-t-md small">
-                                                    <dt>Category:</dt>
-                                                    <dd data-bind="text:subcategory"></dd>
-                                                    <dt data-bind="visible:condition != 'z' && condition != ''">Condition:</dt>
-                                                    <dd data-bind="visible:condition != 'z',text:condition"></dd>
-                                                </dl>
-                                            </div>
-                                            <div data-bind="visible:subcategory == 'vehicles-for-rent'">
-                                                <dl class="dl-horizontal m-t-md small">
-                                                    <dt>Condition</dt>
-                                                    <dd data-bind="text:condition"></dd>
-                                                </dl>
-                                            </div>
-                                            <div data-bind="with:showMobileAd">
-                                                <dl class="dl-horizontal m-t-md small">
-                                                    <dt>condition:</dt>
-                                                    <dd data-bind="text:$parent.condition"></dd>
-                                                    <dt>Type:</dt>
-                                                    <dd data-bind="text:$parent.type"></dd>
-                                                    <dt data-bind="with:brand">Brand:</dt>
-                                                    <dd data-bind="text:brand"></dd>
-                                                    <dt data-bind="with:model">Model:</dt>
-                                                    <dd data-bind="text:model"></dd>
-                                                    <dt data-bind="with:color">color:</dt>
-                                                    <dd data-bind="text:color"></dd>
-                                                    <span data-bind="if:sims">
-                                                        <dt>Number of sims:</dt>
-                                                        <dd data-bind="text:sims"></dd>
-                                                    </span>
-
-                                                </dl>
-                                            </div>
-                                            <div data-bind="with: showBikeAd">
-
-                                                <dl class="dl-horizontal m-t-md small">
-                                                    <dt>Brand:</dt>
-                                                    <dd data-bind="text:brand"></dd>
-                                                    <dt>Model:</dt>
-                                                    <dd data-bind="text:model"></dd>
-                                                    <dt>condition:</dt>
-                                                    <dd data-bind="text:$parent.condition"></dd>
-                                                    <dt>Km Driven</dt>
-                                                    <dd data-bind="if:kmDriven"><span data-bind="text:kmDriven"></span>  Km</dd>
-
-                                                    <dt>Year</dt>
-                                                    <dd data-bind="text:year"></dd>
-                                                    <dt>Number of owners</dt>
-                                                    <dd data-bind="text:noOfOwners"></dd>
-                                                    <dt>Registered City</dt>
-                                                    <dd data-bind="text:registeredCity"></dd>
-                                                </dl>
-                                            </div>
-                                            <div data-bind="with: showCarAd">
-
-                                                <dl class="dl-horizontal m-t-md small">
-                                                    <dt>Brand:</dt>
-                                                    <dd data-bind="text:brand"></dd>
-                                                    <dt>Model:</dt>
-                                                    <dd data-bind="text:model"></dd>
-                                                    <dt>color:</dt>
-                                                    <dd data-bind="text:color"></dd>
-                                                    <dt>condition:</dt>
-                                                    <dd data-bind="text:$parent.condition"></dd>
-                                                    <dt>Fuel type</dt>
-                                                    <dd data-bind="text:fuelType"></dd>
-                                                    <dt>Km Driven</dt>
-                                                    <dd data-bind="if:kmDriven"><span data-bind="text:kmDriven"></span>  Km</dd>
-
-                                                    <dt>Year</dt>
-                                                    <dd data-bind="text:year"></dd>
-                                                    <dt>Number of owners</dt>
-                                                    <dd data-bind="text:noOfOwners"></dd>
-                                                    <dt>Registered City</dt>
-                                                    <dd data-bind="text:registeredCity"></dd>
-                                                    <dt>Transmission</dt>
-                                                    <dd data-bind="text:transmission"></dd>
-                                                    <dt>Assembly</dt>
-                                                    <dd data-bind="text:assembly"></dd>
-                                                    <dt>Engine Capacity</dt>
-                                                    <dd data-bind="if:engineCapacity"><span data-bind="text:engineCapacity"></span> cc</dd>
-
-                                                </dl>
-                                            </div>
-                                            <div data-bind="with: showRealEstateAd">
-
-                                                <dl class="dl-horizontal m-t-md small">
-                                                    <dt>Category:</dt>
-                                                    <dd><span data-bind="text:$parent.subcategory"></span> (<span data-bind="if:$parent.type=='Want to buy'">For rent</span><span data-bind="if:$parent.type!='Want to buy'">For sale</span>)</dd>
-                                                    <span data-bind="visible:area">
-                                                        <dt>Area:</dt>
-                                                        <dd><span data-bind="text:area"></span> sq ft</dd>
-                                                    </span>
-                                                    <span data-bind="if:$parent.subcategory != 'plot & land'">
-                                                        <dt>Bed rooms:</dt>
-                                                        <dd data-bind="text:bedroom"></dd>
-                                                        <dt>Bath room:</dt>
-                                                        <dd data-bind="text:bathroom"></dd>
-                                                        <dt>Floor</dt>
-                                                        <dd data-bind="text:floor"></dd>
-                                                    </span>
-                                                </dl>
-                                            </div>
-                                            <div data-bind="with: showJob">
-
-                                                <dl class="dl-horizontal m-t-md small">
-                                                    <dt>Category:</dt>
-                                                    <dd data-bind="text:category"></dd>
-
-                                                    <dt>Seats:</dt>
-                                                    <dd data-bind="text:seats"></dd>
-                                                    <dt>Qualification:</dt>
-                                                    <dd data-bind="text:qualification"></dd>
-                                                    <dt>Experience:</dt>
-                                                    <dd data-bind="text:exprience"></dd>
-                                                    <dt>Career Level:</dt>
-                                                    <dd data-bind="text:careerLevel"></dd>
-                                                    <dt>Last Date To Apply:</dt>
-                                                    <dd data-bind="text:lastDateToApply"></dd>
-                                                    <dt>Salary:</dt>
-                                                    <dd data-bind="text:$parent.price"></dd>
-                                                    <dt>Salary Type:</dt>
-                                                    <dd data-bind="text:salaryType"></dd>
-                                                    <span @*data-bind="visible:!showSkills().length == 0"*@>
-                                                        <dt>Skills:</dt>
-                                                        <dd><span data-bind="foreach:showSkills"> <span class="btn btn-xs btn-white" data-bind="text:name"></span></span> </dd>
-                                                    </span>
-                                                    <dt>Gender:</dt>
-                                                    <dd data-bind="text:$parent.gender"></dd>
-                                                    <dt>Job Type:</dt>
-                                                    <dd data-bind="text:$parent.subcategory"></dd>
-                                                    <dt>Shift:</dt>
-                                                    <dd data-bind="text:$parent.shift"></dd>
-                                                    @*<dt>Year</dt>
-                                                    <dd data-bind="text:year"></dd>
-                                                    <dt>Year</dt>
-                                                    <dd data-bind="text:year"></dd>
-                                                    <dt>Year</dt>
-                                                    <dd data-bind="text:year"></dd>*@
-                                                </dl>
-                                            </div>
-
-                                            <h4>Details</h4>
-                                            <div data-bind="html:description" class="small text-muted">
-
-                                            </div><br />
-
-                                            <p class="small text-muted">When you contact <span data-bind="visible:name != null,text:name"></span> <span data-bind="visible:companyId && name == null,text:companyName"></span><span data-bind="visible:(!companyId) && name == null,text:postedByName"></span>, don't forget to mention that you found this ad on dealkar.pk</p>
-
-                                            @*<div data-bind="with:showLocation">
-                                                <h5 data-bind="with:cityName">Location</h5>
-                                                <span data-bind="if:exectLocation">
-                                                    <span data-bind="text:exectLocation"></span>,
+                                                </span><br />
+                                                <a class="product-name" data-bind="text:title,attr:{href:link}"> </a>
+                                                <span class="hidden-xs">
+                                                    <div class="small m-t-xs" data-bind="foreach:showTags">
+                                                        <a target="_blank" data-bind="attr:{href:link},text:name" class="btn btn-xs btn-white"> </a>
+                                                    </div><br />
+                                                    <span data-bind="text:category"></span> <span data-bind="visible:subcategory">> <span data-bind="text:subcategory"></span> </span>
+                                                    <span data-bind="visible:subsubcategory"> > <span data-bind="text:subsubcategory"></span> </span>
+                                                    <span data-bind="visible:brand"> > <span data-bind="text:brand"></span></span> <span data-bind="visible:model"> > <span data-bind="text:model"></span></span>
+                                                    <span data-bind="visible:area"><b> Area:</b> <span data-bind="text:area"> </span>sq ft </span> <span data-bind="visible:bedroom"><b> Bedroom: </b><span data-bind="text:bedroom"></span></span>
+                                                    <span data-bind="visible:exprience"><b>Experience:</b><span data-bind="if:exprience  == 'f'">Fresh Graduate</span><span data-bind="if:exprience  == 'n'">Not required</span><span data-bind="if:exprience != 'f' && exprience !='n' && exprience != ''"> <span data-bind="text:exprience"></span> year</span></span>
+                                                    <span data-bind="visible:qualification"><b>Qualification: </b><span data-bind="text:qualification"></span></span><br /><br />
+                                                    <div data-bind="truncatedText: description, maxTextLength: 150"></div>
                                                 </span>
-                                                <span data-bind="if:popularPlace">
-                                                    <span data-bind="text:popularPlace"></span>,
-                                                </span>
-                                                <span data-bind="text:cityName"></span>
-                                            </div>*@
-                                            <div class="col-lg-12 ">
-                                                <div class="widget style1 lazur-bg">
-                                                    <div class="row vertical-align">
-                                                        <i class="fa fa-phone fa-2x"></i>
-                                                        <span data-bind="if:phoneNumberLocal == null">
-                                                            <span data-bind="if: phoneNumber == ''">Phone number is hidden <a data-bind="click:function(){ return sendMessage(postedById,postedByName)}"> send message</a></span> <span style="font-size:20px" class="font-bold"> <span data-bind="text:phoneNumber"></span> (<span data-bind="text:userName"></span>) </span>
-                                                        </span>
-                                                        <span data-bind="if:phoneNumberLocal != null">
-                                                            <span data-bind="if: phoneNumberLocal == ''">Phone number is hidden <a data-bind="click:function(){ return sendMessage(postedById,postedByName)}"> send message</a></span> <span style="font-size:20px" class="font-bold"> <span data-bind="text:phoneNumberLocal"></span> (<span data-bind="text:name"></span>) </span>                                                    <div data-bind="with:showLocation">
-                                                        </span>
-                                                        <span data-bind="with:cityName"><i class="fa fa-map-marker"></i></span>
-                                                        <span data-bind="if:exectLocation">
-                                                            <span data-bind="text:exectLocation"></span>,
-                                                        </span>
-                                                        <span data-bind="if:popularPlace">
-                                                            <span data-bind="text:popularPlace"></span>,
-                                                        </span>
-                                                        <span data-bind="text:cityName"></span>
-                                                    </div>
+                                                <div class="pull-right"><i class="fa fa-clock-o"></i> <span data-bind="text:time"></span></div>
+                                                <div class="" data-bind="with:adLocation">
+                                                    <span data-bind="with:cityName"><i class="fa fa-ballon visible-xs"></i><b class="hidden-xs">From:</b></span>
+                                                    <span data-bind="if:popularPlace">
+                                                        <span data-bind="text:popularPlace"></span>,
+                                                    </span>
+                                                    <span data-bind="text:cityName"></span>
                                                 </div>
+                                                @*<div class="m-t text-righ">
+
+                                                    <a data-bind="attr:{href:link}" class="btn btn-xs btn-outline btn-primary">Open <i class="fa fa-long-arrow-right"></i> </a>
+                                                </div>*@
                                             </div>
                                         </div>
-                                        <br />
-                                        <div class="text-right">
-                                            <div class="btn-group">
-                                                <button data-bind="click:saveItem" class="btn btn-white btn-sm"><i data-bind="style:{color: isSaved()? 'red' : 'gray'}" class="fa fa-star"></i> <span data-bind="visible:isSaved()"> Remove from</span><span data-bind="visible:!isSaved()"> Add to</span>  wishlist </button>
-                                                <a data-bind="visible:companyId, attr:{href:companyLink}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="if:category == 'Jobs' || category == 'Services'"> Posted by</span><span data-bind="if:category != 'Jobs' && category != 'Services'"> Seller </span>   (<span data-bind="text:companyName"></span>)</a>
-
-                                                <a data-bind="visible:!companyId,attr:{href:sellerProfile}" class="btn btn-white btn-sm"><i class="fa fa-user"></i><span data-bind="if:category == 'Jobs' || category == 'Services'"> Posted by</span> <span data-bind="if:category != 'Jobs' && category != 'Services'"> Seller profile</span> (<span data-bind="text:postedByName"></span>)</a>
-                                            </div>
-                                        </div><br />
-
                                     </div>
-                                </div>
-
-                            </div>
-
-                            <div class="ibox-footer">
-                                <span class="pull-right">
-                                    <i class="fa fa-clock-o"></i> <span data-bind="text:time"></span>
-                                </span>
-                                Views (<span data-bind="text:views"></span>) -  wishlist (<span data-bind="text:savedCount"></span>) - <span data-toggle="modal" data-target="#report"><span data-bind="style:{color: isReported()? 'red' : 'gray'}"> <i class="fa fa-flag"></i> </span> Report </span>(<span data-bind="text:reportedCount()"></span>)
-
-
-
-
-                                <div data-bind="visible:isBidingAllowed">
-                                    <button data-bind="click:placeBidButton" class="btn btn-primary pull-right">Place Bid</button>
-
-                                    <h2>Bidings:</h2>
-                                    <div data-bind="visible:placeBid">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <label class="control-label col-sm-2">Bid amount</label>
-                                                <div class="col-sm-8">
-                                                    <div class="input-group m-b">
-                                                        <span class="input-group-addon">Rs</span><input type="number" placeholder="place bid.." data-bind="value:newBidPrice" class="form-control" pattern="[0-9]*" name="price" required />
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2"><button data-style="expand-left" class="ladda-button btn btn-success" data-bind="click:postBid">Submit</button></div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <span data-bind="text:showBidings().length"></span> bidings
-                                    <ul class="sortable-list connectList agile-list" data-bind="foreach:showBidings">
-                                        <li class="success-element">
-                                            <span data-bind="visible:!isEditing()">
-                                                <a data-bind="attr:{href:postedByProfileLink}"><span data-bind="text:postedByName"></span></a>
-                                                <strong class="col-xs-offset-3"> Rs <span data-bind="text:price"></span></strong>
-                                                <div class="agile-detail">
-
-                                                    <div data-bind="visible:$parent.loginUserId==postedById">
-                                                        <a data-bind="click:$parent.deleteBid" class="pull-right btn btn-xs btn-white">Delete</a><a data-bind="click:editBidButton" class="pull-right btn btn-xs btn-white">Edit</a>
-                                                    </div>
-                                                    <i class="fa fa-clock-o"></i> <span data-bind="text:time"></span>
-                                                </div>
-                                            </span>
-                                            <span data-bind="visible:isEditing()">
-                                                <div class="input-group m-b">
-                                                    <span class="input-group-addon">Rs</span><input type="number" data-bind="value:price" class="form-control" pattern="[0-9]*" name="price" required />
-                                                </div>
-                                                <button data-style="zoom-out" id="updateBid" class="ladda-button btn btn-success" data-bind="click:function(){return updateBid($parent.id)}">Update</button>
-                                            </span>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                            <div class="">
-                                @Html.Partial("~/Views/Shared/_Comments.cshtml")
-                            </div>
-                        </div>
-                    </div>
-                    <h3>Similar ads</h3>
-
-                    <div class="modal inmodal fade" id="report" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content animated ">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <i class="fa fa-flag modal-icon"></i>
-                                    <h4 class="modal-title">Report Ad</h4>
-                                    <small class="font-bold">Make sure you have provided right information or you can loose reputation</small>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 ">
-                                            <div class="radio">
-                                                <label>
-                                                    <input class="radio i-checks" type="radio" data-bind="checked: selectedVal" name="report" value="duplicate" required /> Ad is duplicate
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input class="radio i-checks" type="radio" data-bind="checked: selectedVal " name="report" value="wrong_category" required /> Wrong category
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input class="radio i-checks" type="radio" data-bind="checked: selectedVal " name="report" value="Irrelevent_content" required /> Irrelevent content
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input class="radio i-checks" type="radio" data-bind="checked: selectedVal " name="report" value="spam" required /> Spam/Offensive content
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input class="radio i-checks" type="radio" data-bind="checked: selectedVal" name="report" value="fraud" required /> Fraud reason
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <label>Addational details:</label>
-                                        <textarea class="msgTextArea form-control" placeholder="Addational info.." data-bind="jqAutoresize: {},value:reportText"></textarea>
-
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-white" data-dismiss="modal">I didn't mean to</button>
-                                    @*<span data-bind="text:$parent.id"></span>*@
-                                    @*<span data-bind="text:loginUserId"></span>*@
-                                    <button type="button" data-bind="click: function(){ return report()}" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </div>
+                        <style>
+                            .similarAds {
+                                overflow: hidden;
+                                //height:350px;
+                                margin: 0px;
+                                padding: 0px;
+                            }
+
+                            #gallery {
+                                margin: 0px;
+                                padding: 0px;
+                            }
+
+                            .product-imitation {
+                                margin: 0px;
+                                padding: 0px;
+                                width: 250px ;
+                                height: 250px;
+                                /apply max-padding or default image;
+                            }
+
+                            .similarAds img {
+                                // height: 350px;
+                                width: 250px ;
+                                height: 250px;
+                            }
+
+                            .showAds .ibox {
+                                height: 420px;
+                            }
+
+                            .product-price {
+                                top: 0px;
+                            }
+                        </style>
                     </div>
                 </div>
-
+                <br /><br />
+                <div class="visible-xs">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-3540353581324370"
+                         data-ad-slot="3103703247"
+                         data-ad-format="auto"></ins>
+                    <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                <br /><br />
             </div>
         </div>
-        <div class="col-lg-12">
-            <div data-bind="foreach:showSimilarAds">
-                <div class="row">
-                    <div class="ibox">
-                        <div class="ibox-content product-box">
-                            <div class="media">
+                        </div>
 
-                                <a data-bind="attr:{href:link},visible:category != 'Services'" class="pull-left hidden-xs">
-                                    <div class="product-imitation">
-                                        <div class="carouselContainer similarAds">
-                                            <span id="gallery" data-gallery=""
-                                                  data-bind="slick: images,
-                slickOptions: { initialSlide:0,dots:false, autoplay:true,autoplaySpeed: 1000,infinite: false,speed: 1000,fade: true,},
-                slickIndex: imageIndex">
-                                            </span>
-                                            <div data-bind="visible:images().length == 0"><h2><br /><br /><br /><br /> No Images<br /><br /><br /><br /><br /></h2></div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="media-body">
-                                    <div class="product-desc">
-                                        <span class="product-price">
-                                            <span data-bind="if:!isBidingAllowed">
-                                                <span data-bind="if:price">
-                                                    <span data-bind="text:price"></span> <small style="font-size:13px">Rs. <span data-bind="html:isNegotiable"></span></small>
-                                                </span>
-                                                <span data-bind="if:!price"><span data-bind="if:category == 'Jobs'">Salary</span><span data-bind="if:category != 'Jobs'">Price</span> on contact</span>
-                                            </span>
-                                            <span data-bind="if:isBidingAllowed">
-                                                <span data-bind="if:price">
-                                                    <span data-bind="if:highestBid() == '-Infinity'">
-                                                        <span data-bind="text:price"></span> <small style="font-size:13px">Rs. (Initial Bid) </small>
-                                                    </span>
-                                                    <span data-bind="ifnot:highestBid() == '-Infinity'">
-                                                        <span data-bind="text:highestBid"></span> <small style="font-size:13px">Rs. (current Bid) </small>
-                                                    </span>
-                                                </span>
-                                                <span data-bind="if:!price">
-                                                    <span data-bind="if:highestBid() == '-Infinity'">
-                                                        No Bit yet
-                                                    </span>
-                                                    <span data-bind="ifnot:highestBid() == '-Infinity'">
-                                                        <span data-bind="text:highestBid"></span> <small style="font-size:13px">Rs. (current Bid) </small>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                        </span>
-                                        <a class="product-name" data-bind="text:title,attr:{href:link}"> Product</a>
-
-
-
-                                        <div class="small m-t-xs" data-bind="foreach:showTags">
-                                            <a target="_blank" data-bind="attr:{href:link},text:name" class="btn btn-xs btn-white"> </a>
-                                        </div><br />
-                                        <span data-bind="text:category"></span> <span data-bind="visible:subcategory">> <span data-bind="text:subcategory"></span> </span>
-                                        <span data-bind="visible:subsubcategory"> > <span data-bind="text:subsubcategory"></span> </span>
-                                        <span data-bind="visible:brand"> > <span data-bind="text:brand"></span></span> <span data-bind="visible:model"> > <span data-bind="text:model"></span></span>
-
-                                        <span data-bind="visible:area"><b> Area:</b> <span data-bind="text:area"> </span>sq ft </span> <span data-bind="visible:bedroom"><b> Bedroom: </b><span data-bind="text:bedroom"></span></span>
-                                        <span data-bind="visible:exprience"><b>Experience:</b><span data-bind="if:exprience  == 'f'">Fresh Graduate</span><span data-bind="if:exprience  == 'n'">Not required</span><span data-bind="if:exprience != 'f' && exprience !='n' && exprience != ''"> <span data-bind="text:exprience"></span> year</span></span>
-                                        <span data-bind="visible:qualification"><b>Qualification: </b><span data-bind="text:qualification"></span></span><br /><br />
-                                        <div data-bind="truncatedText: description, maxTextLength: 150"></div>
-                                        <div class="pull-right"><i class="fa fa-clock-o"></i> <span data-bind="text:time"></span></div>
-                                        <div class="" data-bind="with:adLocation">
-                                            <span data-bind="with:cityName">@*<i class="fa fa-ballon"></i>*@ <b>From:</b></span>
-                                            <span data-bind="if:popularPlace">
-                                                <span data-bind="text:popularPlace"></span>,
-                                            </span>
-                                            <span data-bind="text:cityName"></span>
-                                        </div>
-
-                                        @*<div class="m-t text-righ">
-
-                                    <a data-bind="attr:{href:link}" class="btn btn-xs btn-outline btn-primary">Open <i class="fa fa-long-arrow-right"></i> </a>
-                                </div>*@
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+<div class="modal inmodal fadeIn" id="report" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content animated ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-flag modal-icon"></i>
+                <h4 class="modal-title">Report Ad</h4>
+                <small class="font-bold">Make sure you have provided right information or you can loose reputation</small>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-offset-3 ">
+                        <div class="radio">
+                            <label>
+                                <input class="radio i-checks" type="radio" data-bind="checked: selectedVal" name="report" value="duplicate" required /> Ad is duplicate
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input class="radio i-checks" type="radio" data-bind="checked: selectedVal " name="report" value="wrong_category" required /> Wrong category
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input class="radio i-checks" type="radio" data-bind="checked: selectedVal " name="report" value="Irrelevent_content" required /> Irrelevent content
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input class="radio i-checks" type="radio" data-bind="checked: selectedVal " name="report" value="spam" required /> Spam/Offensive content
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input class="radio i-checks" type="radio" data-bind="checked: selectedVal" name="report" value="fraud" required /> Fraud reason
+                            </label>
                         </div>
                     </div>
+                    <label>Addational details:</label>
+                    <textarea class="msgTextArea form-control" placeholder="Addational info.." data-bind="jqAutoresize: {},value:reportText"></textarea>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">I didn't mean to</button>
 
-                <style>
-                    .similarAds {
-                        overflow: hidden;
-                        //height:350px;
-                        margin: 0px;
-                        padding: 0px;
-                    }
-
-                    #gallery {
-                        margin: 0px;
-                        padding: 0px;
-                    }
-
-                    .product-imitation {
-                        margin: 0px;
-                        padding: 0px;
-                        width: 250px !important;
-                        height: 250px;
-                        /apply max-padding or default image;
-                    }
-
-                    .similarAds img {
-                        // height: 350px;
-                        width: 250px !important;
-                        height: 250px;
-                    }
-
-                    .showAds .ibox {
-                        height: 420px;
-                    }
-
-                    .product-price {
-                        top: 0px;
-                    }
-                </style>
+                <button type="button" data-bind="click: function(){ return report()}" class="btn btn-primary">Submit</button>
             </div>
         </div>
-        </div>
-
     </div>
-    
 </div>
 
 
+                    @section Styles {
+<link href="~/Content/tagStyles.css" rel="stylesheet" />
+                        @Styles.Render("~/plugins/slickStyles")
+                        @Styles.Render("~/plugins/slickThemeStyles")
+                        @Styles.Render("~/plugins/toastrStyles")
+                        @*@Styles.Render("~/Content/plugins/jsTree")*@
+                        @Styles.Render("~/plugins/sweetAlertStyles")
+                        @*@Styles.Render("~/Content/plugins/blueimp/css/")*@
+                    }
+                                                    @section Scripts{
+                                                        @Scripts.Render("~/plugins/toastr")
+                                                        @Scripts.Render("~/plugins/timeago")
+                                                        @Scripts.Render("~/plugins/autosize")
+                                                        @*@Scripts.Render("~/plugins/lightboxGallery")*@
+                                                        @Scripts.Render("~/plugins/slick")
+                                                        @*@Scripts.Render("~/plugins/jsTree")
+                                                            @Scripts.Render("~/bundles/categoryTree")*@
+                                                        @Scripts.Render("~/bundles/jqueryui")
+                                                        @Scripts.Render("~/plugins/sweetAlert")
+                                                        <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+                                                        <script src="~/signalr/hubs"></script>
+                                                        <script src="~/Scripts/UserLogin.js"></script>
+                                                        <script src="~/Scripts/app/chat.js"></script>
+                                                        @*<script src="~/Scripts/app/slick-knockout-binding-for-detail-page.js"></script>*@
+                                                        @*<script src="~/Scripts/app/_AdListView.js"></script>*@
+                                                        <script src="~/Scripts/_Comments.js"></script>
+                                                        <script src="~/Scripts/app/IsAdmin.js"></script>
+                                                        <script>
+                                                            $("#gallery").css({ "display": "block" });
+                                                            $("#gallery").slick({
+                                                                dots: true
+                                                            });
 
-@section Styles {
-<style>
-    /* Local style for demo purpose */
-
-    .lightBoxGallery {
-        text-align: center;
-    }
-
-        .lightBoxGallery img {
-            margin: 5px;
-        }
-</style>
-    @Styles.Render("~/plugins/slickStyles")
-    @Styles.Render("~/plugins/slickThemeStyles")
-    @Styles.Render("~/plugins/toastrStyles")
-    @*@Styles.Render("~/Content/plugins/jsTree")*@
-@Styles.Render("~/plugins/sweetAlertStyles")
-@*@Styles.Render("~/Content/plugins/blueimp/css/")*@
-}
-@section Scripts{
-    @Scripts.Render("~/plugins/toastr")
-    @Scripts.Render("~/plugins/timeago")
-    @Scripts.Render("~/plugins/autosize")
-    @*@Scripts.Render("~/plugins/lightboxGallery")*@
-    @Scripts.Render("~/plugins/slick")
-    @*@Scripts.Render("~/plugins/jsTree")
-    @Scripts.Render("~/bundles/categoryTree")*@
-@Scripts.Render("~/bundles/jqueryui")
-@Scripts.Render("~/plugins/sweetAlert")
-<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
-<script src="~/signalr/hubs"></script>
-<script src="~/Scripts/UserLogin.js"></script>
-<script src="~/Scripts/app/chat.js"></script>
-<script src="~/Scripts/app/slick-knockout-binding-for-detail-page.js"></script>
-@*<script src="~/Scripts/app/_AdListView.js"></script>*@
-<script src="~/Scripts/_Comments.js"></script>
-<script src="~/Scripts/app/IsAdmin.js"></script>
-    <script>
+                                                            $id = $("#ad_id").text();
+                                                            $category = $("#ad_category").text();
+                                                            $subcategory = $("#ad_subcategory").text();
+                                                            $subsubcategory = $("#subsubcategory").text();
+                                                            $name = $("#postedByName").text();
+                                                            $loginUserId = $("#loginUserId").text();
+                                                            loginUserId = ko.observable($loginUserId);
+                                                            $title = $("#title").text();
+                                                            $postedById = $("#postedById").text();
+                                                            $postedByName = $("#postedByName").text();
+                                                            $city = $("#city").text();
+                                                            console.log($city);
         //start of _AdListView
         function Tag1(data) {
             var self = this;
@@ -693,7 +925,7 @@
             self.postedById = data.postedById;
             self.id = data.id;
             self.time = getTimeAgo(data.time);
-            self.loginUserId = data.islogin || "";
+            $loginUserId = data.islogin || "";
             self.showMobileAd = ko.observableArray();
             self.isReported = ko.observable(data.isReported);
             self.reportedCount = ko.observable(data.reportedCount);
@@ -701,7 +933,7 @@
             self.views = data.views;
             self.price = data.price || "";
             self.link = "/Details/" + data.id + "/" + convertToSlug(data.title);
-            var loginUserId1 = getLoginUserId(self.loginUserId); //to access self.loginUserId outside this function
+          //  var loginUserId1 = getLoginUserId($loginUserId); //to access $loginUserId outside this function
 
             self.brand = data.brand;
             self.model = data.model;
@@ -715,10 +947,10 @@
 
             //biding
             self.highestBid = ko.observable();
-            self.showBidings = ko.observableArray();
+            //self.showBidings = ko.observableArray();
             self.isBidingAllowed = false;
-            self.placeBid = ko.observable(false);
-            self.bidAmount = ko.observable();
+            //self.placeBid = ko.observable(false);
+            //self.bidAmount = ko.observable();
 
             self.showTags = ko.observableArray();
             self.adLocation = ko.observable();
@@ -752,14 +984,151 @@
             if (data.adImages) {
                 var imagesCount = 1;
                 var img = $.map(data.adImages, function (item, ia) { return adImages(item, data.id, imagesCount++); });
+               img[0] = img[0].replace("undefined", data.adImages.imageExtension);
                 self.showImages(img);
                 self.images(img);
             }
         }
         //end of _AdListView
-        var myAdId = $("#adId").val();
-        function Biding(data)
-        {
+        
+        var imageUrls = [];
+        function adImages1(data,adId,imagesCount) {
+            var self = this;
+            data = data || {};
+            self.link = $.cookie("AWSURL") + $.cookie("AWSFolderName") + adId + '_' + imagesCount + data.imageExtension;// also loop after _
+            imageUrls.push(self.link);
+        }
+       
+        self.sendMessage12 = function () {
+                                                       
+            if ($loginUserId) {
+                sendMessageTo($postedById);
+                sendMessgeToName($postedByName);
+                $(".open-small-chat").trigger('click');
+            } else {
+                loginBtn();
+            }
+        }
+        
+       // loadComments();
+        
+
+        self.editAd = function () {
+            id = $("#ad_id").text();
+            // if (data.category == "MobileAccessories") {
+            //    window.location.href = "/MobilesTablets/EditMobileAccessoriesAd/" + id;
+            //}
+
+            if ($category == "Mobiles") {
+                window.location.href = "/MobilesTablets/Edit/" + id;
+            }
+            else if ($category == "Electronics") {
+                if ($subcategory == "Laptops-Computers") {
+                    window.location.href = "/Electronics/EditLaptopAd/" + id;
+                } else if ($subcategory == "Cameras") {
+                    window.location.href = "/Electronics/EditCameraAd/" + id;
+                } else {
+                    window.location.href = "/Home/Edit/" + id;
+                }
+            }
+            else if ($category == "LaptopAccessories") {
+                window.location.href = "/Electronics/EditLaptopAccessoriesAd/" + id;
+            }
+            else if ($category == "Jobs") {
+                window.location.href = "/Jobs/Edit/" + id;
+            }
+            else if ($subcategory == "Cars") {
+                window.location.href = "/Vehicles/EditCarAd/" + id;
+            }
+            else if ($subcategory == "Bikes") {
+                window.location.href = "/Vehicles/EditBikeAd/" + id;
+            }
+            else if ($category == "RealEstate" || $category == "Property") {
+                window.location.href = "/RealEstate/Edit/" + id;
+            }
+            else if ($subcategory == "Cameras") {
+                window.location.href = "/Electronics/EditCameraAd/" + id;
+            }
+            else if ($subcategory == "CamerasAccessories") {
+                window.location.href = "/Electronics/EditCameraAccessoriesAd/" + id;
+            }
+            else {
+                window.location.href = "/Home/Edit/" + id;
+            }
+        }
+        self.Refresh = function () {
+            $.ajax({
+                url: '/api/Electronic/Refresh/' + $id,
+                dataType: "json",
+                contentType: "application/json",
+                cache: false,
+                type: 'POST',
+                success: function (data) {
+                    window.location.href = "/Details/" + $id + "/" + convertToSlug($title);
+                },
+                error: function () {
+                    swal("Error", "please refresh page and try again", "error");
+                }
+            });
+        }
+        self.deleteAd = function () {
+            id = $("#ad_id").text();
+            $loginUserId = $("#loginUserId").text();
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this item!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    url: '/api/Electronic/DeleteAd/' + id,
+                    dataType: "json",
+                    contentType: "application/json",
+                    cache: false,
+                    type: 'POST',
+                    success: function (data) {
+                        swal("Deleted!", "Your item has been deleted.", "success");
+                        window.location.href = "/User/Index/" + $loginUserId;
+                    },
+                    error: function () {
+                        swal("Error", "please refresh page and try again", "error");
+                    }
+                });
+            });
+        }
+        function SimilarData() {
+
+            $.ajax({
+                url: '/api/Search/SimilarData?id=' + $id + '&tags=' + null + '&category=' + $category + '&subcategory=' + $subcategory + '&subsubcategory=' + $subsubcategory + '&city=' + $city,
+                dataType: "json",
+                contentType: "application/json",
+                cache: false,
+                type: 'GET',
+                // data: ko.toJSON(data),
+                success: function (data) {
+                    $("#similarAds").css({ "display": "block" });
+                    var mappedads = $.map(data, function (item) { return new Ad(item); });
+                    showSimilarAds(mappedads);
+                    var length = $(window).width();
+                    if (length < 786) { //770
+                        $(".product-price").css({ "color": "green", "background": "none" });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    toastr.info(err.Message);
+                }
+            });
+        }
+        var showSimilarAds = ko.observableArray();
+        
+        var maxPrice = null
+        
+                                                            //start of new data
+        function Biding(data) {
             var self = this;
             data = data || {};
             self.postedById = data.postedById;
@@ -768,15 +1137,15 @@
             self.exectTime = data.time;
             self.time = getTimeAgo(data.time);
             self.id = data.id;
-            self.price = ko.observable( data.price);
+            self.price = ko.observable(data.price);
             self.isEditing = ko.observable(false);
             self.editBidButton = function () {
                 self.isEditing(true);
             }
-            self.updateBid = function (adId) {
+            self.updateBid = function () {
                 self.time = self.exectTime;
                 self.postedBy = self.postedById;
-                self.adId = adId;
+                self.adId = $id;
                 var updateBidLoader = $('#updateBid').ladda();
                 updateBidLoader.ladda('start');
                 $.ajax({
@@ -797,154 +1166,99 @@
                 });
             }
         }
-        function RealEstate(data) {
-            var self = this;
-            data = data || {};
-            self.floor = data.floor;
-            self.bedroom = data.bedroom;
-            self.bathroom = data.bathroom;
-            self.area = data.area;
-        }
-        function Camera(data) {
-            var self = this;
-            data = data || {};
-            self.category = data.category;
-            self.brand = data.brand;
-        }
-        function CarAd(data) {
-            var self = this;
-            data = data || {};
-            self.fuelType = data.fuelType;
-            self.year = data.year;
-            self.condition = "";
-            if (data.condition == "n") {
-                self.condition = "New";
-            } else if (data.condition == "u") {
-                self.condition = "Used";
-            } else if (data.condition == "b") {
-                self.condition = "unBoxed";
+        var isSaved = ko.observable(false);
+        var saveItem = function () {
+            if ($loginUserId) {
+                $.ajax({
+                    url: '/api/User/SaveItem/' + $id,
+                    dataType: "json",
+                    contentType: "application/json",
+                    cache: false,
+                    type: 'POST',
+                    success: function (data) {
+                        //  $("#savedCount").text(data.count);
+                        if (data.text == "Deleted") {
+                            self.isSaved(false);
+
+                        } else {
+                            self.isSaved(true);
+                        }
+                    },
+                    error: function () {
+                        toastr.error("failed to Save. Please refresh page and try again", "Error!");
+                    }
+                });
             }
-            self.color = data.color;
-            self.brand = data.brand;
-            self.model = data.model;
-            self.kmDriven = data.kmDriven;
-            self.noOfOwners = data.noOfOwners;
-            self.registeredCity = data.registeredCity;
-            self.transmission = '';
-            if (data.transmission == "M") {
-                self.transmission = "Manual";
-            } else if (data.transmission == "A") {
-                self.transmission = "Automatic";
-            } else if (data.transmission == "S") {
-                self.transmission = "Semi-Automatic";
-            }
-            self.assembly = "";
-            if (data.assembly == "L") {
-                self.assembly = "Local";
-            } else if (data.assembly == "I") {
-                self.assembly = "Imported";
-            }
-            self.engineCapacity = data.engineCapacity;
-        }
-        function BikeAd(data) {
-            var self = this;
-            data = data || {};
-            self.year = data.year;
-            //self.condition = "";
-            //if (data.condition == "n") {
-            //    self.condition = "New";
-            //} else if (data.condition == "u") {
-            //    self.condition = "Used";
-            //} else if (data.condition == "b") {
-            //    self.condition = "unBoxed";
-            //}
-            self.brand = data.brand;
-            self.model = data.model;
-            self.kmDriven = data.kmDriven;
-            self.noOfOwners = data.noOfOwners;
-            self.registeredCity = data.registeredCity;
-            
-        }
-        function JobAd(data) {
-            var self = this;
-            data = data || {};
-            self.seats = data.seats;
-            self.category = data.category;
-            self.qualification = data.qualification;
-            self.exprience = "";
-            if (data.exprience == "n") {
-                self.exprience = "Not required";
-            } else if (data.exprience == "f") {
-                self.exprience = "Fresh Graduate";
-            } else if (data.exprience != null && data.exprience.trim() != "") {
-                self.exprience = data.exprience + " year";
-            }
-            self.careerLevel = data.careerLevel;
-            self.lastDateToApply = "";
-            if (data.lastDateToApply != null) {
-                    self.lastDateToApply = data.lastDateToApply.split("T")[0];
-            }
-            self.salaryType = "";
-            if (data.salaryType == "d") {
-                self.salaryType = "per day";
-            }
-            else if (data.salaryType == "m") {
-                self.salaryType = "per month";
-            }
-            else if (data.salaryType == "y") {
-                self.salaryType = "per year";
-            }
-            else if (data.salaryType == "h") {
-                self.salaryType = "per hour";
-            }
-            self.showSkills = ko.observableArray();
-            if (data.skills.length > 0) {
-                var tags = $.map(data.skills, function (item) { return new Tag(item); });
-                self.showSkills(tags);
-                console.log(self.showSkills());
+            else {
+                loginBtn();
             }
         }
 
-        function mobilead(data) {
-            var self = this;
-            data = data || {};
-            self.color = data.color;
-            
-            self.sims = data.sims;
-            self.brand = data.brand;
-            self.model = data.model;
+        function GetBidsAndComments(self) {
+            $.ajax({
+                url: '/api/Electronic/GetBidsAndComments?id=' + $id,
+                dataType: "json",
+                contentType: "application/json",
+                cache: false,
+                type: 'GET',
+                // data: ko.toJSON(data),
+                success: function (data) {
+                    $("#showBids").css({ "display": "block" });
+                    $("#showComments").css({ "display": "block" });
+
+                    var mappedads = $.map(data.bid, function (item) { return new Biding(item); });
+                    self.showBidings(mappedads);
+                    var mappedads = $.map(data.comment, function (item) { return new comment(item); });
+                    self.showComment(mappedads);
+                    //var length = $(window).width();
+                    //if (length < 786) { //770
+                    //    $(".product-price").css({ "color": "green", "background": "none" });
+                    //}
+                    SimilarData();
+                },
+                error: function (xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    toastr.info(err.Message);
+                }
+            });
         }
-        function Location(data) {
-            var self = this;
-            data = data || {};
-            self.cityId = data.cityId;
-            self.cityName = data.cityName;
-            self.popularPlaceId = data.popularPlaceId;
-            self.popularPlace = data.popularPlace;
-            self.exectLocation = data.exectLocation;
-        }
-        var imageUrls = [];
-        function adImages1(data,adId,imagesCount) {
-            var self = this;
-            data = data || {};
-            self.link = $.cookie("AWSURL") + $.cookie("AWSFolderName") + adId + '_' + imagesCount + data.imageExtension;// also loop after _
-            imageUrls.push(self.link);
-        }
-        function Tag(data) {
-            var self = this;
-            data = data || {};
-            self.id = data.id;
-            self.name = data.name;
-            self.info = data.info || "";
-            self.followers = data.followers || 0;
-            self.tagLink = "/Tag/" + self.id + '/' + convertToSlug( data.name);
-        };
-        function convertToSlug(Text) {
-            return Text
-                .toLowerCase()
-                .replace(/[^\w ]+/g, '')
-                .replace(/ +/g, '-')
-            ;
+        function Report(self) {
+            self.selectedVal = ko.observable("spam");
+            self.reportText = "";
+            self.report = function () {
+                if ($loginUserId) {
+                    var data = {
+                        adId: $id,
+                        details: self.reportText,
+                        type: self.selectedVal(),
+                    };
+                    $.ajax({
+                        url: '/api/Electronic/reportAd',
+                        dataType: "json",
+                        contentType: "application/json",
+                        cache: false,
+                        type: 'POST',
+                        data: ko.toJSON(data),
+                        success: function (data) {
+                            $("#report").modal('hide');
+                            toastr.info("Our team can contact you for details", "Thanks for feedback!");
+                        },
+                        error: function (xhr, status, error) {
+                            var err = eval("(" + xhr.responseText + ")");
+                            toastr.info(err.Message, null, {
+                                onclick: function () {
+                                    var win = window.open("/feedback-contact", '_blank');
+                                    win.focus();
+                                }
+                            });
+                            $("#report").modal('hide');
+                        }
+                    })
+                } else {
+                    toastr.info("You must be login to report this item", "Oops!");
+                    loginBtn();
+                }
+            }
         }
         function dateDiffInDays(a) {
             var _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -964,152 +1278,93 @@
 
             return Math.floor((utc2 - utc1) / _MS_PER_DAY);
         }
-        function MainData(data, commentsHub) {
+                                                            //end of new data
+
+        function viewModel() {
+
             var self = this;
-            self.commentsHub = commentsHub;
-            //slick
-            self.images = ko.observableArray(imageUrls);
-            self.options = {};
-            self.imageIndex = ko.observable(1);
-            self.sendMessage = function (id, name) {
-                if (self.loginUserId) {
-                    sendMessageTo(id);
-                    sendMessgeToName(name);
-                    console.log("Message will be sent to : " + name);
-                    $(".open-small-chat").trigger('click');
-                } else {
-                    loginBtn();
-                }
-            }
-            data = data || {};
-            //     self.isAdmin = data.isAdmin;
-            self.name = data.name;
-            self.phoneNumberLocal = data.phoneNumberLocal;
-            self.title = data.title;
-            self.phoneNumber = data.phoneNumber || "";
-            self.userName = data.userName ;
-            self.showRealEstateAd = ko.observable();
-            self.showCamera = ko.observable();
-            if (data.category == "RealEstate") {
-                self.showRealEstateAd(new RealEstate(data.realestatead));
-            }
-            if (data.subCategory == "Cameras" || data.subCategory == "CamerasAccessories") {
-                self.showCamera(new Camera(data.cameraad));
-            }
-            self.companyName = data.companyName;
-            self.companyId = data.companyId;
-            self.companyLink = "";
-            if (data.companyName) {
-                self.companyLink = '/CompanyPage/' + data.companyId + '/' + convertToSlug(data.companyName);
-            }
-            self.description = ko.observable( data.description.replace(/\n/g, '<br>'));
-            self.postedByName = data.postedByName;
-            self.postedById = data.postedById;
-            self.id = data.id;
-            self.isRefreshable = dateDiffInDays(data.time);
+            self.showBidings = ko.observableArray();
+            self.showComment = ko.observableArray();
+            GetBidsAndComments(self)
+            SearchingLocation();
+            ChatViewModel();
+            AccountViewModel();
+            Report(self);
+            //start of report Ad
+            //end of Report Ad
+            self.isRefreshable = dateDiffInDays($("#time").text());
             if (self.isRefreshable > 15) {
                 self.isRefreshable = true;
             } else {
                 self.isRefreshable = false;
             }
-            self.time = getTimeAgo(data.time);
-            self.loginUserId = data.islogin || "";
-            self.loginUserProfileLink = $.cookie("AWSURL") + $.cookie("AWSUserFolder") + 'p' + self.loginUserId + data.loginUserProfileExtension;
-            if (!data.loginUserProfileExtension) {
-                self.loginUserProfileLink = '/Images/Users/default.jpg';
-            }
-            self.showMobileAd = ko.observable();
-            self.showLocation = ko.observable();
-            self.showComment = ko.observableArray();
-            self.isReported = ko.observable(data.isReported);
-            self.isSaved = ko.observable(data.isSaved);
-            self.reportedCount = ko.observable(data.reportedCount);
-            self.showImages = ko.observable();
-            self.views = data.views;
-            self.savedCount = ko.observable( data.savedCount );
-            self.price = data.price || "";
+            //start of bidding
             self.newBidPrice = ko.observable();
-            
-            self.showCarAd = ko.observable();
-            self.showBikeAd = ko.observable();
-            self.statusError = "";
-            self.isVisible = true;
-            if (data.status == "p") {
-                self.statusError = "This Item will be visible to public once it is approved by admin";
-                if (self.loginUserId != self.postedById) {
-                    self.isVisible = false;
-                }
-            }
-            self.type = "";
-            if (data.type == true) {
-                self.type = "For Sale";
-            } else {
-                self.type = "Want to buy";
-            }
-            self.condition = "";
-            if (data.condition == "n") {
-                self.condition = "New";
-            } else if (data.condition == "u") {
-                self.condition = "Used";
-            } else if (data.condition == "b") {
-                self.condition = "unBoxed";
-            }
-
-            //-----------------------------------------------------------------------
-            //for job
-            self.category = data.category;
-            self.subcategory = data.subCategory;
-            self.showJob = ko.observable();
-            if (data.category == "Jobs") {    
-                self.showJob(new JobAd(data.jobAd));
-            }
-            if (data.subCategory == "Bikes") {
-                self.showBikeAd(new BikeAd(data.bikead));
-            }
-            self.gender = "";
-            if (data.isNegotiable == "m") {
-                self.gender = "Male";
-            } else if (data.isNegotiable == "f") {
-                self.gender = "Female";
-            } else if (data.isNegotiable == "d") {
-                self.gender = "Does not matter";
-            }
-            self.shift = "";
-            if (data.condition == "m") {
-                self.shift = "Morning";
-            } else if (data.condition == "e") {
-                self.shift = "Evening";
-            } else if (data.condition == "n") {
-                self.shift = "notConfirmed";
-            }
-            //-----------------------------------------------------------------------------
-            //biding
-            self.highestBid = ko.observable();
-            self.showBidings = ko.observableArray();
-            self.isBidingAllowed = false;
             self.placeBid = ko.observable(false);
-            self.bidAmount = ko.observable();
-
-            self.showTags = ko.observableArray();
-            self.sellerProfile = "/User/Index/" + self.postedById;
+            self.placeBidFocused = ko.observable(false);
             self.placeBidButton = function () {
-                if (self.loginUserId) {
+                if (self.placeBid()) {
+                    self.placeBid(false);
+                    return;
+                }
+                if ($loginUserId) {
                     var isalreadybid = false;
                     $.each((self.showBidings()), function (i, item) {
-                        if (item.postedById == self.loginUserId) {
+                        if (item.postedById == $loginUserId) {
                             isalreadybid = true;
                         }
                     });
-                    if (!isalreadybid) {
-                        self.placeBid(true);
-                    } else {
+                    if (isalreadybid) {
                         toastr.info("You cannot post multiple bids on one item. Just edit your previous bid", "Wait!");
+                        return;
                     }
+                    self.placeBid(true);
+                    self.placeBidFocused(true);
                 } else {
                     loginBtn();
                 }
             }
-            
+            self.postBid = function () {
+                if ($loginUserId) {
+                    var bid = new Biding();
+                    bid.adId = $id;
+                    bid.postedById = $loginUserId;
+                    bid.price = self.newBidPrice();
+                    bid.time = new Date($.now());
+
+                    if (bid.price >= 0 && bid.price != "") {
+                        var savingBidLoader = $('.ladda-button').ladda();
+                        savingBidLoader.ladda('start');
+                        $.ajax({
+                            url: '/api/Electronic/PostBid',
+                            dataType: "json",
+                            contentType: "application/json",
+                            cache: false,
+                            type: 'POST',
+                            data: ko.toJSON(bid),
+                            success: function (data) {
+                                savingBidLoader.ladda('stop');
+                                self.showBidings.push(new Biding(data));
+                                //    self.highestBid(Math.max.apply(Math, self.showBidings().map(function (o) { return o.price(); })));
+                                self.newBidPrice('');
+                                //$(".sortable-list").sortable({
+                                //    connectWith: ".connectList"
+                                //}).disableSelection();
+                                self.placeBid(false);
+                            },
+                            error: function () {
+                                savingBidLoader.ladda('stop');
+                                toastr.error("failed to Post Bid. Please refresh page and try again", "Error!");
+                            }
+                        });
+                    } else {
+                        toastr.info("Bid must be greater than 0", "Are you drunk!");
+                    }
+                }
+                else {
+                    loginBtn();
+                }
+            }
             self.deleteBid = function (bid) {
                 swal({
                     title: "Are you sure?",
@@ -1136,244 +1391,18 @@
                     });
                 });
             }
-            self.postBid = function () {
-                if (self.loginUserId) {
+            //end of bidding
 
-                    var isalreadybid = false;
-                    $.each((self.showBidings()), function (i, item) {
-                        if (item.postedById == self.loginUserId) {
-                            isalreadybid = true;
-                        }
-                    });
-                    if (isalreadybid) {
-                        toastr.info("You cannot post multiple bids on one item. Just edit your previous bid", "Wait!");
-                        return;
-                    }
 
-                    var bid = new Biding();
-                    bid.adId = self.id;
-                    bid.price = self.newBidPrice();
-                    bid.time = new Date($.now());
-                    
-                    if (bid.price >= 0) {
-                        var savingBidLoader = $('.ladda-button').ladda();
-                        savingBidLoader.ladda('start');
-                        $.ajax({
-                            url: '/api/Electronic/PostBid',
-                            dataType: "json",
-                            contentType: "application/json",
-                            cache: false,
-                            type: 'POST',
-                            data: ko.toJSON(bid),
-                            success: function (data) {
-                                savingBidLoader.ladda('stop');
-                                    self.showBidings.push(new Biding(data));
-                                    self.highestBid(Math.max.apply(Math, self.showBidings().map(function (o) { return o.price(); })));
-                                self.newBidPrice('');
-                                $(".sortable-list").sortable({
-                                    connectWith: ".connectList"
-                                }).disableSelection();
-                                self.placeBid(false);
-                            },
-                            error: function () {
-                                savingBidLoader.ladda('stop');
-                                toastr.error("failed to Post Bid. Please refresh page and try again", "Error!");
-                            }
-                        });
-                    } else {
-                        toastr.info("Bid must be greater than 0", "Are you drunk!");
-                    }
-                }
-                else {
-                    loginBtn();
-                }
-            }
-            self.isNegotiable = "";
-            if (data.isNegotiable == "b") {
-                self.isBidingAllowed = true;
-            } else if (data.isNegotiable == "y") {
-                self.isNegotiable = 'Negotiable';
-            } else if (data.isNegotiable == "n") {
-                self.isNegotiable = '<strike>Negotiable</strike>';
-            }
-            if(self.price == "") {
-                self.isNegotiable = "";
-            }
-            if (data.location != null) {
-                self.showLocation(new Location(data.location));
-            }
-            if (data.bid != null) {
-                var biding = $.map(data.bid, function (item) { return new Biding(item); });
-                self.highestBid ( Math.max.apply(Math, biding.map(function (o) { return o.price(); })));
-                self.showBidings(biding);
-            }
-            if (data.adTags != null) {
-                var tags = $.map(data.adTags, function (item) { return new Tag(item); });
-                self.showTags(tags);
-            }
-            if (data.subCategory == "Cars") {
-                self.showCarAd(new CarAd(data.carad));
-            }
-            if (data.mobilead.brand != null) {
-                self.showMobileAd ( new mobilead(data.mobilead));
-            }
-            if (data.laptopad.brand != null) {
-                self.showMobileAd ( new mobilead(data.laptopad));
-            }
-            //if (data.carad != "") {
-            //    var mobad = $.map(data.carad, function (item) { return new CarAd(item); });
-            //    self.showCarAd(mobad);
-            //}
-            if (data.comment) {
-                var cmt = $.map(data.comment, function (item) { return new comment(item); });
-                self.showComment(cmt);
-            }
-            if (data.adImages) {
-                var imagesCount = 1;
-                var img = $.map(data.adImages, function (item,ia) { return new adImages1(item,data.id,imagesCount++); });
-                self.showImages(img);
-            }
-            self.saveItem = function (item) {
-                if (self.loginUserId) {
-                    $.ajax({
-                        url: '/api/User/SaveItem/' + item.id,
-                        dataType: "json",
-                        contentType: "application/json",
-                        cache: false,
-                        type: 'POST',
-                        success: function (data) {
-                            self.savedCount(data.count);
-                            if (data.text == "Deleted") {
-                                self.isSaved(false);
-
-                            } else {
-                                self.isSaved(true);
-                            }
-                        },
-                        error: function () {
-                            toastr.error("failed to Save. Please refresh page and try again", "Error!");
-                        }
-                    });
-                }
-                else {
-                    loginBtn();
-                }
-            }
-            self.editAd = function (id) {
-                 if (data.category == "MobileAccessories") {
-                    window.location.href = "/MobilesTablets/EditMobileAccessoriesAd/" + id;
-                }
-                else if (data.category == "Mobiles") {
-                    window.location.href = "/MobilesTablets/Edit/" + id;
-                }
-                else if (data.category == "Laptops") {
-                    window.location.href = "/Electronics/EditLaptopAd/" + id;
-                }
-                else if (data.category == "LaptopAccessories") {
-                    window.location.href = "/Electronics/EditLaptopAccessoriesAd/" + id;
-                }
-                else if(data.category == "Jobs") {
-                    window.location.href = "/Jobs/Edit/" + id;
-                }
-                else if (data.subCategory == "Cars") {
-                    window.location.href = "/Vehicles/EditCarAd/" + id;
-                }
-                else if (data.subCategory == "Bikes") {
-                    window.location.href = "/Vehicles/EditBikeAd/" + id;
-                }
-                else if (data.category == "RealEstate") {
-                    window.location.href = "/RealEstate/Edit/" + id;
-                }
-                else if (data.subCategory == "Cameras") {
-                    window.location.href = "/Electronics/EditCameraAd/" + id;
-                }
-                else if (data.subCategory == "CamerasAccessories") {
-                    window.location.href = "/Electronics/EditCameraAccessoriesAd/" + id;
-                }
-                else {
-                    window.location.href = "/Home/Edit/" + id;
-                }
-            }
-            self.Refresh = function (id) {
-                $.ajax({
-                    url: '/api/Electronic/Refresh/' + id,
-                    dataType: "json",
-                    contentType: "application/json",
-                    cache: false,
-                    type: 'POST',
-                    success: function (data) {
-                        window.location.href = "/Details/" + self.id + "/" + convertToSlug(self.title);
-                    },
-                    error: function () {
-                        swal("Error", "please refresh page and try again", "error");
-                    }
-                });
-            }
-            self.deleteAd = function (id) {
-                swal({
-                    title: "Are you sure?",
-                    text: "You will not be able to recover this item!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it!",
-                    closeOnConfirm: false
-                }, function () {
-                    $.ajax({
-                        url: '/api/Electronic/DeleteAd/' + id,
-                        dataType: "json",
-                        contentType: "application/json",
-                        cache: false,
-                        type: 'POST',
-                        success: function (data) {
-                            swal("Deleted!", "Your item has been deleted.", "success");
-                            window.location.href = "/User/Index/"+self.loginUserId;
-                        },
-                        error: function () {
-                            swal("Error", "please refresh page and try again", "error");
-                        }
-                    });
-                });
-            }
-            self.deleteComment = function (id) {
-                $.ajax({
-                    url: '/api/Comment/DeleteComment/' + id,
-                    dataType: "json",
-                    contentType: "application/json",
-                    cache: false,
-                    type: 'POST',
-                    // data: ko.toJSON(id),
-                    success: function (data) {
-                        self.showComment.remove(function (item) {
-                            return item.id == id;
-                        });
-                    },
-                    error: function () {
-                        toastr.error("failed to delete comment", "Error!");
-                    }
-                });
-            }
-            
-            self.checkEnter = function (d, e) {
-                if (self.loginUserId) {
-                    if (e.keyCode == 13) {
-                        self.addcomment();
-                    }
-                } else {
-                    loginBtn();
-                }
-            }
-            //self.commentsHub.client.appendCommentToMe = function (com) {
-            //    self.showComment.push(new comment(com));
-            //    self.newComment('');
-            //}
+            //start of comments posting
+            var showComment = ko.observableArray();
             self.newComment = ko.observable();
             self.isCommentPosting = ko.observable(false);
             self.addcomment = function () {
-                if (self.loginUserId) {
+                if ($loginUserId) {
                     var com = new comment();
-                    com.adId = self.id;
-                    com.description (self.newComment());
+                    com.adId = $id;
+                    com.description(self.newComment());
                     //com.description(com.description().slice(0, -1));
                     if (com.description() != null && com.description().trim() != "") {
                         com.time = new Date($.now());
@@ -1402,130 +1431,39 @@
                     loginBtn();
                 }
             }
-            
-        }
-        function SimilarData(self, tags, category, subcategory, city, pp) {
-            //$.ajax({
-            //    url: '/api/Search/SearchAds?tags=' + tags() + '&title=' + title() + '&minPrice=' + minPrice() + '&maxPrice=' + maxPrice() + '&city=' + searchingCity() + '&pp=' + searchingPP() + '&category=' + category() + '&subcategory=' + subcategory(),
-            //    dataType: "json",
-            //    contentType: "application/json",
-            //    cache: false,
-            //    type: 'POST',
-            //    success: function (data) {
-            //        self.isLoading(false);
-            //        var mappedads = $.map(data, function (item) { return new Ad(item); });
-            //        self.showAds(mappedads);
-            //        $("#FirstLoading").css({ "display": "block" });
-            //    },
-            //    error: function () {
-            //        self.isLoading(false);
-            //        toastr.error("failed to search. Please refresh page and try again", "Error!");
-            //        $("#FirstLoading").css({ "display": "block" });
-            //    }
-            //});
-           // var self = this;
-            
-            $.ajax({
-                url: '/api/Search/SimilarData?tags=' + tags + '&city=' + city + '&pp=' + pp + '&category=' + category + '&subcategory=' + subcategory,
-                dataType: "json",
-                contentType: "application/json",
-                cache: false,
-                type: 'GET',
-               // data: ko.toJSON(data),
-                success: function (data) {
-                    var mappedads = $.map(data, function (item) { return new Ad(item); });
-                    self.showSimilarAds(mappedads);
-                },
-                error: function (xhr, status, error) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    toastr.info(err.Message);
-                }
-            })
-        }
-        function Report() {
-            var self = this;
-            self.selectedVal = ko.observable("spam");
-            self.reportText = "";
-            self.report = function () {
-                if ($("#loginUserId").val()) {
-                    var data = {
-                        adId: myAdId,
-                        details: self.reportText,
-                        type: self.selectedVal(),
-                    };
-                    $.ajax({
-                        url: '/api/Electronic/reportAd',
-                        dataType: "json",
-                        contentType: "application/json",
-                        cache: false,
-                        type: 'POST',
-                        data: ko.toJSON(data),
-                        success: function (data) {
-                            $("#report").modal('hide');
-                            toastr.info("Our team can contact you for details", "Thanks for feedback!");
-                           
-                        },
-                        error: function (xhr, status, error) {
-                            var err = eval("(" + xhr.responseText + ")");
-                            toastr.info(err.Message);
-                            $("#report").modal('hide');
-                        }
-                    })
+            self.deleteComment = function (id) {
+                $.ajax({
+                    url: '/api/Comment/DeleteComment/' + id,
+                    dataType: "json",
+                    contentType: "application/json",
+                    cache: false,
+                    type: 'POST',
+                    // data: ko.toJSON(id),
+                    success: function (data) {
+                        self.showComment.remove(function (item) {
+                            return item.id == id;
+                        });
+                    },
+                    error: function () {
+                        toastr.error("failed to delete comment", "Error!");
+                    }
+                });
+            }
+
+            self.checkEnter = function (d, e) {
+                if ($loginUserId) {
+                    if (e.keyCode == 13) {
+                        self.addcomment();
+                    }
                 } else {
-                    toastr.info("You must be login to report this item", "Oops!");
                     loginBtn();
                 }
             }
-        }
-        
-        function viewModel() {
-            
-            var self = this;
-            self.isLoading = ko.observable(false);
-            SearchingLocation();
-            AccountViewModel();
-            ChatViewModel();
-            Report();
-            //initillizing hub
-            self.commentsHub = $.connection.adComments;
-            self.showItem = ko.observable();
-            self.error = ko.observable();
-            self.showSimilarAds = ko.observableArray();
-            self.showAds = ko.observableArray();
-            self.loadItem = function () {
-                self.isLoading(true);
-                var adId = myAdId;
-                url_address = '/api/Electronic/GetItem/' + adId;
-                $.ajax({
-                    url: url_address,
-                    dataType: "json",
-                    type: 'GET'
-                })
-                .done(function (data) {
-                    self.isLoading(false);
-                    //var mappedads = $.map(data, function (item) { return new MainData(item,self.commentsHub); });
-                    $("#showItem").css("display", "block");
-                    self.showItem(new MainData(data));
-                   
-                    $(".sortable-list").sortable({
-                        connectWith: ".connectList"
-                    }).disableSelection();
 
-                    loadAdmin();
-                    SimilarData(self, null, data.category, data.subCategory, searchingCity(), searchingPP());
-
-                })
-                .fail(function () {
-                    self.isLoading(false);
-                    $("#showItem").css("display", "block");
-                    self.error ( "This item has been deleted or is unavailable. " );
-                });
-            }
-            
-            self.loadItem();
+            //end of comments posting
             return self;
         }
-
+        
         function getTimeAgo(varDate) {
             if (varDate) {
                 return $.timeago(varDate.toString().slice(-1) == 'Z' ? varDate : varDate + 'Z');
@@ -1554,7 +1492,7 @@
                 });
             }
         };
-        
+
         ko.bindingHandlers.truncatedText = {
             update: function (element, valueAccessor, allBindingsAccessor) {
                 var originalText = ko.utils.unwrapObservable(valueAccessor()),
@@ -1567,8 +1505,15 @@
                 });
             }
         };
+       
         $(function () {
-            
+            $(".FirstLoading").css({ "display": "block" });
+            var length = $(window).width();
+            if (length < 786) { //770
+                $(".collapse-link").click();
+                $(".product-desc").css({ "padding": "0px" });
+                $(".product-price").css({ "color": "green", "background": "none" });
+            }
             toastr.options = {
                 closeButton: true,
                 progressBar: true,
@@ -1580,5 +1525,5 @@
             $.connection.hub.start().done();
         });
 
-    </script>
-}
+                                                        </script>
+                                                    }

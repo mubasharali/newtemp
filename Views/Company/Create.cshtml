@@ -108,7 +108,7 @@
             ChatViewModel();
 
             self.selectedCategory = ko.observable();
-            self.availableCategories = ["Mobiles", "Electronics", "Jobs", "Vehicles", "Real estate","Services","Pets & Animals","Books-Sports-Hobbies","Home & Life style"];
+            self.availableCategories = ["Mobiles", "Electronics", "Jobs", "Vehicles", "Real estate","Services","Pets & Animals","Education-Learning","Home & Life style"];
 
             self.submitClicked = function () {
                 window.btn_clicked = true; //changed
@@ -344,8 +344,9 @@
                 labelField: 'name',
                 searchField: 'name',
                 options: [],
-                maxItems: 6,
+                maxItems: 5,
                 create: true,
+                createFilter: function (input) { return input.length <= 18; },
                 render: {
                     option: function (item, escape) {
                         return '<div>' +

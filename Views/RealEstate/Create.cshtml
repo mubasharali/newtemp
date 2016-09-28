@@ -24,7 +24,7 @@
                     {
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="files" id="fileNames" />
-                        <input type="hidden" name="category" value="RealEstate" />
+                        <input type="hidden" name="category" value="Property" />
                         @*<input type="hidden" name="subcategory" value="@ViewBag.subcategory" />*@
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true)
@@ -139,7 +139,7 @@
             self.availablebathrooms = ["1", "2", "3", "4", "5"];
             self.selectedbathroom = ko.observable();
             self.selectedCategory = ko.observable();
-            self.availableCategories = ["apartment", "house", "plot & land", "Shop", "Office", "PG & Flatmates", "other commerical places"]; //reference over HomeController/create page
+            self.availableCategories = ["apartment", "house", "plot & land", "Shop", "Office", "PG & Flatmates", "other commercial places"]; //reference over HomeController/create page
 
 
             self.conditionChecked = ko.observable(false);
@@ -271,6 +271,7 @@
                 options: [],
                 maxItems: 4,
                 create: true,
+                createFilter: function (input) { return input.length <= 18; },
                 render: {
                     option: function (item, escape) {
                         return '<div>' +

@@ -8,12 +8,17 @@
         <p>&nbsp</p>
         <div class="control-group form-horizontal">
             <label class="control-label col-sm-5" for="select-repo">What are you looking for </label>
-            <div id="FirstLoading" style="display:none" data-bind="visible:!isPageLoading()">
-                <div class="col-sm-5 col-md-4">
-                    <input id="select-tag" name="tags" data-bind="value:selectedTag" class="repositories" placeholder="e.g, Samsung S3, ups, House for sale.." />
+            @*<div id="FirstLoading" style="display:none" data-bind="visible:!isPageLoading()">*@
+               
+            @*@Html.RouteLink("submit", "search",new { s = "ab"})*@
+             <div class="col-sm-5 col-md-4">
+                    <form action="/q" >
+                        <input placeholder="search dealkar.pk" type="text" name="s" class="form-control" />
+                    </form>
+                    @*<input id="select-tag" name="tags" data-bind="value:selectedTag" class="repositories" placeholder="e.g, Samsung S3, ups, House for sale.." />*@
                 </div>
-            </div>
-            <div data-bind="visible:isPageLoading()">
+            @*</div>*@
+            @*<div data-bind="visible:isPageLoading()">
                 <div class="sk-spinner sk-spinner-wave">
                     <div class="sk-rect1"></div>
                     <div class="sk-rect2"></div>
@@ -21,7 +26,7 @@
                     <div class="sk-rect4"></div>
                     <div class="sk-rect5"></div>
                 </div>
-            </div>
+            </div>*@
         </div>
         <p>&nbsp</p>
        
@@ -32,18 +37,17 @@
         
         <br />
         
-        <div class="col-xs-12"><br /><br />
-<br />
+        <div class="col-sm-12"><br /> <span class="hidden-xs">
+    <br />
+    <br />
+</span>
             <div class="row">
+              
+                
 
-                <div class="col-lg-3 col-sm-4 col-xs-12 ">
-                    @*<a href="/MobilesTablets" class="  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-mobile fa-4x"></i>
-                                <h3 class="m-xs">Mobiles</h3>
-                                <p>&nbsp;</p>
-                            </div>
-                    </a>*@
+
+
+                <div class="col-lg-3 col-sm-4 col-xs-6 ">
                     <a style="width:70%" href="/MobilesTablets" class="btn widget  btn-outline btn-primary">
                         <div class="m-b-md">
                             <i class="fa fa-mobile fa-4x"></i>
@@ -52,7 +56,7 @@
 
                     </a>
                 </div>
-                <div class="col-lg-3 col-sm-4 col-xs-12">
+                <div class="col-lg-3 col-sm-4 col-xs-6">
                     <a style="width:70%"  href="/Laptops-Computers" class="btn widget  btn-outline btn-primary">
                         <div class="m-b-md">
                             <i class="fa fa-laptop fa-4x"></i>
@@ -60,11 +64,11 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-sm-4 col-xs-12">
-                    <a style="width:70%" href="/RealEstate"  class="btn widget  btn-outline btn-primary">
+                <div class="col-lg-3 col-sm-4 col-xs-6">
+                    <a style="width:70%" href="/Property"  class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-home fa-4x"></i>
-                                <h3 class="m-xs">Real Estate</h3>
+                                <h3 class="m-xs">Property</h3>
                             </div>
                     </a>
                      @*<a href="/RealEstate">
@@ -77,7 +81,7 @@
                         </div>
                     </a>*@
                 </div>
-                <div class="col-lg-3 col-sm-4 col-xs-12">
+                <div class="col-lg-3 col-sm-4 col-xs-6">
                     <a style="width:70%" href="/Jobs"  class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-suitcase fa-4x"></i>
@@ -85,7 +89,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-sm-4 col-xs-12">
+                <div class="col-lg-3 col-sm-4 col-xs-6">
                     <a style="width:70%" href="/Services"  class="btn widget  btn-outline btn-primary">
                             <div class="m-b-md">
                                 <i class="fa fa-cogs fa-4x"></i>
@@ -93,7 +97,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-sm-4 col-xs-12">
+                <div class="col-lg-3 col-sm-4 col-xs-6">
                     <a style="width:70%" href="/Cars" class="btn widget  btn-outline btn-primary">
                         <div class="m-b-md">
                             <i class="fa fa-car fa-4x"></i>
@@ -101,7 +105,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-sm-4 col-xs-12">
+                <div class="col-lg-3 col-sm-4 col-xs-6">
                     <a  style="width:70%"  href="/Bikes" class="btn widget  btn-outline btn-primary">
                         <div class="m-b-md">
                             <i class="fa fa-motorcycle fa-4x"></i>
@@ -112,120 +116,57 @@
                 
             @*</div>
             <div class="row">*@
-                <div class="col-lg-3 col-sm-4 col-xs-12 hidden-lg">
+                <div class="col-lg-3 col-sm-4 col-xs-6 hidden-lg">
             <a  style="width:70%"  href="/Pets-Animals"  class="btn widget  btn-outline btn-primary">
                     <div class="m-b-md">
                         <i class="fa fa-paw fa-4x"></i>
-                        <h3 class="m-xs">Pets & Animals</h3>
+                        <h3 class="m-xs">Animals</h3>
                 </div>
             </a>
         </div>
-        <div class="col-lg-3 col-sm-4 col-xs-12">
-            <a  style="width:70%"  href="/books-sports-hobbies"  class="btn widget  btn-outline btn-primary">
+        <div class="col-lg-3 col-sm-4 col-xs-6 hidden-xs">
+            <a  style="width:70%"  href="/Education-Learning"  class="btn widget  btn-outline btn-primary">
                     <div class="m-b-md">
                         <i class="fa fa-mortar-board fa-4x"></i>
                         <h3 class="m-xs">Study@*Books, Sports & Hobbies*@</h3>
                 </div>
             </a>
         </div>
-                @*<div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Cameras" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-camera fa-4x"></i>
-                                <h3 class="m-xs">Camera</h3>
-                                <p class="visible-lg">&nbsp;</p>
+
+                @*<div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+
+                        <div class="modal-content animated fadeIn">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                
+                                <h6 class="modal-title">Welcome to <span class=""> dealkar.pk</span>!</h6>
+
+                                <h4 class="modal-title"> Buy and sell Qurbani Animals</h4>
+                                <small>Buy and sell Bakra, Cow, Goat, Camel and other qurbani animals on dealkar.pk</small>
+                            </div>
+                            <div href="/bakra-for-qurbani" class="modal-body">
+                                
+                                <h3 class="text-center"> How it works!</h3>
+                                <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Just 3 steps:</h4>
+                                <ol>
+                                    <li>Post an ad</li>
+                                    <li>Interested Buyers will bid</li>
+                                    <li>Sell to one with maximum bid</li>
+                                </ol>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                <a  href="/Pets-Animals"  class="btn btn-primary">Go to Qurbani Animals</a>
+                            </div>
                         </div>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Games" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-gamepad fa-4x"></i>
-                                <h3 class="m-xs">Games</h3>
-                                <p  class="visible-lg">&nbsp;</p>
-                            </div>
-                    </a>
-                </div>
-                
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/TV-DVD-Multimedia" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-play fa-4x"></i>
-                                <h3 class="m-xs">TV-DVD-Multimedia</h3>
-                            </div>
-                    </a>
-                </div>
-                
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Home-Appliances" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-television fa-4x"></i>
-                                <h3 class="m-xs">Home Appliances</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Other-Electronics" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-bolt fa-4x"></i>
-                                <h3 class="m-xs">Other Electronics</h3>
-                            </div>
-                    </a>
+                    </div>
                 </div>*@
+              
             </div>
             <div class="row">
-                @*<div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Cars" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-car fa-4x"></i>
-                                <h3 class="m-xs">Cars</h3>
-                                <p class="visible-lg">&nbsp;</p>
-                            </div>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Bikes" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-motorcycle fa-4x"></i>
-                                <h3 class="m-xs">Bikes</h3>
-                                <p class="visible-lg">&nbsp;</p>
-                            </div>
-                    </a>
-                </div>*@
-                
-                @*<div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Commerical-Vehicles" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-truck fa-4x"></i>
-                                <h3 class="m-xs">Commerical Vehicles</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="vehicles-spare-parts" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-sitemap fa-4x"></i>
-                                <h3 class="m-xs">Vehicles Spare parts</h3>
-                            </div>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Other-Vehicles" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-ship fa-4x"></i>
-                                <h3 class="m-xs">Other Vehicles</h3>
-                                <p class="visible-lg">&nbsp;</p>
-                            </div>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-4 col-xs-6">
-                    <a href="/Vehicles-for-rent" class="btn widget  btn-outline btn-primary">
-                            <div class="m-b-md">
-                                <i class="fa fa-money fa-4x"></i>
-                                <h3 class="m-xs">Vehicles for rent</h3>
-                            </div>
-                    </a>
-                </div>*@
+               
             </div>
         </div>
         <div class="row"></div>
@@ -233,138 +174,22 @@
     </div>
     
 </div>
-
-@*<div class="wrapper wrapper-content animated fadeInUp">
-   
-</div>*@
-
-@*<section id="categories" class="container features">
-    <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-
-
-            <h4 class="text-center m">
-               Mobiles
-            </h4>
-
-
-            <div >
-                <span id="gallery" data-gallery=""
-                      data-bind="slick: showAds,
-    slickOptions: { slidesToShow: 3,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 2000,},
-    slickIndex: imageIndex">
-                </span>
-                <div class="">
-                    <div class="ibox-content product-box">
-
-                        <h2>Slide 1</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-
-
-            <h4 class="text-center m">
-                Laptops
-            </h4>
-
-
-
-            <div class="slick_demo_2">
-               
-                
-            </div>
-        </div>
-    </div>*@
-    @*<div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-
-
-            <h4 class="text-center m">
-                Services
-            </h4>
-
-
-
-            <div class="slick_demo_2">
-
-                <div>
-                    <div class="ibox-content">
-                        <h2>Slide 1</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <div class="ibox-content">
-                        <h2>Slide 2</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <div class="ibox-content">
-                        <h2>Slide 3</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <div class="ibox-content">
-                        <h2>Slide 4</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen
-                            book. It has survived not only five centuries, but also the leap.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-    
-@*</section>*@
 <div class="row">
     <br /><br /><br /><br />
+    
 </div>
 
 <div class="row">
-    <div class="col-lg-10 col-lg-offset-1">
-
+    <div id="trendingAds" style="display:none" class="col-lg-10 col-lg-offset-1">
+        <h3>Trending Ads</h3>
         <div class="slick_demo_2 showAds" data-bind="foreach:showAds">
 
             <div>
                 <div class="ibox">
-                    <div class="ibox-content product-box">
+                    <div class="ibox-content product-box" style="height:440px">
 
                         <div class="product-imitation">
-                            <div class="carouselContainer">
+                            <a data-bind="attr:{href:link}" class="carouselContainer">
                                 <span id="gallery" data-gallery=""
                                                                             data-bind="slick: images,
                                       slickOptions: { slidesToShow: 3,
@@ -374,13 +199,13 @@
                                       slickIndex: imageIndex">
                                                                       </span>
                                 <div data-bind="visible:images().length == 0"><h2><br /><br /><br /><br /> No Images<br /><br /><br /><br /><br /></h2></div>
-                            </div>
+                            </a>
                         </div>
                         <div class="product-desc">
                             <span class="product-price">
                                 <span data-bind="if:!isBidingAllowed">
                                     <span data-bind="if:price">
-                                        <span data-bind="text:price"></span> <small style="font-size:13px" class="text-muted">Rs. <span data-bind="html:isNegotiable"></span></small>
+                                        <span data-bind="text:price"></span>
                                     </span>
                                     <span data-bind="if:!price">Price on contact</span>
                                 </span>
@@ -404,7 +229,7 @@
                                 </span>
                             </span>
                             <small class="text-muted" data-bind="text:category"></small>
-                            <a href="#" class="product-name" data-bind="text:title,attr:{href:link}"> </a>
+                            <a href="#" style="font-size:14px" class="product-name" data-bind="text:title,attr:{href:link}"> </a>
 
 
 
@@ -470,10 +295,10 @@
                 <h1 class="navbar-brand logo-name">dealkar.pk</h1><br /><br /><br /><br /><br />
                 <h1 style="font-size:26px" class="vote-info navbar-brand"> Wait na kar, deal kar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="list-inline social-icon">
     <li>
-        <a target="_blank" href="https://twitter.com/dealkarpk"><i class="fa fa-twitter"></i></a>
+        <a target="_blank" href="https://twitter.com/dealkarpk"><i class="fa fa-twitter fa-2x"></i></a>
     </li>
     <li>
-        <a target="_blank" href="https://www.facebook.com/dealkar.pk/"><i class="fa fa-facebook"></i></a>
+        <a target="_blank" href="https://www.facebook.com/dealkar.pk/"><i class="fa fa-facebook fa-2x"></i></a>
     </li>
     @*<li>
         <a target="_blank" href="#"><i class="fa fa-linkedin"></i></a>
@@ -482,39 +307,9 @@
             </div>
         </div>
         <div class="row m-b-lg">
-            @*<div class="col-lg-3 col-lg-offset-3">
-                <address>
-                    <strong><span class="navy">Company name, Inc.</span></strong><br />
-                    795 Folsom Ave, Suite 600<br />
-                    San Francisco, CA 94107<br />
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="col-lg-4">
-                <p class="text-color">
-                    Consectetur adipisicing elit. Aut eaque, totam corporis laboriosam veritatis quis ad perspiciatis, totam corporis laboriosam veritatis, consectetur adipisicing elit quos non quis ad perspiciatis, totam corporis ea,
-                </p>
-            </div>*@
+           
         </div>
-        @*<div class="row">
-            <div class="col-lg-12 text-center">
-                <p class="m-t-sm">
-                    Follow us on social platform
-                </p>
-                <ul class="list-inline social-icon">
-                    <li>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>
-                <p><br /><br /><br /><br /></p>
-            </div>
-        </div>*@
+        
     </div>
 </section>
 
@@ -522,7 +317,7 @@
     @Styles.Render("~/plugins/slickStyles")
     @Styles.Render("~/plugins/slickThemeStyles")
     @Styles.Render("~/plugins/toastrStyles")
-@Styles.Render("~/bundles/tagStyles")
+@*@Styles.Render("~/bundles/tagStyles")*@
 }
 
 
@@ -740,21 +535,12 @@
                     success: function (data) {
                         var mappedads = $.map(data, function (item) { return new Ad(item); });
                         self.showAds(mappedads);
-                        //remove from this
-                        $.ajax({
-                            url : url_address,
-                            dataType: "json",
-                            contentType: "application/json",
-                            cache: false,
-                            type: 'GET',
-                            success: function (data) {
-                                slick1();
-                            },
-                            error: function () {
-                                toastr.error("failed to search. Please refresh page and try again", "Error!");
-                            }
-                        });
-                        //to this
+                        setTimeout(function () {
+                            slick1();
+                        }, 600);
+                        
+                        $("#trendingAds").css({ "display": "block" });
+                       
                     },
                     error: function () {
                         toastr.error("Unable to load data. Please try again", "Error");
@@ -771,109 +557,14 @@
                 return '';
             }
         }
-        //ko.bindingHandlers.slick = (function () {
-        //    var createImageDiv = function (imgUrl) {
-
-        //        $a = $('<a>');
-        //        $a.attr('href', imgUrl);
-        //        //$a.attr('data-gallery', '#blueimp-gallery');
-        //        $a.attr('target', '_blank');
-        //        $div = $('<div>');
-        //        $image = $('<img>');
-        //        $image.attr('src', imgUrl);
-        //        // $div.append($image);
-        //        $a.append($image);
-        //        $div.append($a);
-        //        return $div;
-        //    };
-
-        //    // Initializes the carousel
-        //    var init = function (element, valueAccessor, allBindingsAccessor) {
-        //        // Clears the div
-        //        $(element).empty();
-        //        // Creates the inner divs with images
-        //        var images = ko.unwrap(valueAccessor());
-        //        if (images) {
-        //            images.forEach(function (imgUrl) {
-        //                $(element).append(createImageDiv(imgUrl));
-        //            });
-        //        }
-
-        //        // try to recover slickOptions
-        //        var options = allBindingsAccessor().slickOptions || {};
-
-        //        // Initialize slick on the div, with provided options
-        //        $(element).slick(options);
-
-        //        //handle disposal, if KO removes the element
-        //        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-        //            $(element).slick('unslick');
-        //        });
-
-        //        // check if there is slickIndex
-        //        var slickIndex = allBindingsAccessor().slickIndex;
-        //        if (slickIndex) {
-        //            $(element).slick('slickGoTo', ko.unwrap(slickIndex));
-        //        }
-        //        // If it's obervable, subscribe to its changes
-        //        if (ko.isObservable(slickIndex)) {
-        //            slickIndex.subscribe(function (idx) {
-        //                $(element).slick('slickGoTo', idx);
-        //            });
-        //        }
-        //        // It if's writable observable, update when slick current index changes
-        //        if (ko.isWritableObservable(slickIndex)) {
-        //            $(element).on('afterChange', function (evt, slick, pos) {
-        //                slickIndex(pos);
-        //            })
-        //        }
-
-        //        // Check if the array of images is an observable array
-        //        var imagesArray = valueAccessor();
-        //        // If it's observable array, subscribe to changes
-        //        if (ko.isObservable(imagesArray) && 'destroyAll' in imagesArray) {
-        //            imagesArray.subscribe(function (changes) {
-        //                console.log(changes);
-        //                if (changes) {
-        //                    changes.forEach(function (change) {
-        //                        if (change.status == 'added') {
-        //                            // Add new img div at index
-        //                            var imgDiv = createImageDiv(change.value)[0];
-        //                            var index = change.index;
-        //                            var slideCount = $(element).slick('getSlick').slideCount;
-        //                            // if the index is out of range (which can happen
-        //                            // with push, and splice), include at the end
-        //                            var addBefore = true;
-        //                            if (index >= slideCount) {
-        //                                index = slideCount - 1;
-        //                                addBefore = false;
-        //                            }
-        //                            $(element).slick('slickAdd', imgDiv, index, addBefore);
-        //                        } else if (change.status == 'deleted') {
-        //                            // delete img div at index
-        //                            $(element).slick('slickRemove', change.index);
-        //                        }
-        //                    });
-        //                }
-        //            }, null, 'arrayChange');
-        //        } // if observable array
-        //    }
-
-        //    //update the control when the view model changes
-        //    var update = function (element, valueAccessor) {
-        //        var images = ko.unwrap(valueAccessor());
-        //        // Do something to update the content
-        //        console.log('update');
-        //    }
-
-        //    return { init: init, update: update };
-        //})();
+       
         $('#select-tag').selectize({
             valueField: 'name',
             labelField: 'name',
             searchField: 'name',
             options: [],
             maxItems: 4,
+            createFilter: function (input) { return input.length <= 18; },
             render: {
                 option: function (item, escape) {
                     return '<div>' +
@@ -903,9 +594,17 @@
                 });
             }
         });
+      //  $("#myModal4").modal('show');
         $("#FirstLoading").css({ "display": "block" });
         $(document).ready(function () {
-
+            var length = $(window).width();
+            if (length < 786) { //770
+                $(".col-xs-6").css({ "width": "auto" });
+                $(".col-xs-6 a").removeClass("btn-outline");
+                $(".col-xs-6 a").removeClass("widget");
+                $(".col-xs-6 a").removeClass("btn-primary");
+                $(".col-xs-6 a").css({ "color": "#1ab394" });
+            }
             toastr.options = {
                 closeButton: true,
                 progressBar: true,
